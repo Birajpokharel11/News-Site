@@ -16,11 +16,6 @@ const app = express();
 // body parser
 app.use(express.json());
 
-// dev logging middleware
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
-}
-
 // set security headers
 app.use(helmet());
 
@@ -29,9 +24,6 @@ app.use(xss());
 
 // prevent http param pollution
 app.use(hpp());
-
-// enable CORS
-app.use(cors());
 
 // mount routers
 app.use('/api/v1/news', news);
