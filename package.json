@@ -1,0 +1,32 @@
+{
+  "name": "news_api",
+  "version": "1.0.0",
+  "description": "google news api",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "server": "nodemon server",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+  },
+  "author": "Nikhil Shrestha",
+  "license": "MIT",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-rate-limit": "^5.0.0",
+    "helmet": "^3.23.3",
+    "hpp": "^0.2.3",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
+    "xml2js": "^0.4.23",
+    "xss-clean": "^0.1.1"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "nodemon": "^1.19.4"
+  }
+}
