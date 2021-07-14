@@ -52,10 +52,12 @@ exports.scrapeOG = asyncHandler(async (req, res, next) => {
 
   const options = { url };
   ogs(options).then((data) => {
-    const { error, result, response } = data;
+    const { error, result } = data;
     if (error) {
       console.log('error:', error); // This returns true or false. True if there was an error. The error itself is inside the results object.
-      return next(new ErrorResponse('Unable to send message', 401));
+      return next(
+        new ErrorResponse(error.message || `Unable to scrape URL:: ${url}`, 500)
+      );
     }
 
     console.log('result:', result); // This contains all of the Open Graph results
