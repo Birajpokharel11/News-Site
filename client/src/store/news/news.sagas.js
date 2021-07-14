@@ -26,12 +26,22 @@ export function* fetchNewsAsync({ payload: { country, companies, themes } }) {
   }
 }
 
-export function* chunkGen(collection, size = 2, i = 0) {
+function* chunkGen(collection, size = 2, i = 0) {
   for (; i < collection.length; i += size) {
     yield collection.slice(i, i + size);
   }
 }
 
+function chunk(collection, size = 1) {
+  const chunked = [];
+  const gen = chunkGen(collection, size);
+  let c = gen.next();
+  while (!c.done) {
+    chunked.push(c.value);
+    c = gen.next();
+  }
+  return chunked;
+}
 export function* fetchOgTag(item) {
   const newsState = yield select(getNews);
 
@@ -51,7 +61,7 @@ export function* fetchOgTag(item) {
 }
 
 export function* fetchOgTagAsync({ payload: { response } }) {
-  const chunkedList = yield call(chunkGen, response, 10);
+  const chunkedList = yield call(chunk, response, 10);
 
   for (const arr of chunkedList) {
     yield all(arr.map((item) => call(fetchOgTag, item)));
