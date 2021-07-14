@@ -28,7 +28,9 @@ const newsReducer = (state = INITIAL_STATE, action) => {
       if (response.length) {
         updatedState.newsIDs = response.map((item) => item.guid.text);
         response.forEach((item) => {
-          updatedState.news[item.guid.text] = item;
+          if (!updatedState.news[item.guid.text]) {
+            updatedState.news[item.guid.text] = item;
+          }
         });
       } else {
         updatedState.newsIDs = [];

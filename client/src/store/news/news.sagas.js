@@ -4,6 +4,8 @@ import axios from 'axios';
 import * as actionTypes from './news.types';
 import * as actions from './news.actions';
 
+const getNews = (state) => state.news;
+
 export function* fetchNewsAsync({ payload: { country, companies, themes } }) {
   if (Array.isArray(companies) && companies.length) {
     companies = companies.join(' OR ');
@@ -25,16 +27,20 @@ export function* fetchNewsAsync({ payload: { country, companies, themes } }) {
 }
 
 export function* fetchOgTag(item) {
-  try {
-    const { data } = yield axios.post('/api/v1/news/scrape', {
-      url: item.link
-    });
-    console.log(data);
+  const newsState = yield select(getNews);
 
-    yield put(actions.getOGSuccess(item.guid.text, data));
-  } catch (err) {
-    console.error(err);
-    yield put(actions.getOGFail(err));
+  if (!newsState.news[item.guid.text].media) {
+    try {
+      const { data } = yield axios.post('/api/v1/news/scrape', {
+        url: item.link
+      });
+      console.log(data);
+
+      yield put(actions.getOGSuccess(item.guid.text, data));
+    } catch (err) {
+      console.error(err);
+      yield put(actions.getOGFail(err));
+    }
   }
 }
 
