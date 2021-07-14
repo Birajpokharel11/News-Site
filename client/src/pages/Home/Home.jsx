@@ -9,8 +9,86 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
+import Chip from '@material-ui/core/Chip';
 
 import { NewsItem } from '../../components';
+import ButtonList from './components/ButtonList';
+
+const options = [
+  { value: 'SG', label: 'Singapore' },
+  { value: 'MY', label: 'Malaysia' },
+  { value: 'ID', label: 'Indonesia' },
+  { value: 'VN', label: 'Vietnam' },
+  { value: 'KH', label: 'Cambodia' },
+  { value: 'LA', label: 'Laos' },
+  { value: 'MM', label: 'Myanmar(Burma)' },
+  { value: 'HK', label: 'Hong Kong' },
+  { value: 'CN', label: 'China' },
+  { value: 'IN', label: 'India' },
+  { value: 'KR', label: 'South Korea' },
+  { value: 'JP', label: 'Japan' },
+  { value: 'AU', label: 'Australia' },
+  { value: 'NZ', label: 'New Zealand' }
+];
+
+const options1 = [
+  { type: 'company', key: 0, label: 'Digital Realty' },
+  { type: 'company', key: 1, label: 'China Telecom' },
+  { type: 'company', key: 2, label: 'NTT' },
+  { type: 'company', key: 3, label: 'KDDI Telehouse' },
+  { type: 'company', key: 4, label: 'Coresite' },
+  { type: 'company', key: 5, label: 'Verizon' },
+  { type: 'company', key: 6, label: 'Cyxtera' },
+  { type: 'company', key: 7, label: 'China Unicom' },
+  { type: 'company', key: 8, label: 'China Mobile' },
+  { type: 'company', key: 9, label: 'Amazon Web Services' },
+  { type: 'company', key: 10, label: '365 Data Centers' },
+  { type: 'company', key: 11, label: 'CyrusOne' },
+  { type: 'company', key: 12, label: 'GDS' },
+  { type: 'company', key: 13, label: 'Bridge Data Centres' },
+  { type: 'company', key: 14, label: 'Keppel DC' },
+  { type: 'company', key: 15, label: 'Global Switch' },
+  { type: 'company', key: 16, label: 'Lumen/CenturyLink' },
+  { type: 'company', key: 17, label: 'Flexential' },
+  { type: 'company', key: 18, label: 'Racks Central' },
+  { type: 'company', key: 19, label: 'Telstra' },
+  { type: 'company', key: 20, label: 'Singapore Technologies Telemedia' },
+  { type: 'company', key: 21, label: '1-Net' },
+  { type: 'company', key: 22, label: 'Microsoft' },
+  { type: 'company', key: 23, label: 'Facebook' },
+  { type: 'company', key: 24, label: 'Yondr' },
+  { type: 'company', key: 25, label: 'Vantage Data Centers' },
+  { type: 'company', key: 26, label: 'Vapor IO' },
+  { type: 'company', key: 27, label: 'QTS' },
+  { type: 'company', key: 28, label: 'NVIDIA' },
+  { type: 'company', key: 29, label: 'MegaPort' },
+  { type: 'company', key: 30, label: 'Iron Mountain' },
+  { type: 'company', key: 31, label: 'Google' },
+  { type: 'company', key: 32, label: 'EdgeConnex' },
+  { type: 'company', key: 33, label: 'EdgeCore' },
+  { type: 'company', key: 34, label: 'Evoque Data Centers' },
+  { type: 'company', key: 35, label: 'Compass Datacenters' },
+  { type: 'company', key: 36, label: 'Cologix' },
+  { type: 'company', key: 37, label: 'CapitaLand' }
+];
+
+const options2 = [
+  { type: 'theme', key: 38, label: 'Sustainability' },
+  { type: 'theme', key: 39, label: 'connectivity' },
+  { type: 'theme', key: 40, label: 'technology' },
+  { type: 'theme', key: 41, label: 'security' },
+  { type: 'theme', key: 42, label: 'sovereignty' },
+  { type: 'theme', key: 43, label: 'data protection' },
+  { type: 'theme', key: 44, label: 'e-commerce' },
+  { type: 'theme', key: 45, label: 'cloud' },
+  { type: 'theme', key: 46, label: 'WAN' },
+  { type: 'theme', key: 47, label: '5G' },
+  { type: 'theme', key: 48, label: 'bandwidth' },
+  { type: 'theme', key: 49, label: 'digital' },
+  { type: 'theme', key: 50, label: 'telecommunication' },
+  { type: 'theme', key: 51, label: 'telco' },
+  { type: 'theme', key: 52, label: 'infrastructure' }
+];
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -19,13 +97,31 @@ const useStyles = makeStyles((theme) => ({
   },
   selectEmpty: {
     marginTop: theme.spacing(2)
+  },
+  root: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    listStyle: 'none',
+    padding: theme.spacing(0.5),
+    margin: 0
+  },
+  chip: {
+    margin: theme.spacing(0.5)
   }
 }));
 
-async function searchNews(country, company, themes) {
+async function searchNews(country, companies, themes) {
+  if (Array.isArray(companies) && companies.length) {
+    companies = companies.join(' OR ');
+  }
+  if (Array.isArray(themes) && themes.length) {
+    themes = themes.join(' OR ');
+  }
+
   const { data } = await axios.post('/api/v1/news/search', {
     country,
-    company,
+    companies,
     themes
   });
 
@@ -37,29 +133,97 @@ async function searchNews(country, company, themes) {
 const Home = () => {
   const classes = useStyles();
   const [country, setCountry] = useState('SG');
-  const [company, setCompany] = useState('Equinix');
-  const [themes, setThemes] = useState('Sustainability');
+  const [companies, setCompanies] = useState([]);
+  const [themes, setThemes] = useState([]);
+
+  const [chipData, setChipData] = useState([]);
 
   const [list, setList] = useState(null);
 
   useEffect(() => {
-    searchNews(country, company, themes).then(setList);
+    setCompanies([...options1]);
+    setThemes([...options2]);
+    setChipData([...options1, ...options2]);
+    searchNews(
+      country,
+      options1.map((item) => item.label),
+      options2.map((item) => item.label)
+    ).then(setList);
   }, []);
+
+  const search = () => {
+    searchNews(
+      country,
+      companies.map((item) => item.label),
+      themes.map((item) => item.label)
+    ).then(setList);
+  };
 
   const handleChangeCountry = (event) => {
     setCountry(event.target.value);
   };
 
-  const handleChangeCompany = (event) => {
-    setCompany(event.target.value);
+  const handleDelete = (chipToDelete) => () => {
+    if (chipToDelete.type === 'company') {
+      const currentIndex = companies
+        .map((item) => item.key)
+        .indexOf(chipToDelete.key);
+      const newChecked = [...companies];
+      newChecked.splice(currentIndex, 1);
+      setCompanies(newChecked);
+    }
+    if (chipToDelete.type === 'theme') {
+      const currentIndex = themes
+        .map((item) => item.key)
+        .indexOf(chipToDelete.label);
+      const newChecked = [...themes];
+      newChecked.splice(currentIndex, 1);
+      setThemes(newChecked);
+    }
+
+    const currentChipIndex = chipData
+      .map((item) => item.key)
+      .indexOf(chipToDelete.key);
+    const updatedChips = [...chipData];
+    updatedChips.splice(currentChipIndex, 1);
+    setChipData(updatedChips);
   };
 
-  const handleChangeTheme = (event) => {
-    setThemes(event.target.value);
-  };
+  const handleMenuItemClick = (item, title) => () => {
+    if (title === 'Companies') {
+      const currentIndex = companies.map((item) => item.key).indexOf(item.key);
+      const newChecked = [...companies];
 
-  const search = () => {
-    searchNews(country, company, themes).then(setList);
+      if (currentIndex === -1) {
+        newChecked.push(item);
+      } else {
+        newChecked.splice(currentIndex, 1);
+      }
+
+      setCompanies(newChecked);
+    }
+    if (title === 'Themes') {
+      const currentIndex = themes.map((item) => item.key).indexOf(item.key);
+      const newChecked = [...themes];
+
+      if (currentIndex === -1) {
+        newChecked.push(item);
+      } else {
+        newChecked.splice(currentIndex, 1);
+      }
+
+      setThemes(newChecked);
+    }
+
+    const currentChipIndex = chipData.map((item) => item.key).indexOf(item.key);
+    const newCheckedChip = [...chipData];
+    if (currentChipIndex === -1) {
+      newCheckedChip.push(item);
+    } else {
+      newCheckedChip.splice(currentChipIndex, 1);
+    }
+
+    setChipData(newCheckedChip);
   };
 
   return (
@@ -78,118 +242,29 @@ const Home = () => {
                 onChange={handleChangeCountry}
                 label="Markets"
               >
-                <MenuItem value="SG">Singapore</MenuItem>
-                <MenuItem value="MY">Malaysia</MenuItem>
-                <MenuItem value="ID">Indonesia</MenuItem>
-                <MenuItem value="VN">Vietnam</MenuItem>
-                <MenuItem value="KH">Cambodia</MenuItem>
-                <MenuItem value="LA">Laos</MenuItem>
-                <MenuItem value="MM">Myanmar(Burma)</MenuItem>
-                <MenuItem value="HK">Hong Kong</MenuItem>
-                <MenuItem value="CN">China</MenuItem>
-                <MenuItem value="IN">India</MenuItem>
-                <MenuItem value="KR">South Korea</MenuItem>
-                <MenuItem value="JP">Japan</MenuItem>
-                <MenuItem value="AU">Australia</MenuItem>
-                <MenuItem value="NZ">New Zealand</MenuItem>
+                {options.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Grid>
           <Grid item>
-            <FormControl variant="outlined" className={classes.formControl}>
-              <InputLabel id="demo-simple-select-outlined-label">
-                Companies
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-outlined-label"
-                id="demo-simple-select-outlined"
-                value={company}
-                onChange={handleChangeCompany}
-                label="Companies"
-              >
-                <MenuItem value="Equinix">Equinix</MenuItem>
-                <MenuItem value="Digital Realty">Digital Realty</MenuItem>
-                <MenuItem value="China Telecom">China Telecom</MenuItem>
-                <MenuItem value="NTT">NTT</MenuItem>
-                <MenuItem value="KDDI Telehouse">KDDI Telehouse</MenuItem>
-                <MenuItem value="Coresite">Coresite</MenuItem>
-                <MenuItem value="Verizon">Verizon</MenuItem>
-                <MenuItem value="Cyxtera">Cyxtera</MenuItem>
-                <MenuItem value="China Unicom">China Unicom</MenuItem>
-                <MenuItem value="China Mobile">China Mobile</MenuItem>
-                <MenuItem value="Amazon Web Services">
-                  Amazon Web Services
-                </MenuItem>
-                <MenuItem value="365 Data Centers">365 Data Centers</MenuItem>
-                <MenuItem value="CyrusOne">CyrusOne</MenuItem>
-                <MenuItem value="GDS">GDS</MenuItem>
-                <MenuItem value="Bridge Data Centres">
-                  Bridge Data Centres
-                </MenuItem>
-                <MenuItem value="Keppel DC">Keppel DC</MenuItem>
-                <MenuItem value="Global Switch">Global Switch</MenuItem>
-                <MenuItem value="Lumen/CenturyLink">Lumen/CenturyLink</MenuItem>
-                <MenuItem value="Flexential">Flexential</MenuItem>
-                <MenuItem value="Racks Central">Racks Central</MenuItem>
-                <MenuItem value="Telstra">Telstra</MenuItem>
-                <MenuItem value="Singapore Technologies Telemedia">
-                  Singapore Technologies Telemedia
-                </MenuItem>
-                <MenuItem value="1-Net">1-Net</MenuItem>
-                <MenuItem value="Microsoft">Microsoft</MenuItem>
-                <MenuItem value="Facebook">Facebook</MenuItem>
-                <MenuItem value="Yondr">Yondr</MenuItem>
-                <MenuItem value="Vantage Data Centers">
-                  Vantage Data Centers
-                </MenuItem>
-                <MenuItem value="Vapor IO">Vapor IO</MenuItem>
-                <MenuItem value="QTS">QTS</MenuItem>
-                <MenuItem value="NVIDIA">NVIDIA</MenuItem>
-                <MenuItem value="MegaPort">MegaPort</MenuItem>
-                <MenuItem value="Iron Mountain">Iron Mountain</MenuItem>
-                <MenuItem value="Google">Google</MenuItem>
-                <MenuItem value="EdgeConnex">EdgeConnex</MenuItem>
-                <MenuItem value="EdgeCore">EdgeCore</MenuItem>
-                <MenuItem value="Evoque Data Centers">
-                  Evoque Data Centers
-                </MenuItem>
-                <MenuItem value="Compass Datacenters">
-                  Compass Datacenters
-                </MenuItem>
-                <MenuItem value="Cologix">Cologix</MenuItem>
-                <MenuItem value="CapitaLand">CapitaLand</MenuItem>
-              </Select>
-            </FormControl>
+            <ButtonList
+              title="Companies"
+              options={options1}
+              checked={companies}
+              handleMenuItemClick={handleMenuItemClick}
+            />
           </Grid>
           <Grid item>
-            <FormControl variant="outlined" className={classes.formControl}>
-              <InputLabel id="demo-simple-select-outlined-label">
-                Themes
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-outlined-label"
-                id="demo-simple-select-outlined"
-                value={themes}
-                onChange={handleChangeTheme}
-                label="Themes"
-              >
-                <MenuItem value="Sustainability">Sustainability</MenuItem>
-                <MenuItem value="connectivity">connectivity</MenuItem>
-                <MenuItem value="technology">technology</MenuItem>
-                <MenuItem value="security">security</MenuItem>
-                <MenuItem value="sovereignty">sovereignty</MenuItem>
-                <MenuItem value="data protection">data protection</MenuItem>
-                <MenuItem value="e-commerce">e-commerce</MenuItem>
-                <MenuItem value="cloud">cloud</MenuItem>
-                <MenuItem value="WAN">WAN</MenuItem>
-                <MenuItem value="5G">5G</MenuItem>
-                <MenuItem value="bandwidth">bandwidth</MenuItem>
-                <MenuItem value="digital">digital</MenuItem>
-                <MenuItem value="telecommunication">telecommunication</MenuItem>
-                <MenuItem value="telco">telco</MenuItem>
-                <MenuItem value="infrastructure">infrastructure</MenuItem>
-              </Select>
-            </FormControl>
+            <ButtonList
+              title="Themes"
+              options={options2}
+              checked={themes}
+              handleMenuItemClick={handleMenuItemClick}
+            />
           </Grid>
           <Grid item>
             <Button variant="contained" color="primary" onClick={search}>
@@ -198,6 +273,19 @@ const Home = () => {
           </Grid>
         </Grid>
 
+        <Box component="ul" className={classes.root}>
+          {chipData.map((data) => {
+            return (
+              <li key={data.key}>
+                <Chip
+                  className={classes.chip}
+                  label={data.label}
+                  onDelete={handleDelete(data)}
+                />
+              </li>
+            );
+          })}
+        </Box>
         <Box>
           {!list ? null : list.length === 0 ? (
             <p>

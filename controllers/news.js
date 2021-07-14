@@ -11,19 +11,33 @@ const ErrorResponse = require('../utils/errorResponse');
 exports.searchNews = asyncHandler(async (req, res, next) => {
   // add user to req.body
   const country = req.body.country;
-  let company = req.body.company;
-  let themes = req.body.themes;
+  const companies = req.body.companies;
+  const themes = req.body.themes;
 
-  let query = `${company} AND ${themes}`;
+  let query = '';
+  if (companies.length && themes.length) {
+    query = `${company} AND ${themes}`;
+  } else if (companies.length && !themes.length) {
+    query = `${company}`;
+  } else if (themes.length && !companies.length) {
+    query = `${themes}`;
+  }
+
   query = encodeURIComponent(query);
   let result, data;
   const parser = new xml2js.Parser(/* options */);
   console.log('query: ', query);
 
   try {
-    data = await request(
-      `https://news.google.com/rss/search?q=${query}&hl=en-${country}&ceid=${country}:en&gl=${country}`
-    );
+    if (query.length) {
+      data = await request(
+        `https://news.google.com/rss/search?q=${query}&hl=en-${country}&ceid=${country}:en&gl=${country}`
+      );
+    } else {
+      data = await request(
+        `https://news.google.com/rss?hl=en-${country}&ceid=${country}:en&gl=${country}`
+      );
+    }
   } catch (err) {
     return next(
       new ErrorResponse(err.message || 'Unable to send message', 401)
