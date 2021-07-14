@@ -1,4 +1,4 @@
-import { takeLatest, call, put, all, select } from 'redux-saga/effects';
+import { takeLatest, call, put, all, select, delay } from 'redux-saga/effects';
 import axios from 'axios';
 
 import * as actionTypes from './news.types';
@@ -26,6 +26,12 @@ export function* fetchNewsAsync({ payload: { country, companies, themes } }) {
   }
 }
 
+export function* chunkGen(collection, size = 2, i = 0) {
+  for (; i < collection.length; i += size) {
+    yield collection.slice(i, i + size);
+  }
+}
+
 export function* fetchOgTag(item) {
   const newsState = yield select(getNews);
 
@@ -45,7 +51,12 @@ export function* fetchOgTag(item) {
 }
 
 export function* fetchOgTagAsync({ payload: { response } }) {
-  yield all(response.map((item) => call(fetchOgTag, item)));
+  const chunkedList = yield call(chunkGen, response, 10);
+
+  for (const arr of chunkedList) {
+    yield all(arr.map((item) => call(fetchOgTag, item)));
+    yield delay(15 * 1000); // delay 15 sec
+  }
 }
 
 export function* watchFetchNews() {
