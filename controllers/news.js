@@ -3,6 +3,7 @@ const ogs = require('open-graph-scraper');
 const googleNewsAPI = require('../utils/news');
 const asyncHandler = require('../middleware/async');
 const ErrorResponse = require('../utils/errorResponse');
+const utils = require('../utils/misc');
 
 // @desc    Search News
 // @route   POST /api/v1/news/search
@@ -49,18 +50,30 @@ exports.searchNews = asyncHandler(async (req, res, next) => {
 exports.scrapeOG = asyncHandler(async (req, res, next) => {
   // add user to req.body
   const url = req.body.url;
+  console.log(url);
+  if (utils.isURL(url)) {
+    const options = { url };
+    ogs(options)
+      .then((data) => {
+        const { error, result } = data;
+        if (error) {
+          console.log('error:', error); // This returns true or false. True if there was an error. The error itself is inside the results object.
+          return next(
+            new ErrorResponse(
+              error.message || `Unable to scrape URL:: ${url}`,
+              500
+            )
+          );
+        }
 
-  const options = { url };
-  ogs(options).then((data) => {
-    const { error, result } = data;
-    if (error) {
-      console.log('error:', error); // This returns true or false. True if there was an error. The error itself is inside the results object.
-      return next(
-        new ErrorResponse(error.message || `Unable to scrape URL:: ${url}`, 500)
-      );
-    }
-
-    console.log('result:', result); // This contains all of the Open Graph results
-    res.status(201).json({ success: true, ...result });
-  });
+        // console.log('result:', result); // This contains all of the Open Graph results
+        res.status(201).json({ success: true, ...result });
+      })
+      .catch((err) => {
+        console.log(err.message);
+        res.status(500).send('Internal Server Error');
+      });
+  } else {
+    return next(new ErrorResponse(`Not Valid URL!! :: ${url}`, 500));
+  }
 });
