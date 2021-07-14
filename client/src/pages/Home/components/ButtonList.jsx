@@ -82,7 +82,7 @@ const Home = ({ title, options, checked, handleMenuItemClick }) => {
                       value={item.label}
                       onClick={handleMenuItemClick(item, title)}
                     >
-                      <Checkbox checked={checked.indexOf(item.label) !== -1} />
+                      <Checkbox checked={checked.indexOf(item) !== -1} />
                       <ListItemText primary={item.label} />
                     </MenuItem>
                   ))}
