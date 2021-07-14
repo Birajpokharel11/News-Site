@@ -16,9 +16,9 @@ exports.searchNews = asyncHandler(async (req, res, next) => {
 
   let query = '';
   if (companies.length && themes.length) {
-    query = `${company} AND ${themes}`;
+    query = `${companies} AND ${themes}`;
   } else if (companies.length && !themes.length) {
-    query = `${company}`;
+    query = `${companies}`;
   } else if (themes.length && !companies.length) {
     query = `${themes}`;
   }
