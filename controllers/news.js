@@ -71,7 +71,7 @@ exports.scrapeOG = asyncHandler(async (req, res, next) => {
       })
       .catch((err) => {
         console.log(err.message);
-        res.status(500).send('Internal Server Error');
+        res.status(500).send('Internal Server Error!!');
       });
   } else {
     return next(new ErrorResponse(`Not Valid URL!! :: ${url}`, 500));

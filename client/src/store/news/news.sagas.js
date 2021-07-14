@@ -65,7 +65,7 @@ export function* fetchOgTagAsync({ payload: { response } }) {
 
   for (const arr of chunkedList) {
     yield all(arr.map((item) => call(fetchOgTag, item)));
-    yield delay(15 * 1000); // delay 15 sec
+    yield delay(5 * 1000); // delay 5 sec
   }
 }
 
