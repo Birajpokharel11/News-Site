@@ -254,7 +254,7 @@ const Home = () => {
             <ButtonList
               title="Companies"
               options={options1}
-              checked={companies}
+              checked={companies.map((item) => item.key)}
               handleMenuItemClick={handleMenuItemClick}
             />
           </Grid>
@@ -262,7 +262,7 @@ const Home = () => {
             <ButtonList
               title="Themes"
               options={options2}
-              checked={themes}
+              checked={themes.map((item) => item.key)}
               handleMenuItemClick={handleMenuItemClick}
             />
           </Grid>
