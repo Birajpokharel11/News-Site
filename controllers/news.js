@@ -1,12 +1,11 @@
-const request = require('request-promise');
-const xml2js = require('xml2js');
-const path = require('path');
+const ogs = require('open-graph-scraper');
 
+const googleNewsAPI = require('../utils/news');
 const asyncHandler = require('../middleware/async');
 const ErrorResponse = require('../utils/errorResponse');
 
 // @desc    Search News
-// @route   POST /api/v1/news/
+// @route   POST /api/v1/news/search
 // @access  Public
 exports.searchNews = asyncHandler(async (req, res, next) => {
   // add user to req.body
@@ -23,20 +22,17 @@ exports.searchNews = asyncHandler(async (req, res, next) => {
     query = `${themes}`;
   }
 
-  query = encodeURIComponent(query);
-  let result, data;
-  const parser = new xml2js.Parser(/* options */);
-  console.log('query: ', query);
-
+  let result;
   try {
     if (query.length) {
-      data = await request(
-        `https://news.google.com/rss/search?q=${query}&hl=en-${country}&ceid=${country}:en&gl=${country}`
+      result = await googleNewsAPI.getNews(
+        googleNewsAPI.SEARCH,
+        query,
+        'en',
+        country
       );
     } else {
-      data = await request(
-        `https://news.google.com/rss?hl=en-${country}&ceid=${country}:en&gl=${country}`
-      );
+      result = await googleNewsAPI.getNews(null, query, 'en', country);
     }
   } catch (err) {
     return next(
@@ -44,51 +40,25 @@ exports.searchNews = asyncHandler(async (req, res, next) => {
     );
   }
 
-  try {
-    result = await parser.parseStringPromise(data);
-  } catch (error) {
-    new ErrorResponse(error.message || 'Error while parsing', 500);
-  }
+  res.status(201).json({ success: true, items: result.items });
+});
 
-  const items = result['rss']['channel'][0].item;
+// @desc    Scrap OG Tags
+// @route   POST /api/v1/news/scrape
+// @access  Public
+exports.scrapeOG = asyncHandler(async (req, res, next) => {
+  // add user to req.body
+  const url = req.body.url;
 
-  const list = items.map((item) => {
-    // console.log(JSON.stringify(item).yellow.bold);
-    const obj = {
-      title: item.title[0],
-      link: item.link[0],
-      pubDate: item.pubDate[0],
-      guid: item.guid[0]['_'],
-      media: item['media:content'] ? item['media:content'][0]['$']['url'] : null
-    };
-
-    if (item['source']) {
-      obj.source = {
-        name: item.source[0]['_'],
-        url: item.source[0]['$']['url']
-      };
+  const options = { url };
+  ogs(options).then((data) => {
+    const { error, result, response } = data;
+    if (error) {
+      console.log('error:', error); // This returns true or false. True if there was an error. The error itself is inside the results object.
+      return next(new ErrorResponse('Unable to send message', 401));
     }
 
-    if (item['description']) {
-      obj.description = item.description[0];
-    }
-
-    if (item['content:encoded']) {
-      obj.content = item['content:encoded'][0];
-    }
-
-    if (item['dc:creator']) {
-      obj.creator = item['dc:creator'][0];
-    }
-
-    if (item['metadata:type']) {
-      obj.metadata = {
-        type: item['metadata:type'][0]
-      };
-    }
-
-    return obj;
+    console.log('result:', result); // This contains all of the Open Graph results
+    res.status(201).json({ success: true, ...result });
   });
-
-  res.status(201).json({ success: true, items: list });
 });
