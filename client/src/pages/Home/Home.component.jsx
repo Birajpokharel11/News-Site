@@ -10,9 +10,12 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import Chip from '@material-ui/core/Chip';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { NewsItem } from '../../components';
 import ButtonList from './components/ButtonList';
+
+import container from './Home.container';
 
 const options = [
   { value: 'SG', label: 'Singapore' },
@@ -111,52 +114,37 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-async function searchNews(country, companies, themes) {
-  if (Array.isArray(companies) && companies.length) {
-    companies = companies.join(' OR ');
-  }
-  if (Array.isArray(themes) && themes.length) {
-    themes = themes.join(' OR ');
-  }
-
-  const { data } = await axios.post('/api/v1/news/search', {
-    country,
-    companies,
-    themes
-  });
-
-  console.log(data);
-
-  return data.items;
-}
-
-const Home = () => {
+const Home = (props) => {
   const classes = useStyles();
+
+  const {
+    news: { newsIDs, news, loading },
+    onFetchNewsStart
+  } = props;
+
   const [country, setCountry] = useState('SG');
   const [companies, setCompanies] = useState([]);
   const [themes, setThemes] = useState([]);
 
   const [chipData, setChipData] = useState([]);
 
-  const [list, setList] = useState(null);
-
   useEffect(() => {
     setCompanies([...options1]);
     setThemes([...options2]);
     setChipData([...options1, ...options2]);
-    searchNews(
+    onFetchNewsStart(
       country,
       options1.map((item) => item.label),
       options2.map((item) => item.label)
-    ).then(setList);
+    );
   }, []);
 
   const search = () => {
-    searchNews(
+    onFetchNewsStart(
       country,
       companies.map((item) => item.label),
       themes.map((item) => item.label)
-    ).then(setList);
+    );
   };
 
   const handleChangeCountry = (event) => {
@@ -187,6 +175,7 @@ const Home = () => {
     const updatedChips = [...chipData];
     updatedChips.splice(currentChipIndex, 1);
     setChipData(updatedChips);
+    search();
   };
 
   const handleMenuItemClick = (item, title) => () => {
@@ -224,6 +213,28 @@ const Home = () => {
     }
 
     setChipData(newCheckedChip);
+    search();
+  };
+
+  const getContent = () => {
+    const list = newsIDs.map((id) => news[id]);
+    if (loading) {
+      return <CircularProgress />;
+    }
+
+    if (list.length === 0) {
+      <p>
+        <i>No results</i>
+      </p>;
+    }
+
+    return (
+      <ul>
+        {list.map((item) => (
+          <NewsItem key={item.guid.text} item={item} />
+        ))}
+      </ul>
+    );
   };
 
   return (
@@ -286,22 +297,10 @@ const Home = () => {
             );
           })}
         </Box>
-        <Box>
-          {!list ? null : list.length === 0 ? (
-            <p>
-              <i>No results</i>
-            </p>
-          ) : (
-            <ul>
-              {list.map((item) => (
-                <NewsItem key={item.guid} item={item} />
-              ))}
-            </ul>
-          )}
-        </Box>
+        <Box>{getContent()}</Box>
       </Container>
     </Box>
   );
 };
 
-export default Home;
+export default container(Home);
