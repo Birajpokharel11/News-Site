@@ -26,22 +26,6 @@ export function* fetchNewsAsync({ payload: { country, companies, themes } }) {
   }
 }
 
-function* chunkGen(collection, size = 2, i = 0) {
-  for (; i < collection.length; i += size) {
-    yield collection.slice(i, i + size);
-  }
-}
-
-function chunk(collection, size = 1) {
-  const chunked = [];
-  const gen = chunkGen(collection, size);
-  let c = gen.next();
-  while (!c.done) {
-    chunked.push(c.value);
-    c = gen.next();
-  }
-  return chunked;
-}
 export function* fetchOgTag(item) {
   const newsState = yield select(getNews);
 
@@ -67,6 +51,23 @@ export function* fetchOgTagAsync({ payload: { response } }) {
     yield all(arr.map((item) => call(fetchOgTag, item)));
     yield delay(5 * 1000); // delay 5 sec
   }
+}
+
+function* chunkGen(collection, size = 2, i = 0) {
+  for (; i < collection.length; i += size) {
+    yield collection.slice(i, i + size);
+  }
+}
+
+function chunk(collection, size = 1) {
+  const chunked = [];
+  const gen = chunkGen(collection, size);
+  let c = gen.next();
+  while (!c.done) {
+    chunked.push(c.value);
+    c = gen.next();
+  }
+  return chunked;
 }
 
 export function* watchFetchNews() {
