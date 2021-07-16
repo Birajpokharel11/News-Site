@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import clsx from 'clsx';
+
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Paper } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
@@ -237,10 +237,7 @@ const Home = (props) => {
       <Container maxWidth="md">
         <Box mb="2rem">
           <Typography variant="h3">Market</Typography>
-          <Paper
-            value={country}
-            className={clsx(classes.boxcontrol, classes.chipContainer)}
-          >
+          <Paper value={country} className={classes.chipContainer}>
             {country.map((option, index) => (
               <SelectedChip
                 key={option.value}
@@ -254,10 +251,7 @@ const Home = (props) => {
         </Box>
         <Box mb="2rem">
           <Typography variant="h3">Companies</Typography>
-          <Paper
-            value={country}
-            className={clsx(classes.boxcontrol, classes.chipContainer)}
-          >
+          <Paper value={country} className={classes.chipContainer}>
             {companies.map((option, index) => (
               <SelectedChip
                 key={`companies-${index + 1}`}
@@ -271,10 +265,7 @@ const Home = (props) => {
         </Box>
         <Box mb="2rem">
           <Typography variant="h3">Themes</Typography>
-          <Paper
-            value={country}
-            className={clsx(classes.boxcontrol, classes.chipContainer)}
-          >
+          <Paper value={country} className={classes.chipContainer}>
             {themes.map((option, index) => (
               <SelectedChip
                 key={`themes-${index + 1}`}

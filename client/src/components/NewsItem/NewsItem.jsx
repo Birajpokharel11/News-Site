@@ -52,7 +52,7 @@ export default function NewsItem(props) {
               component="a"
               href={item.link}
               target="_blank"
-              ref="noopener noreferrer"
+              rel="noopener noreferrer"
             >
               Continue reading...
             </Typography>
