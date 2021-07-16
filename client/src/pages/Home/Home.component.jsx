@@ -11,11 +11,13 @@ import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import Chip from '@material-ui/core/Chip';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
 import { NewsItem } from '../../components';
 import ButtonList from './components/ButtonList';
-
 import container from './Home.container';
+import { Typography, Paper } from '@material-ui/core';
+import Markets from './components/component/Markets';
+import Companies from './components/component/Companies';
+import Themes from './components/component/Themes';
 
 const options = [
   { value: 'SG', label: 'Singapore' },
@@ -111,6 +113,17 @@ const useStyles = makeStyles((theme) => ({
   },
   chip: {
     margin: theme.spacing(0.5)
+  },
+  boxcontrol: {
+    padding: '3%',
+    background: '#f8fbff',
+    '&:hover': {
+      background: 'white',
+      color: 'white',
+      boxShadow:
+        '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
+      borderTopStyle: 'solid'
+    }
   }
 }));
 
@@ -215,7 +228,6 @@ const Home = (props) => {
     setChipData(newCheckedChip);
     search();
   };
-
   const getContent = () => {
     const list = newsIDs.map((id) => news[id]);
     if (loading) {
@@ -236,9 +248,8 @@ const Home = (props) => {
       </ul>
     );
   };
-
   return (
-    <Box mt="1.5rem">
+    <Box mt="1.5rem" style={{ backgroundColor: '#f8fbff', margin: '0' }}>
       <Container maxWidth="md">
         <Grid container justifyContent="center" alignItems="center" spacing={2}>
           <Grid item>
@@ -283,7 +294,50 @@ const Home = (props) => {
             </Button>
           </Grid>
         </Grid>
-
+        <Grid
+          container
+          direction="column"
+          justifyContent="flex-start"
+          alignItems="center"
+        >
+          <Grid container direction="column" item spacing={3}>
+            <Grid item>
+              <Typography variant="h3">Market</Typography>
+            </Grid>
+            <Grid item>
+              <Paper value={country} className={classes.boxcontrol}>
+                {options.map((option) => (
+                  <Markets option={option} />
+                ))}
+              </Paper>
+            </Grid>
+            <Grid item>
+              <Typography variant="h3">Companies</Typography>
+            </Grid>
+            <Grid item>
+              <Paper value={country} className={classes.boxcontrol}>
+                {console.log('hello', options1)}
+                {options1.map((option) => (
+                  <Companies option={option} />
+                ))}
+              </Paper>
+            </Grid>
+            <Grid item>
+              <Typography variant="h3">Themes</Typography>
+            </Grid>
+            <Grid item>
+              <Paper value={country} className={classes.boxcontrol}>
+                {options2.map((options) => (
+                  <Themes option={options} />
+                ))}
+              </Paper>
+            </Grid>
+            <Grid item>
+              <Grid item></Grid>
+              <Grid item></Grid>
+            </Grid>
+          </Grid>
+        </Grid>
         <Box component="ul" className={classes.root}>
           {chipData.map((data) => {
             return (
