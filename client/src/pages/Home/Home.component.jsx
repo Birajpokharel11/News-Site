@@ -29,62 +29,62 @@ const options = [
 ];
 
 const options1 = [
-  { type: 'company', key: 0, label: 'Digital Realty' },
-  { type: 'company', key: 1, label: 'China Telecom' },
-  { type: 'company', key: 2, label: 'NTT' },
-  { type: 'company', key: 3, label: 'KDDI Telehouse' },
-  { type: 'company', key: 4, label: 'Coresite' },
-  { type: 'company', key: 5, label: 'Verizon' },
-  { type: 'company', key: 6, label: 'Cyxtera' },
-  { type: 'company', key: 7, label: 'China Unicom' },
-  { type: 'company', key: 8, label: 'China Mobile' },
-  { type: 'company', key: 9, label: 'Amazon Web Services' },
-  { type: 'company', key: 10, label: '365 Data Centers' },
-  { type: 'company', key: 11, label: 'CyrusOne' },
-  { type: 'company', key: 12, label: 'GDS' },
-  { type: 'company', key: 13, label: 'Bridge Data Centres' },
-  { type: 'company', key: 14, label: 'Keppel DC' },
-  { type: 'company', key: 15, label: 'Global Switch' },
-  { type: 'company', key: 16, label: 'Lumen/CenturyLink' },
-  { type: 'company', key: 17, label: 'Flexential' },
-  { type: 'company', key: 18, label: 'Racks Central' },
-  { type: 'company', key: 19, label: 'Telstra' },
-  { type: 'company', key: 20, label: 'Singapore Technologies Telemedia' },
-  { type: 'company', key: 21, label: '1-Net' },
-  { type: 'company', key: 22, label: 'Microsoft' },
-  { type: 'company', key: 23, label: 'Facebook' },
-  { type: 'company', key: 24, label: 'Yondr' },
-  { type: 'company', key: 25, label: 'Vantage Data Centers' },
-  { type: 'company', key: 26, label: 'Vapor IO' },
-  { type: 'company', key: 27, label: 'QTS' },
-  { type: 'company', key: 28, label: 'NVIDIA' },
-  { type: 'company', key: 29, label: 'MegaPort' },
-  { type: 'company', key: 30, label: 'Iron Mountain' },
-  { type: 'company', key: 31, label: 'Google' },
-  { type: 'company', key: 32, label: 'EdgeConnex' },
-  { type: 'company', key: 33, label: 'EdgeCore' },
-  { type: 'company', key: 34, label: 'Evoque Data Centers' },
-  { type: 'company', key: 35, label: 'Compass Datacenters' },
-  { type: 'company', key: 36, label: 'Cologix' },
-  { type: 'company', key: 37, label: 'CapitaLand' }
+  { label: 'Digital Realty' },
+  { label: 'China Telecom' },
+  { label: 'NTT' },
+  { label: 'KDDI Telehouse' },
+  { label: 'Coresite' },
+  { label: 'Verizon' },
+  { label: 'Cyxtera' },
+  { label: 'China Unicom' },
+  { label: 'China Mobile' },
+  { label: 'Amazon Web Services' },
+  { label: '365 Data Centers' },
+  { label: 'CyrusOne' },
+  { label: 'GDS' },
+  { label: 'Bridge Data Centres' },
+  { label: 'Keppel DC' },
+  { label: 'Global Switch' },
+  { label: 'Lumen/CenturyLink' },
+  { label: 'Flexential' },
+  { label: 'Racks Central' },
+  { label: 'Telstra' },
+  { label: 'Singapore Technologies Telemedia' },
+  { label: '1-Net' },
+  { label: 'Microsoft' },
+  { label: 'Facebook' },
+  { label: 'Yondr' },
+  { label: 'Vantage Data Centers' },
+  { label: 'Vapor IO' },
+  { label: 'QTS' },
+  { label: 'NVIDIA' },
+  { label: 'MegaPort' },
+  { label: 'Iron Mountain' },
+  { label: 'Google' },
+  { label: 'EdgeConnex' },
+  { label: 'EdgeCore' },
+  { label: 'Evoque Data Centers' },
+  { label: 'Compass Datacenters' },
+  { label: 'Cologix' },
+  { label: 'CapitaLand' }
 ];
 
 const options2 = [
-  { type: 'theme', key: 38, label: 'Sustainability' },
-  { type: 'theme', key: 39, label: 'connectivity' },
-  { type: 'theme', key: 40, label: 'technology' },
-  { type: 'theme', key: 41, label: 'security' },
-  { type: 'theme', key: 42, label: 'sovereignty' },
-  { type: 'theme', key: 43, label: 'data protection' },
-  { type: 'theme', key: 44, label: 'e-commerce' },
-  { type: 'theme', key: 45, label: 'cloud' },
-  { type: 'theme', key: 46, label: 'WAN' },
-  { type: 'theme', key: 47, label: '5G' },
-  { type: 'theme', key: 48, label: 'bandwidth' },
-  { type: 'theme', key: 49, label: 'digital' },
-  { type: 'theme', key: 50, label: 'telecommunication' },
-  { type: 'theme', key: 51, label: 'telco' },
-  { type: 'theme', key: 52, label: 'infrastructure' }
+  { label: 'Sustainability' },
+  { label: 'connectivity' },
+  { label: 'technology' },
+  { label: 'security' },
+  { label: 'sovereignty' },
+  { label: 'data protection' },
+  { label: 'e-commerce' },
+  { label: 'cloud' },
+  { label: 'WAN' },
+  { label: '5G' },
+  { label: 'bandwidth' },
+  { label: 'digital' },
+  { label: 'telecommunication' },
+  { label: 'telco' },
+  { label: 'infrastructure' }
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -101,17 +101,6 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
     '& > *': {
       margin: theme.spacing(0.5)
-    }
-  },
-  boxcontrol: {
-    padding: '3%',
-    background: '#f8fbff',
-    '&:hover': {
-      background: 'white',
-      color: 'white',
-      boxShadow:
-        '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
-      borderTopStyle: 'solid'
     }
   }
 }));
@@ -271,7 +260,7 @@ const Home = (props) => {
           >
             {companies.map((option, index) => (
               <SelectedChip
-                key={option.key}
+                key={`companies-${index + 1}`}
                 index={index}
                 label={option.label}
                 selected={option.selected}
@@ -288,7 +277,7 @@ const Home = (props) => {
           >
             {themes.map((option, index) => (
               <SelectedChip
-                key={option.key}
+                key={`themes-${index + 1}`}
                 index={index}
                 label={option.label}
                 selected={option.selected}
