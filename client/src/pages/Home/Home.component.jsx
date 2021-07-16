@@ -1,23 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
+import { Typography, Paper } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import Button from '@material-ui/core/Button';
-import Chip from '@material-ui/core/Chip';
 import CircularProgress from '@material-ui/core/CircularProgress';
+
 import { NewsItem } from '../../components';
-import ButtonList from './components/ButtonList';
+import { SelectedChip } from './components';
+
 import container from './Home.container';
-import { Typography, Paper } from '@material-ui/core';
-import Markets from './components/component/Markets';
-import Companies from './components/component/Companies';
-import Themes from './components/component/Themes';
 
 const options = [
   { value: 'SG', label: 'Singapore' },
@@ -103,16 +95,13 @@ const useStyles = makeStyles((theme) => ({
   selectEmpty: {
     marginTop: theme.spacing(2)
   },
-  root: {
+  chipContainer: {
     display: 'flex',
     justifyContent: 'center',
     flexWrap: 'wrap',
-    listStyle: 'none',
-    padding: theme.spacing(0.5),
-    margin: 0
-  },
-  chip: {
-    margin: theme.spacing(0.5)
+    '& > *': {
+      margin: theme.spacing(0.5)
+    }
   },
   boxcontrol: {
     padding: '3%',
@@ -135,99 +124,104 @@ const Home = (props) => {
     onFetchNewsStart
   } = props;
 
-  const [country, setCountry] = useState('SG');
-  const [companies, setCompanies] = useState([]);
-  const [themes, setThemes] = useState([]);
-
-  const [chipData, setChipData] = useState([]);
+  const [country, setCountry] = useState([
+    ...options.map((item) => {
+      if (item.value === 'SG') {
+        return {
+          ...item,
+          selected: true
+        };
+      }
+      return item;
+    })
+  ]);
+  const [companies, setCompanies] = useState([
+    ...options1.map((item) => {
+      if (
+        item.label === 'facebook' ||
+        item.label === 'Google' ||
+        item.label === 'Microsoft'
+      ) {
+        return {
+          ...item,
+          selected: true
+        };
+      }
+      return item;
+    })
+  ]);
+  const [themes, setThemes] = useState([
+    ...options2.map((item) => {
+      if (item.label === 'technology') {
+        return {
+          ...item,
+          selected: true
+        };
+      }
+      return item;
+    })
+  ]);
 
   useEffect(() => {
-    setCompanies([...options1]);
-    setThemes([...options2]);
-    setChipData([...options1, ...options2]);
-    onFetchNewsStart(
-      country,
-      options1.map((item) => item.label),
-      options2.map((item) => item.label)
-    );
+    search();
   }, []);
 
   const search = () => {
     onFetchNewsStart(
-      country,
-      companies.map((item) => item.label),
-      themes.map((item) => item.label)
+      country.find((item) => item.selected).label,
+      companies.filter((item) => item.selected).map((item) => item.label),
+      themes.filter((item) => item.selected).map((item) => item.label)
     );
   };
 
-  const handleChangeCountry = (event) => {
-    setCountry(event.target.value);
-  };
-
-  const handleDelete = (chipToDelete) => () => {
-    if (chipToDelete.type === 'company') {
-      const currentIndex = companies
-        .map((item) => item.key)
-        .indexOf(chipToDelete.key);
-      const newChecked = [...companies];
-      newChecked.splice(currentIndex, 1);
-      setCompanies(newChecked);
-    }
-    if (chipToDelete.type === 'theme') {
-      const currentIndex = themes
-        .map((item) => item.key)
-        .indexOf(chipToDelete.label);
-      const newChecked = [...themes];
-      newChecked.splice(currentIndex, 1);
-      setThemes(newChecked);
-    }
-
-    const currentChipIndex = chipData
-      .map((item) => item.key)
-      .indexOf(chipToDelete.key);
-    const updatedChips = [...chipData];
-    updatedChips.splice(currentChipIndex, 1);
-    setChipData(updatedChips);
+  const handleClickCountry = (index) => () => {
+    setCountry((prev) => {
+      return prev.map((option, idx) => {
+        if (index === idx) {
+          return {
+            ...option,
+            selected: true
+          };
+        }
+        return {
+          ...option,
+          selected: false
+        };
+      });
+    });
     search();
   };
 
-  const handleMenuItemClick = (item, title) => () => {
-    if (title === 'Companies') {
-      const currentIndex = companies.map((item) => item.key).indexOf(item.key);
-      const newChecked = [...companies];
-
-      if (currentIndex === -1) {
-        newChecked.push(item);
-      } else {
-        newChecked.splice(currentIndex, 1);
-      }
-
-      setCompanies(newChecked);
-    }
-    if (title === 'Themes') {
-      const currentIndex = themes.map((item) => item.key).indexOf(item.key);
-      const newChecked = [...themes];
-
-      if (currentIndex === -1) {
-        newChecked.push(item);
-      } else {
-        newChecked.splice(currentIndex, 1);
-      }
-
-      setThemes(newChecked);
-    }
-
-    const currentChipIndex = chipData.map((item) => item.key).indexOf(item.key);
-    const newCheckedChip = [...chipData];
-    if (currentChipIndex === -1) {
-      newCheckedChip.push(item);
-    } else {
-      newCheckedChip.splice(currentChipIndex, 1);
-    }
-
-    setChipData(newCheckedChip);
+  const handleClickCompanies = (index) => () => {
+    setCompanies((prev) => {
+      return prev.map((option, idx) => {
+        if (index === idx) {
+          return {
+            ...option,
+            selected: !option.selected
+          };
+        }
+        return option;
+      });
+    });
     search();
   };
+
+  const handleClickThemes = (index) => () => {
+    setThemes((prev) => {
+      return prev.map((option, idx) => {
+        if (index === idx) {
+          return {
+            ...option,
+            selected: !option.selected
+          };
+        }
+        return option;
+      });
+    });
+    search();
+  };
+
   const getContent = () => {
     const list = newsIDs.map((id) => news[id]);
     if (loading) {
@@ -248,109 +242,62 @@ const Home = (props) => {
       </ul>
     );
   };
+
   return (
     <Box mt="1.5rem" style={{ backgroundColor: '#f8fbff', margin: '0' }}>
       <Container maxWidth="md">
-        <Grid container justifyContent="center" alignItems="center" spacing={2}>
-          <Grid item>
-            <FormControl variant="outlined" className={classes.formControl}>
-              <InputLabel id="demo-simple-select-outlined-label">
-                Markets
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-outlined-label"
-                id="demo-simple-select-outlined"
-                value={country}
-                onChange={handleChangeCountry}
-                label="Markets"
-              >
-                {options.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item>
-            <ButtonList
-              title="Companies"
-              options={options1}
-              checked={companies.map((item) => item.key)}
-              handleMenuItemClick={handleMenuItemClick}
-            />
-          </Grid>
-          <Grid item>
-            <ButtonList
-              title="Themes"
-              options={options2}
-              checked={themes.map((item) => item.key)}
-              handleMenuItemClick={handleMenuItemClick}
-            />
-          </Grid>
-          <Grid item>
-            <Button variant="contained" color="primary" onClick={search}>
-              Search
-            </Button>
-          </Grid>
-        </Grid>
-        <Grid
-          container
-          direction="column"
-          justifyContent="flex-start"
-          alignItems="center"
-        >
-          <Grid container direction="column" item spacing={3}>
-            <Grid item>
-              <Typography variant="h3">Market</Typography>
-            </Grid>
-            <Grid item>
-              <Paper value={country} className={classes.boxcontrol}>
-                {options.map((option) => (
-                  <Markets option={option} />
-                ))}
-              </Paper>
-            </Grid>
-            <Grid item>
-              <Typography variant="h3">Companies</Typography>
-            </Grid>
-            <Grid item>
-              <Paper value={country} className={classes.boxcontrol}>
-                {console.log('hello', options1)}
-                {options1.map((option) => (
-                  <Companies option={option} />
-                ))}
-              </Paper>
-            </Grid>
-            <Grid item>
-              <Typography variant="h3">Themes</Typography>
-            </Grid>
-            <Grid item>
-              <Paper value={country} className={classes.boxcontrol}>
-                {options2.map((options) => (
-                  <Themes option={options} />
-                ))}
-              </Paper>
-            </Grid>
-            <Grid item>
-              <Grid item></Grid>
-              <Grid item></Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Box component="ul" className={classes.root}>
-          {chipData.map((data) => {
-            return (
-              <li key={data.key}>
-                <Chip
-                  className={classes.chip}
-                  label={data.label}
-                  onDelete={handleDelete(data)}
-                />
-              </li>
-            );
-          })}
+        <Box mb="2rem">
+          <Typography variant="h3">Market</Typography>
+          <Paper
+            value={country}
+            className={clsx(classes.boxcontrol, classes.chipContainer)}
+          >
+            {country.map((option, index) => (
+              <SelectedChip
+                key={option.value}
+                index={index}
+                label={option.label}
+                selected={option.selected}
+                onClick={handleClickCountry}
+              />
+            ))}
+          </Paper>
         </Box>
+        <Box mb="2rem">
+          <Typography variant="h3">Companies</Typography>
+          <Paper
+            value={country}
+            className={clsx(classes.boxcontrol, classes.chipContainer)}
+          >
+            {companies.map((option, index) => (
+              <SelectedChip
+                key={option.key}
+                index={index}
+                label={option.label}
+                selected={option.selected}
+                onClick={handleClickCompanies}
+              />
+            ))}
+          </Paper>
+        </Box>
+        <Box mb="2rem">
+          <Typography variant="h3">Themes</Typography>
+          <Paper
+            value={country}
+            className={clsx(classes.boxcontrol, classes.chipContainer)}
+          >
+            {themes.map((option, index) => (
+              <SelectedChip
+                key={option.key}
+                index={index}
+                label={option.label}
+                selected={option.selected}
+                onClick={handleClickThemes}
+              />
+            ))}
+          </Paper>
+        </Box>
+
         <Box>{getContent()}</Box>
       </Container>
     </Box>
