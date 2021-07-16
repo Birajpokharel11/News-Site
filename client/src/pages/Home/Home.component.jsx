@@ -283,7 +283,6 @@ const Home = (props) => {
           <Grid
             container
             justifyContent="center"
-            alignItems="center"
             direction="column"
             spacing={4}
           >
