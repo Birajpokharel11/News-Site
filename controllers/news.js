@@ -51,20 +51,24 @@ exports.scrapeOG = asyncHandler(async (req, res, next) => {
   // add user to req.body
   const url = req.body.url;
   const options = { url };
-  try {
-    const { error, result } = ogs(options);
+  ogs(options)
+    .then((data) => {
+      const { error, result } = data;
+      if (error) {
+        console.log('error:', error); // This returns true or false. True if there was an error. The error itself is inside the results object.
+        return next(
+          new ErrorResponse(
+            error.message || `Unable to scrape URL:: ${url}`,
+            500
+          )
+        );
+      }
 
-    if (error) {
-      console.log(`error: ${JSON.stringify(error)}`.red); // This returns true or false. True if there was an error. The error itself is inside the results object.
-      return next(
-        new ErrorResponse(error.message || `Unable to scrape URL:: ${url}`, 500)
-      );
-    }
-
-    // console.log('result:', result); // This contains all of the Open Graph results
-    res.status(201).json({ success: true, ...result });
-  } catch (err) {
-    console.log(`${JSON.stringify(err)}`.red);
-    res.status(500).send('Internal Server Error!!');
-  }
+      // console.log('result:', result); // This contains all of the Open Graph results
+      res.status(201).json({ success: true, ...result });
+    })
+    .catch((err) => {
+      console.log(err.message);
+      res.status(500).send('Internal Server Error!!');
+    });
 });
