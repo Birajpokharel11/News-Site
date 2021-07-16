@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Paper } from '@material-ui/core';
-import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { NewsItem } from '../../components';
@@ -237,45 +239,51 @@ const Home = (props) => {
       <Container maxWidth="md">
         <Box mb="2rem">
           <Typography variant="h3">Market</Typography>
-          <Paper value={country} className={classes.chipContainer}>
-            {country.map((option, index) => (
-              <SelectedChip
-                key={option.value}
-                index={index}
-                label={option.label}
-                selected={option.selected}
-                onClick={handleClickCountry}
-              />
-            ))}
-          </Paper>
+          <Card>
+            <CardContent className={classes.chipContainer}>
+              {country.map((option, index) => (
+                <SelectedChip
+                  key={option.value}
+                  index={index}
+                  label={option.label}
+                  selected={option.selected}
+                  onClick={handleClickCountry}
+                />
+              ))}
+            </CardContent>
+          </Card>
         </Box>
         <Box mb="2rem">
           <Typography variant="h3">Companies</Typography>
-          <Paper value={country} className={classes.chipContainer}>
-            {companies.map((option, index) => (
-              <SelectedChip
-                key={`companies-${index + 1}`}
-                index={index}
-                label={option.label}
-                selected={option.selected}
-                onClick={handleClickCompanies}
-              />
-            ))}
-          </Paper>
+          <Card>
+            <CardContent className={classes.chipContainer}>
+              {companies.map((option, index) => (
+                <SelectedChip
+                  key={`companies-${index + 1}`}
+                  index={index}
+                  label={option.label}
+                  selected={option.selected}
+                  onClick={handleClickCompanies}
+                />
+              ))}
+            </CardContent>
+          </Card>
         </Box>
         <Box mb="2rem">
           <Typography variant="h3">Themes</Typography>
-          <Paper value={country} className={classes.chipContainer}>
-            {themes.map((option, index) => (
-              <SelectedChip
-                key={`themes-${index + 1}`}
-                index={index}
-                label={option.label}
-                selected={option.selected}
-                onClick={handleClickThemes}
-              />
-            ))}
-          </Paper>
+          <Card>
+            <CardContent className={classes.chipContainer}>
+              {themes.map((option, index) => (
+                <SelectedChip
+                  key={`themes-${index + 1}`}
+                  index={index}
+                  label={option.label}
+                  selected={option.selected}
+                  onClick={handleClickThemes}
+                />
+              ))}
+            </CardContent>
+          </Card>
         </Box>
 
         <Box>{getContent()}</Box>
