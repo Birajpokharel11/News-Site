@@ -1,14 +1,32 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core';
 
-import Chip from '@material-ui/core/Chip';
-
+const useStyles = makeStyles((theme) => ({
+  button: {
+    padding: '7.97492px 11.9624px',
+    fontFamily: 'Ubuntu',
+    fontSize: '14px',
+    fontStyle: 'normal',
+    fontWeight: '500',
+    lineHeight: '16px',
+    letterSpacing: '0em',
+    textAlign: 'left'
+  }
+}));
 export default function Markets({ label, selected, onClick, index }) {
+  const classes = useStyles();
   return (
-    <Chip
-      color="primary"
-      label={label}
-      variant={selected ? undefined : 'outlined'}
-      onClick={onClick(index)}
-    />
+    <>
+      <Button
+        color="primary"
+        label={label}
+        variant={selected ? 'contained' : 'outlined'}
+        onClick={onClick(index)}
+        className={classes.button}
+      >
+        {label}
+      </Button>
+    </>
   );
 }

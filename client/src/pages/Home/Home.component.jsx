@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Paper } from '@material-ui/core';
+import { Typography, PaperBox, Grid, Paper, Button } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -97,21 +97,63 @@ const useStyles = makeStyles((theme) => ({
   },
   chipContainer: {
     display: 'flex',
-    justifyContent: 'center',
     flexWrap: 'wrap',
     '& > *': {
       margin: theme.spacing(0.5)
-    }
+    },
+    elevation: '0'
   },
-  boxcontrol: {
-    padding: '3%',
-    background: '#f8fbff',
+  pagination: {
+    width: '191.18px',
+    height: '22.61px',
+    fontFamily: 'Montserrat',
+    fontStyle: 'normal',
+    fontWeight: '600',
+    fontSize: '16.4457px',
+    lineHeight: '23px',
+    textAlign: 'right',
+    textDecorationLine: 'underline',
+    color: '#000000',
+    flex: 'none',
+    order: '0',
+    flexGrow: '0',
+    margin: '0px 8.22286px'
+  },
+  topbutton: {
+    width: '300px',
+    borderColor: '#E5E5E5',
+    height: '80px',
+    fontFamily: 'Ubuntu',
+    fontStyle: 'normal',
+    fontWeight: '500',
+    fontSize: '20.9442px',
+    color: '#000000',
+    marginLeft: '1%',
+    marginTop: '1%'
+  },
+  categories: {
+    marginBottom: '2%',
+    height: '28.858139038085938px',
+    width: '149.6369171142578px',
+    borderRadius: 'nullpx',
+    fontFamily: 'Ubuntu',
+    fontStyle: 'normal',
+    fontWeight: '500',
+    fontSize: '22.1986px',
+    color: '#000000'
+  },
+  endbutton: {
+    fontFamily: 'Montserrat',
+    fontSize: '14px',
+    fontStyle: 'normal',
+    fontWeight: '600',
+    lineHeight: '16px',
+    letterSpacing: '0em',
+    textAlign: 'left',
+    background: '#9DA3E2',
+    color: '#E5E5E5',
     '&:hover': {
-      background: 'white',
-      color: 'white',
-      boxShadow:
-        '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
-      borderTopStyle: 'solid'
+      background: 'none'
     }
   }
 }));
@@ -236,21 +278,32 @@ const Home = (props) => {
 
     return (
       <ul>
-        {list.map((item) => (
-          <NewsItem key={item.guid.text} item={item} />
-        ))}
+        <Grid container>
+          {list.slice(0, 10).map((item) => (
+            <>
+              <Grid item xs={12} md={12} lg={12} xl={12}>
+                <NewsItem key={item.guid.text} item={item} />
+              </Grid>
+            </>
+          ))}
+        </Grid>
       </ul>
     );
   };
 
   return (
-    <Box mt="1.5rem" style={{ backgroundColor: '#f8fbff', margin: '0' }}>
-      <Container maxWidth="md">
+    <Box mt="1.5rem">
+      <Button className={classes.topbutton} variant="outlined">
+        Categorie Selector
+      </Button>
+
+      <Container maxWidth="xl" style={{ marginTop: '2%' }}>
         <Box mb="2rem">
-          <Typography variant="h3">Market</Typography>
+          <Typography className={classes.categories}>Market</Typography>
           <Paper
             value={country}
-            className={clsx(classes.boxcontrol, classes.chipContainer)}
+            className={classes.chipContainer}
+            elevation={0}
           >
             {country.map((option, index) => (
               <SelectedChip
@@ -261,13 +314,16 @@ const Home = (props) => {
                 onClick={handleClickCountry}
               />
             ))}
+            <Button>Select All</Button>
+            <Button>Reset Filter</Button>
           </Paper>
         </Box>
         <Box mb="2rem">
-          <Typography variant="h3">Companies</Typography>
+          <Typography className={classes.categories}>Companies</Typography>
           <Paper
             value={country}
-            className={clsx(classes.boxcontrol, classes.chipContainer)}
+            className={classes.chipContainer}
+            elevation={0}
           >
             {companies.map((option, index) => (
               <SelectedChip
@@ -278,13 +334,16 @@ const Home = (props) => {
                 onClick={handleClickCompanies}
               />
             ))}
+            <Button>Select All</Button>
+            <Button>Reset Filter</Button>
           </Paper>
         </Box>
         <Box mb="2rem">
-          <Typography variant="h3">Themes</Typography>
+          <Typography className={classes.categories}>Themes</Typography>
           <Paper
             value={country}
-            className={clsx(classes.boxcontrol, classes.chipContainer)}
+            className={classes.chipContainer}
+            elevation={0}
           >
             {themes.map((option, index) => (
               <SelectedChip
@@ -295,10 +354,24 @@ const Home = (props) => {
                 onClick={handleClickThemes}
               />
             ))}
+            <Button className={classes.endbutton}>Select All</Button>
+            <Button className={classes.endbutton}>Reset Filter</Button>
           </Paper>
         </Box>
-
-        <Box>{getContent()}</Box>
+      </Container>
+      <Container maxWidth="xl">
+        <Box></Box>
+        <Box>
+          {getContent()}
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Typography className={classes.pagination}>
+              Seemore result
+            </Typography>
+            <Typography className={classes.pagination}>
+              Seemore result
+            </Typography>
+          </div>
+        </Box>
       </Container>
     </Box>
   );
