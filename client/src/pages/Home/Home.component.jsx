@@ -9,7 +9,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 import { NewsItem } from '../../components';
-import { HeroSection, CategorySection } from './components';
+import { HeroSection, CategorySection, SubscribeSection } from './components';
 
 import container from './Home.container';
 
@@ -293,6 +293,7 @@ const Home = (props) => {
       />
 
       <Container>{getContent()}</Container>
+      <SubscribeSection />
     </>
   );
 };

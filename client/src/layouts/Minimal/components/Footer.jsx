@@ -2,92 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import {
-  Typography,
-  Grid,
-  Paper,
-  Container,
-  InputBase,
-  Button
-} from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
-    width: '100%',
-    height: '525px',
-    background: '#545FDB',
-    padding: '40px'
+    background: 'white',
+    paddingBottom: '0.5%'
   },
-  title: {
-    fontFamily: 'Ubuntu',
-    fontStyle: 'normal',
-    fontWeight: 500,
-    fontSize: '40px',
-    lineHeight: '46px',
-    textAlign: 'center',
-    color: '#FFFFFF'
-  },
-  body: {
-    fontFamily: 'Ubuntu',
-    fontStyle: 'normal',
-    fontWeight: 'normal',
-    fontSize: '30px',
-    lineHeight: '34px',
-    textAlign: 'center',
-    color: '#FFFFFF'
-  },
-  subtitle: {
-    fontFamily: 'Ubuntu',
-    fontStyle: 'normal',
-    fontWeight: 500,
-    fontSize: '19.6477px',
-    lineHeight: '23px',
-    textAlign: 'center',
-    color: '#FFFFFF'
-  },
-  paper: {
-    padding: '2px 4px',
-    height: '57px',
-    width: '100%',
-    borderRadius: '15px',
-    display: 'flex',
-    justifyContent: 'center',
-    marginBottom: '2%',
-    [theme.breakpoints.up('sm')]: {
-      width: '560px'
-    }
-  },
-  input: {
-    fontFamily: 'Ubuntu',
-    fontSize: '19px',
-    fontStyle: 'normal',
-    fontWeight: '400',
-    lineHeight: '22px',
-    letterSpacing: '1px',
-    color: '#2B3D51'
-  },
-  subscribeButton: {
-    height: '57px',
-    width: '100%',
-    borderRadius: '15px',
-    fontFamily: 'Ubuntu',
-    fontStyle: 'normal',
-    fontWeight: 'normal',
-    fontSize: '20px',
-    lineHeight: '23px',
-    textAlign: 'center',
-    color: '#FFFFFF',
-    background: '#9DA3E2',
-    marginBottom: '6%',
-
-    [theme.breakpoints.up('sm')]: {
-      width: '560px'
-    },
-    '&:hover': {
-      background: '#000000'
-    }
-  },
-  footer: {
+  text: {
     textAlign: 'center',
     fontFamily: 'Ubuntu',
     fontWeight: 'normal',
@@ -101,61 +23,11 @@ const Footer = () => {
   const classes = useStyles();
 
   return (
-    <>
-      <Paper className={classes.root}>
-        <Container maxWidth="md">
-          <Typography className={classes.title}>NEWSLETTER</Typography>
-          <Typography className={classes.body}>
-            Sign Up to Recieve Weekly Data
-          </Typography>
-
-          <Box mt="1.5rem">
-            <Grid container direction="column" alignItems="center" spacing={1}>
-              <Grid item>
-                <Paper component="form" className={classes.paper}>
-                  <InputBase
-                    className={classes.input}
-                    placeholder="Enter your name"
-                  />
-                </Paper>
-              </Grid>
-              <Grid item>
-                <Paper component="form" className={classes.paper}>
-                  <InputBase
-                    className={classes.input}
-                    placeholder="Enter your email"
-                  />
-                </Paper>
-              </Grid>
-              <Grid item>
-                <Button
-                  variant="contained"
-                  fullWidth
-                  className={classes.subscribeButton}
-                >
-                  Subscribe Now
-                </Button>
-              </Grid>
-            </Grid>
-          </Box>
-          <Typography className={classes.subtitle}>
-            For Media and other inquiries, please email us at
-            info@datacenterinvest.asia
-          </Typography>
-        </Container>
-      </Paper>
-      <Paper
-        style={{
-          background: 'white',
-          paddingBottom: '0.5%'
-        }}
-      >
-        <Typography className={classes.footer}>
-          © {new Date().getFullYear()} DataCenterinvest.Asia, All rights
-          reserved
-        </Typography>
-      </Paper>
-    </>
+    <Box className={classes.root}>
+      <Typography className={classes.text}>
+        © {new Date().getFullYear()} DataCenterinvest.Asia, All rights reserved
+      </Typography>
+    </Box>
   );
 };
 
