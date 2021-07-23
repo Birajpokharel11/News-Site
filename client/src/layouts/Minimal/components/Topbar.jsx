@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '17px',
     marginLeft: '8px',
     width: '100%',
-    height: '74px',
+    height: '64px',
     [theme.breakpoints.up('sm')]: {
       width: '350px'
     },
@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
   },
   searchButton: {
     width: '140px',
-    height: '74px',
+    height: '64px',
     borderRadius: '17px',
     background: '#545FDB',
     color: 'white',
