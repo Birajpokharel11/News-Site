@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
-      width: '20ch'
+      width: 'auto'
     }
   },
   MobileInput: {
@@ -96,7 +96,6 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: '0px 4px 24px rgba(84, 95, 219, 0.25)',
     borderRadius: '9px',
     marginLeft: '8px',
-    width: '100%',
     [theme.breakpoints.up('sm')]: {
       width: 'auto'
     }
