@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { NewsItem } from '../../components';
@@ -114,6 +115,8 @@ const Home = (props) => {
     onFetchNewsStart
   } = props;
 
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
   const [country, setCountry] = useState([
     ...options.map((item) => {
       if (item.value === 'SG') {
@@ -215,16 +218,50 @@ const Home = (props) => {
   const getContent = () => {
     const list = newsIDs.map((id) => news[id]);
     if (loading) {
-      return <CircularProgress />;
+      return (
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          minHeight="30vh"
+        >
+          <CircularProgress />
+        </Box>
+      );
     }
 
     if (list.length === 0) {
-      return <Typography variant="h4">No results</Typography>;
+      return (
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          minHeight="30vh"
+        >
+          <Typography variant="h4">No results</Typography>
+        </Box>
+      );
     }
 
-    return list
-      .slice(0, 10)
-      .map((item) => <NewsItem key={item.guid.text} item={item} />);
+    return (
+      <Grid container justifyContent="center" direction="column" spacing={4}>
+        {list.slice(0, rowsPerPage).map((item) => (
+          <NewsItem key={item.guid.text} item={item} />
+        ))}
+        <Grid item container justifyContent="space-between">
+          <Typography variant="body2" color="textSecondary" component="p">
+            1.535 results
+          </Typography>
+          <Button className={classes.pagination} onClick={handleChangePage}>
+            Seemore result
+          </Button>
+        </Grid>
+      </Grid>
+    );
+  };
+
+  const handleChangePage = () => {
+    setRowsPerPage((prev) => prev + 10);
   };
 
   return (
@@ -239,19 +276,7 @@ const Home = (props) => {
         handleClickThemes={handleClickThemes}
       />
 
-      <Box component={Container}>
-        <Grid container justifyContent="center" direction="column" spacing={4}>
-          {getContent()}
-          <Grid item>
-            <Typography className={classes.pagination}>
-              Seemore result
-            </Typography>
-            <Typography className={classes.pagination}>
-              Seemore result
-            </Typography>
-          </Grid>
-        </Grid>
-      </Box>
+      <Container>{getContent()}</Container>
     </>
   );
 };

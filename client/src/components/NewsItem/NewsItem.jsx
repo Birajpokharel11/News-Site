@@ -10,41 +10,26 @@ import CardMedia from '@material-ui/core/CardMedia';
 const useStyles = makeStyles({
   card: {
     display: 'flex',
-    marginBottom: '2%',
     boxShadow: '0px 4px 24px rgba(84, 95, 219, 0.25)',
     borderRadius: '17px'
   },
+  cardDetails: {
+    flex: 1
+  },
   cardMedia: {
-    width: '392.75px',
-    height: '241.84px',
-    left: '265px',
-    top: '1893px',
-    borderRadius: '16.4454px'
+    width: 392,
+    height: 241,
+    borderRadius: 16
   },
-
-  cardcontent: {
-    padding: '3%',
-    height: '113.0642852782031px',
-    width: '855.177124023435px',
-    left: '704.2783203125px',
-    top: '1944px',
-    borderRadius: 'nullpx'
-  },
-  typography: {
+  title: {
     fontFamily: 'Ubuntu',
     fontSize: '31px',
     fontStyle: 'normal',
     fontWeight: '700',
     lineHeight: '35px',
-    letterSpacing: '0em',
-    textAlign: 'left'
+    letterSpacing: '0em'
   },
   author: {
-    marginTow: '1000px',
-    height: '16.445714950561523px',
-    width: '199.40428161621094px',
-    left: '703px',
-    top: '2067.3428344726562px',
     color: '#999FAA'
   }
 });
@@ -68,29 +53,22 @@ export default function NewsItem(props) {
           />
         )}
 
-        <CardContent className={classes.cardcontent}>
-          <Typography
-            className={classes.typography}
-            component="h2"
-            variant="h5"
-          >
-            {item.title}
-          </Typography>
+        <div className={classes.cardDetails}>
+          <CardContent>
+            <Typography className={classes.title} component="h2" variant="h5">
+              {item.title}
+            </Typography>
 
-          {/* <Typography
+            {/* <Typography
               variant="subtitle1"
               paragraph
               dangerouslySetInnerHTML={{ __html: item.description }}
             /> */}
-          <Typography
-            variant="subtitle1"
-            className={classes.author}
-            color="primary"
-            component="a"
-          >
-            by Billy Jackson {formatDate(item.pubDate)}
-          </Typography>
-        </CardContent>
+            <Typography variant="subtitle1" className={classes.author}>
+              by Billy Jackson {formatDate(item.pubDate)}
+            </Typography>
+          </CardContent>
+        </div>
       </Card>
     </Grid>
   );
