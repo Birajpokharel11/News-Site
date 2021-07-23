@@ -15,7 +15,7 @@ import Test3 from '../../../assets/img/image3.jpeg';
 import Test4 from '../../../assets/img/image4.jpeg';
 import Test5 from '../../../assets/img/image5.jpeg';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     padding: '2.5rem',
     boxShadow: '0px 4px 24px rgba(84, 95, 219, 0.25)',
@@ -54,12 +54,18 @@ const useStyles = makeStyles(() => ({
     color: '#999FAA'
   },
   mediaLg: {
-    height: 350,
-    borderRadius: 16
+    height: 200,
+    borderRadius: 16,
+    [theme.breakpoints.up('sm')]: {
+      height: 350
+    }
   },
   mediaSm: {
-    height: 165,
-    borderRadius: 16
+    height: 200,
+    borderRadius: 16,
+    [theme.breakpoints.up('sm')]: {
+      height: 165
+    }
   }
 }));
 
@@ -95,7 +101,7 @@ const HeroSection = () => {
           </Card>
         </Grid>
         <Grid item container md spacing={2}>
-          <Grid item md={6}>
+          <Grid item md={6} sm={6} xs={12}>
             <Card elevation={0}>
               <CardActionArea>
                 <CardMedia
@@ -120,7 +126,7 @@ const HeroSection = () => {
               </CardActionArea>
             </Card>
           </Grid>
-          <Grid item md={6}>
+          <Grid item md={6} sm={6} xs={12}>
             <Card elevation={0}>
               <CardActionArea>
                 <CardMedia
@@ -144,7 +150,7 @@ const HeroSection = () => {
               </CardActionArea>
             </Card>
           </Grid>
-          <Grid item md={6}>
+          <Grid item md={6} sm={6} xs={12}>
             <Card elevation={0}>
               <CardActionArea>
                 <CardMedia
@@ -169,7 +175,7 @@ const HeroSection = () => {
               </CardActionArea>
             </Card>
           </Grid>
-          <Grid item md={6}>
+          <Grid item md={6} sm={6} xs={12}>
             <Card elevation={0}>
               <CardActionArea>
                 <CardMedia

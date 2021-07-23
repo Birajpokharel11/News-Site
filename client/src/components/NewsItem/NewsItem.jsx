@@ -7,8 +7,11 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea from '@material-ui/core/CardActionArea';
+import Hidden from '@material-ui/core/Hidden';
 
-const useStyles = makeStyles({
+import fallbackImg from '../../assets/img/fallback_image.jpg';
+
+const useStyles = makeStyles((theme) => ({
   card: {
     display: 'flex',
     boxShadow: '0px 4px 24px rgba(84, 95, 219, 0.25)',
@@ -17,11 +20,17 @@ const useStyles = makeStyles({
     minHeight: 140
   },
   cardDetails: {
-    flex: 1
+    flex: 1,
+    height: '100%',
+    padding: theme.spacing(3)
   },
   cardMedia: {
     width: 392,
     height: 241,
+    borderRadius: 16
+  },
+  media: {
+    height: 240,
     borderRadius: 16
   },
   title: {
@@ -40,7 +49,7 @@ const useStyles = makeStyles({
     lineHeight: '17px',
     color: '#999FAA'
   }
-});
+}));
 
 export default function NewsItem(props) {
   const classes = useStyles();
@@ -55,30 +64,53 @@ export default function NewsItem(props) {
     window.open(item.link, '_blank'); //to open new page
   };
 
+  const handleImageError = (e) => {
+    e.target.onerror = null;
+    // e.target.style.display = 'none'
+    e.target.src = fallbackImg;
+  };
+
   return (
     <Grid item>
-      <Card className={classes.card}>
-        <CardActionArea onClick={redirect} style={{ display: 'flex' }}>
-          {item.media && (
+      <Hidden smDown>
+        <Card className={classes.card}>
+          <CardActionArea onClick={redirect} style={{ display: 'flex' }}>
             <CardMedia
               className={classes.cardMedia}
-              image={item.media}
+              image={item.media ?? fallbackImg}
               title={item.title}
+              onError={handleImageError}
             />
-          )}
 
-          <div className={classes.cardDetails}>
-            <CardContent style={{ height: '85%' }}>
+            <div className={classes.cardDetails}>
               <Grid container alignItems="center" style={{ height: '100%' }}>
                 <Typography className={classes.title}>{item.title}</Typography>
                 <Typography className={classes.subtitle}>
                   by Billy Jackson {formatDate(item.pubDate)}
                 </Typography>
               </Grid>
+            </div>
+          </CardActionArea>
+        </Card>
+      </Hidden>
+      <Hidden mdUp>
+        <Card className={classes.card}>
+          <CardActionArea>
+            <CardMedia
+              className={classes.media}
+              image={item.media ?? fallbackImg}
+              title={item.title}
+              onError={handleImageError}
+            />
+            <CardContent>
+              <Typography className={classes.title}>{item.title}</Typography>
+              <Typography className={classes.subtitle}>
+                by Billy Jackson {formatDate(item.pubDate)}
+              </Typography>
             </CardContent>
-          </div>
-        </CardActionArea>
-      </Card>
+          </CardActionArea>
+        </Card>
+      </Hidden>
     </Grid>
   );
 }

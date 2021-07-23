@@ -90,7 +90,9 @@ const options2 = [
 
 const useStyles = makeStyles((theme) => ({
   nested: {
-    paddingLeft: theme.spacing(4)
+    [theme.breakpoints.up('sm')]: {
+      paddingLeft: theme.spacing(4)
+    }
   },
   pagination: {
     width: '191.18px',

@@ -16,6 +16,11 @@ const useStyles = makeStyles((theme) => ({
     padding: '2%',
     background: 'white'
   },
+  logo: {
+    [theme.breakpoints.down('sm')]: {
+      width: '60%'
+    }
+  },
   flexGrow: {
     flexGrow: 1
   },
@@ -72,7 +77,7 @@ const Topbar = (props) => {
       elevation={0}
     >
       <Toolbar>
-        <img alt="Logo" src={Logo} />
+        <img className={classes.logo} alt="Logo" src={Logo} />
 
         <div className={classes.flexGrow} />
 

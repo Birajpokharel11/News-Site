@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
 import {
   Typography,
-  Link,
-  AppBar,
+  Grid,
   Paper,
   Container,
-  Box,
   InputBase,
   Button
 } from '@material-ui/core';
@@ -19,14 +17,44 @@ const useStyles = makeStyles((theme) => ({
     height: '525px',
     background: '#545FDB'
   },
+  title: {
+    fontFamily: 'Ubuntu',
+    fontStyle: 'normal',
+    fontWeight: 500,
+    fontSize: '40px',
+    lineHeight: '46px',
+    textAlign: 'center',
+    color: '#FFFFFF'
+  },
+  body: {
+    fontFamily: 'Ubuntu',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    fontSize: '30px',
+    lineHeight: '34px',
+    textAlign: 'center',
+    color: '#FFFFFF'
+  },
+  subtitle: {
+    fontFamily: 'Ubuntu',
+    fontStyle: 'normal',
+    fontWeight: 500,
+    fontSize: '19.6477px',
+    lineHeight: '23px',
+    textAlign: 'center',
+    color: '#FFFFFF'
+  },
   paper: {
     padding: '2px 4px',
-    height: '57.11111068725586px',
-    width: '560px',
-    borderRadius: '15.307306289672852px',
+    height: '57px',
+    width: '100%',
+    borderRadius: '15px',
     display: 'flex',
     justifyContent: 'center',
-    marginBottom: '2%'
+    marginBottom: '2%',
+    [theme.breakpoints.up('sm')]: {
+      width: '560px'
+    }
   },
   input: {
     fontFamily: 'Ubuntu',
@@ -38,9 +66,9 @@ const useStyles = makeStyles((theme) => ({
     color: '#2B3D51'
   },
   Button: {
-    height: '57.11111068725586px',
-    width: '560px',
-    borderRadius: '15.307306289672852px',
+    height: '57px',
+    width: '100%',
+    borderRadius: '15px',
     fontFamily: 'Ubuntu',
     fontStyle: 'normal',
     fontWeight: 'normal',
@@ -49,7 +77,10 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     color: '#FFFFFF',
     background: '#000000',
-    marginBottom: '6%'
+    marginBottom: '6%',
+    [theme.breakpoints.up('sm')]: {
+      width: '560px'
+    }
   }
 }));
 
@@ -59,75 +90,48 @@ const Footer = (props) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <>
       <Paper className={classes.root}>
         <Container maxWidth="md">
-          <Typography
-            style={{
-              textAlign: 'center',
-              height: ' 57.11px',
-              fontFamily: ' Ubuntu',
-              fontWeight: '500',
-              fontSize: '40px',
-              lineHeight: ' 100px',
-              marginTop: '2%',
-              marginBottom: '4%',
-              color: 'white'
-            }}
-          >
-            NEWSLETTER
-          </Typography>
-          <Typography
-            style={{
-              height: ' 32.36296463012695px',
-              fontFamily: ' Ubuntu',
-              fontSize: '40px',
-              textAlign: 'center',
-              marginBottom: '5%',
-              color: 'white'
-            }}
-          >
+          <Typography className={classes.title}>NEWSLETTER</Typography>
+          <Typography className={classes.body}>
             Sign Up to Recieve Weekly Data
           </Typography>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center'
-            }}
-          >
-            <div>
-              <Paper component="form" className={classes.paper}>
-                <InputBase
-                  className={classes.input}
-                  placeholder="Search Google Maps"
-                />
-              </Paper>
-              <Paper component="form" className={classes.paper}>
-                <InputBase
-                  className={classes.input}
-                  placeholder="Search Google Maps"
-                />
-              </Paper>
-              <Button variant="contained" className={classes.Button}>
-                Subscribe Now
-              </Button>
-            </div>
-          </div>
+
+          <Box mt="1.5rem">
+            <Grid container direction="column" spacing={1}>
+              <Grid item>
+                <Paper component="form" className={classes.paper}>
+                  <InputBase
+                    className={classes.input}
+                    placeholder="Enter your name"
+                  />
+                </Paper>
+              </Grid>
+              <Grid item>
+                <Paper component="form" className={classes.paper}>
+                  <InputBase
+                    className={classes.input}
+                    placeholder="Enter your email"
+                  />
+                </Paper>
+              </Grid>
+              <Grid item>
+                <Button
+                  variant="contained"
+                  fullWidth
+                  className={classes.Button}
+                >
+                  Subscribe Now
+                </Button>
+              </Grid>
+            </Grid>
+          </Box>
+          <Typography className={classes.subtitle}>
+            For Media and other inquiries, please email us at
+            info@datacenterinvest.asia
+          </Typography>
         </Container>
-        <Typography
-          style={{
-            height: '44.74px',
-            fontFamily: 'Ubuntu',
-            fontWeight: '400',
-            fontSize: '23.6477px',
-            lineHeight: '23px',
-            textAlign: 'center',
-            color: 'white'
-          }}
-        >
-          For Media and other inquiries, please email us at
-          info@datacenterinvest.asia
-        </Typography>
       </Paper>
       <Paper
         style={{
@@ -148,7 +152,7 @@ const Footer = (props) => {
           2021 DataCenterinvest.Asia,All rights reserved
         </Typography>
       </Paper>
-    </div>
+    </>
   );
 };
 
