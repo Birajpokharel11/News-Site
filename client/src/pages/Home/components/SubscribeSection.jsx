@@ -1,5 +1,6 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { useTheme, makeStyles } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -10,10 +11,13 @@ import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '525px',
+    height: '100%',
     background: '#545FDB',
-    padding: '40px',
-    borderRadius: 0
+    borderRadius: 0,
+    padding: '40px 10px',
+    [theme.breakpoints.up('md')]: {
+      padding: '40px'
+    }
   },
   title: {
     fontFamily: 'Ubuntu',
@@ -43,7 +47,6 @@ const useStyles = makeStyles((theme) => ({
     color: '#FFFFFF'
   },
   paper: {
-    padding: '2px 4px',
     height: '57px',
     width: '100%',
     borderRadius: '15px',
@@ -88,10 +91,14 @@ const useStyles = makeStyles((theme) => ({
 
 const SubscribeSection = () => {
   const classes = useStyles();
+  const theme = useTheme();
+
+  const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <Box
       component={Paper}
+      mt="2rem"
       display="flex"
       justifyContent="center"
       className={classes.root}
@@ -103,8 +110,13 @@ const SubscribeSection = () => {
         </Typography>
 
         <Box component="form" mt="1.5rem">
-          <Grid container direction="column" alignItems="center" spacing={1}>
-            <Grid item>
+          <Grid
+            container
+            direction="column"
+            alignItems={matchesSM ? undefined : 'center'}
+            spacing={1}
+          >
+            <Grid item xs>
               <Paper component="form" className={classes.paper}>
                 <InputBase
                   className={classes.input}
@@ -112,7 +124,7 @@ const SubscribeSection = () => {
                 />
               </Paper>
             </Grid>
-            <Grid item>
+            <Grid item xs>
               <Paper component="form" className={classes.paper}>
                 <InputBase
                   className={classes.input}
@@ -120,7 +132,7 @@ const SubscribeSection = () => {
                 />
               </Paper>
             </Grid>
-            <Grid item>
+            <Grid item xs>
               <Button
                 variant="contained"
                 fullWidth
