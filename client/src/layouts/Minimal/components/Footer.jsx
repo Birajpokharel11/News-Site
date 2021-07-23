@@ -15,7 +15,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
     height: '525px',
-    background: '#545FDB'
+    background: '#545FDB',
+    padding: '40px'
   },
   title: {
     fontFamily: 'Ubuntu',
@@ -65,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
     letterSpacing: '1px',
     color: '#2B3D51'
   },
-  Button: {
+  subscribeButton: {
     height: '57px',
     width: '100%',
     borderRadius: '15px',
@@ -96,9 +97,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Footer = (props) => {
-  const { className, ...rest } = props;
-
+const Footer = () => {
   const classes = useStyles();
 
   return (
@@ -132,7 +131,7 @@ const Footer = (props) => {
                 <Button
                   variant="contained"
                   fullWidth
-                  className={classes.Button}
+                  className={classes.subscribeButton}
                 >
                   Subscribe Now
                 </Button>
