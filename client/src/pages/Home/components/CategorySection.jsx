@@ -47,18 +47,22 @@ const useStyles = makeStyles((theme) => ({
     color: '#000000'
   },
   endbutton: {
-    fontFamily: 'Montserrat',
-    fontSize: '14px',
-    fontStyle: 'normal',
-    fontWeight: '600',
-    lineHeight: '16px',
-    letterSpacing: '0em',
-    textAlign: 'left',
-    background: '#9DA3E2',
-    color: '#E5E5E5',
+    color: '#9DA3E2',
+    background: '#E3E6FF',
+    border: '1.93368px solid #9DA3E2',
+    boxSizing: 'border-box',
+    borderRadius: '3.86736px',
     '&:hover': {
       background: 'none'
     }
+  },
+  label: {
+    fontFamily: 'Montserrat',
+    fontStyle: 'normal',
+    fontWeight: 600,
+    fontSize: '13.5358px',
+    lineHeight: '15px',
+    textTransform: 'none'
   }
 }));
 
@@ -103,8 +107,19 @@ const CategorySection = ({
                 onClick={handleClickCountry}
               />
             ))}
-            <Button>Select All</Button>
-            <Button endIcon={<ClearIcon />}>Reset Filter</Button>
+            <Button
+              size="small"
+              classes={{ root: classes.endbutton, label: classes.label }}
+            >
+              Select All
+            </Button>
+            <Button
+              size="small"
+              classes={{ root: classes.endbutton, label: classes.label }}
+              endIcon={<ClearIcon />}
+            >
+              Reset Filter
+            </Button>
           </Paper>
         </Box>
         <Box mb="2rem" className={classes.nested}>
@@ -123,8 +138,19 @@ const CategorySection = ({
                 onClick={handleClickCompanies}
               />
             ))}
-            <Button>Select All</Button>
-            <Button endIcon={<ClearIcon />}>Reset Filter</Button>
+            <Button
+              size="small"
+              classes={{ root: classes.endbutton, label: classes.label }}
+            >
+              Select All
+            </Button>
+            <Button
+              size="small"
+              classes={{ root: classes.endbutton, label: classes.label }}
+              endIcon={<ClearIcon />}
+            >
+              Reset Filter
+            </Button>
           </Paper>
         </Box>
         <Box mb="2rem" className={classes.nested}>
@@ -143,8 +169,17 @@ const CategorySection = ({
                 onClick={handleClickThemes}
               />
             ))}
-            <Button className={classes.endbutton}>Select All</Button>
-            <Button className={classes.endbutton} endIcon={<ClearIcon />}>
+            <Button
+              size="small"
+              classes={{ root: classes.endbutton, label: classes.label }}
+            >
+              Select All
+            </Button>
+            <Button
+              size="small"
+              classes={{ root: classes.endbutton, label: classes.label }}
+              endIcon={<ClearIcon />}
+            >
               Reset Filter
             </Button>
           </Paper>
