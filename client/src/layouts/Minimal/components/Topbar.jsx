@@ -67,7 +67,8 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create('width')
+    transition: theme.transitions.create('width'),
+    fontSize: '16px'
   },
   searchButton: {
     width: '140px',
@@ -104,7 +105,8 @@ const useStyles = makeStyles((theme) => ({
     // vertical padding + font size from searchIcon
     paddingLeft: theme.spacing(2),
     transition: theme.transitions.create('width'),
-    width: '100%'
+    width: '100%',
+    fontSize: '16px'
   }
 }));
 
