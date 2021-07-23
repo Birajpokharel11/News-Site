@@ -49,7 +49,14 @@ const useStyles = makeStyles((theme) => ({
     height: '74px',
     borderRadius: '17px',
     background: '#545FDB',
-    color: 'white'
+    color: 'white',
+    fontFamily: 'Ubuntu',
+    fontSize: '20px',
+    fontStyle: 'normal',
+    fontWeight: '500',
+    lineHeight: '26px',
+    letterSpacing: '0em',
+    textAlign: 'left'
   },
   searchIcon: {
     padding: theme.spacing(0, 2),
