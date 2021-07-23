@@ -238,26 +238,20 @@ const Home = (props) => {
         handleClickCompanies={handleClickCompanies}
         handleClickThemes={handleClickThemes}
       />
-      <Container>
-        <Box>
-          <Grid
-            container
-            justifyContent="center"
-            direction="column"
-            spacing={4}
-          >
-            {getContent()}
-            <Grid item>
-              <Typography className={classes.pagination}>
-                Seemore result
-              </Typography>
-              <Typography className={classes.pagination}>
-                Seemore result
-              </Typography>
-            </Grid>
+
+      <Box component={Container}>
+        <Grid container justifyContent="center" direction="column" spacing={4}>
+          {getContent()}
+          <Grid item>
+            <Typography className={classes.pagination}>
+              Seemore result
+            </Typography>
+            <Typography className={classes.pagination}>
+              Seemore result
+            </Typography>
           </Grid>
-        </Box>
-      </Container>
+        </Grid>
+      </Box>
     </>
   );
 };
