@@ -7,7 +7,7 @@ import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { NewsItem } from '../../components';
-import { SelectedChip } from './components';
+import { HeroSection, SelectedChip } from './components';
 
 import container from './Home.container';
 
@@ -293,11 +293,12 @@ const Home = (props) => {
 
   return (
     <Box mt="1.5rem">
+      <HeroSection />
       <Button className={classes.topbutton} variant="outlined">
         Categorie Selector
       </Button>
 
-      <Container maxWidth="xl" style={{ marginTop: '2%' }}>
+      <Container style={{ marginTop: '2%' }}>
         <Box mb="2rem">
           <Typography className={classes.categories}>Market</Typography>
           <Paper
@@ -359,8 +360,7 @@ const Home = (props) => {
           </Paper>
         </Box>
       </Container>
-      <Container maxWidth="xl">
-        <Box></Box>
+      <Container>
         <Box>
           {getContent()}
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
