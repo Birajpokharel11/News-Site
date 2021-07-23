@@ -88,7 +88,10 @@ const options2 = [
   { label: 'infrastructure' }
 ];
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
+  nested: {
+    paddingLeft: theme.spacing(4)
+  },
   pagination: {
     width: '191.18px',
     height: '22.61px',
@@ -244,7 +247,13 @@ const Home = (props) => {
     }
 
     return (
-      <Grid container justifyContent="center" direction="column" spacing={4}>
+      <Grid
+        container
+        justifyContent="center"
+        direction="column"
+        spacing={4}
+        className={classes.nested}
+      >
         {list.slice(0, rowsPerPage).map((item) => (
           <NewsItem key={item.guid.text} item={item} />
         ))}
