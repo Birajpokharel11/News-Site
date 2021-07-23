@@ -20,12 +20,12 @@ const useStyles = makeStyles((theme) => ({
     fontStyle: 'normal',
     fontWeight: '500',
     fontSize: '20.9442px',
-    color: '#000000',
-    marginLeft: '1%',
-    marginTop: '1%'
+    color: '#000000'
   },
   nested: {
-    paddingLeft: theme.spacing(4)
+    [theme.breakpoints.up('sm')]: {
+      paddingLeft: theme.spacing(4)
+    }
   },
   chipContainer: {
     display: 'flex',
