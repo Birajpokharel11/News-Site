@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '17px',
     marginLeft: '8px',
     width: '100%',
-    height: '64px',
+    height: '60.61px',
     [theme.breakpoints.up('sm')]: {
       width: '350px'
     },
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
       width: '390px'
     },
     [theme.breakpoints.up('lg')]: {
-      width: '690px'
+      width: '530px'
     }
   },
   searchIcon: {
@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
   },
   searchButton: {
     width: '140px',
-    height: '64px',
+    height: '60.61px',
     borderRadius: '17px',
     background: '#545FDB',
     color: 'white',
@@ -82,12 +82,11 @@ const useStyles = makeStyles((theme) => ({
   },
   label: {
     fontFamily: 'Ubuntu',
-    fontSize: '20px',
     fontStyle: 'normal',
-    fontWeight: '500',
-    lineHeight: '26px',
-    letterSpacing: '0em',
-    textAlign: 'left',
+    fontWeight: 500,
+    fontSize: '16.3822px',
+    lineHeight: '21px',
+    color: '#FFFFFF',
     textTransform: 'none'
   },
   mobileIcon: {
@@ -139,7 +138,7 @@ const Topbar = (props) => {
         <Hidden smDown>
           <Paper component="form" className={classes.search}>
             <div className={classes.searchIcon}>
-              <SearchIcon />
+              <SearchIcon style={{ color: 'rgba(0, 0, 0, 0.5)' }} />
             </div>
             <InputBase
               fullWidth
