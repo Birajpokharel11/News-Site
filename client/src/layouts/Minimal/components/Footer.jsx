@@ -76,11 +76,23 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: '23px',
     textAlign: 'center',
     color: '#FFFFFF',
-    background: '#000000',
+    background: '#9DA3E2',
     marginBottom: '6%',
+
     [theme.breakpoints.up('sm')]: {
       width: '560px'
+    },
+    '&:hover': {
+      background: '#000000'
     }
+  },
+  footer: {
+    textAlign: 'center',
+    fontFamily: 'Ubuntu',
+    fontWeight: 'normal',
+    fontSize: '18.4846px',
+    lineHeight: '22px',
+    color: '#545FDB'
   }
 }));
 
@@ -139,17 +151,8 @@ const Footer = (props) => {
           paddingBottom: '0.5%'
         }}
       >
-        <Typography
-          style={{
-            textAlign: 'center',
-            fontFamily: 'Ubuntu',
-            fontWeight: 'normal',
-            fontSize: '18.4846px',
-            lineHeight: '22px',
-            color: '#545FDB'
-          }}
-        >
-          2021 DataCenterinvest.Asia,All rights reserved
+        <Typography className={classes.footer}>
+          {new Date().getFullYear()} DataCenterinvest.Asia, All rights reserved
         </Typography>
       </Paper>
     </>
