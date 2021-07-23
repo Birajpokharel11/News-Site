@@ -6,10 +6,10 @@ import { Topbar, Footer } from './components';
 
 const useStyles = makeStyles(() => ({
   root: {
-    paddingTop: 64,
     height: '100%'
   },
   content: {
+    marginTop: 64,
     height: '100%'
   }
 }));

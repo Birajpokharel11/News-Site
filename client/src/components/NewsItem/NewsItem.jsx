@@ -6,17 +6,46 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Hidden from '@material-ui/core/Hidden';
 
 const useStyles = makeStyles({
   card: {
-    display: 'flex'
-  },
-  cardDetails: {
-    flex: 1
+    display: 'flex',
+    marginBottom: '2%',
+    boxShadow: '0px 4px 24px rgba(84, 95, 219, 0.25)',
+    borderRadius: '17px'
   },
   cardMedia: {
-    width: 160
+    width: '392.75px',
+    height: '241.84px',
+    left: '265px',
+    top: '1893px',
+    borderRadius: '16.4454px'
+  },
+
+  cardcontent: {
+    padding: '3%',
+    height: '113.0642852782031px',
+    width: '855.177124023435px',
+    left: '704.2783203125px',
+    top: '1944px',
+    borderRadius: 'nullpx'
+  },
+  typography: {
+    fontFamily: 'Ubuntu',
+    fontSize: '31px',
+    fontStyle: 'normal',
+    fontWeight: '700',
+    lineHeight: '35px',
+    letterSpacing: '0em',
+    textAlign: 'left'
+  },
+  author: {
+    marginTow: '1000px',
+    height: '16.445714950561523px',
+    width: '199.40428161621094px',
+    left: '703px',
+    top: '2067.3428344726562px',
+    color: '#999FAA'
   }
 });
 
@@ -29,42 +58,37 @@ export default function NewsItem(props) {
     new Date(s).toLocaleDateString(undefined, { dateStyle: 'long' });
 
   return (
-    <Grid item>
-      <Card className={classes.card}>
-        <div className={classes.cardDetails}>
-          <CardContent>
-            <Typography component="h2" variant="h5">
-              {item.title}
-            </Typography>
-            <Typography variant="subtitle1" color="textSecondary">
-              {formatDate(item.pubDate)}
-            </Typography>
-            {/* <Typography
+      <Grid item>
+    <Card className={classes.card}>
+      {item.media && (
+        <CardMedia
+          className={classes.cardMedia}
+          image={item.media}
+          title={item.title}
+        />
+      )}
+
+      <CardContent className={classes.cardcontent}>
+        <Typography className={classes.typography} component="h2" variant="h5">
+          {item.title}
+        </Typography>
+
+        {/* <Typography
               variant="subtitle1"
               paragraph
               dangerouslySetInnerHTML={{ __html: item.description }}
             /> */}
-            <Typography
-              variant="subtitle1"
-              color="primary"
-              component="a"
-              href={item.link}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Continue reading...
-            </Typography>
-          </CardContent>
-        </div>
-        <Hidden xsDown>
-          <CardMedia
-            className={classes.cardMedia}
-            image={item.media}
-            title={item.title}
-          />
-        </Hidden>
-      </Card>
-    </Grid>
+        <Typography
+          variant="subtitle1"
+          className={classes.author}
+          color="primary"
+          component="a"
+        >
+          by Billy Jackson {formatDate(item.pubDate)}
+        </Typography>
+      </CardContent>
+    </Card>
+  </Grid>
   );
 }
 

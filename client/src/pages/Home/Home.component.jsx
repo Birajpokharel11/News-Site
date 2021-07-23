@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react';
-
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { NewsItem } from '../../components';
-import { SelectedChip } from './components';
+import { HeroSection, CategorySection } from './components';
 
 import container from './Home.container';
 
@@ -90,21 +87,22 @@ const options2 = [
   { label: 'infrastructure' }
 ];
 
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2)
-  },
-  chipContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
-    '& > *': {
-      margin: theme.spacing(0.5)
-    }
+const useStyles = makeStyles(() => ({
+  pagination: {
+    width: '191.18px',
+    height: '22.61px',
+    fontFamily: 'Montserrat',
+    fontStyle: 'normal',
+    fontWeight: '600',
+    fontSize: '16.4457px',
+    lineHeight: '23px',
+    textAlign: 'right',
+    textDecorationLine: 'underline',
+    color: '#000000',
+    flex: 'none',
+    order: '0',
+    flexGrow: '0',
+    margin: '0px 8.22286px'
   }
 }));
 
@@ -224,73 +222,42 @@ const Home = (props) => {
       return <Typography variant="h4">No results</Typography>;
     }
 
-    return list.map((item) => <NewsItem key={item.guid.text} item={item} />);
+    return list.slice(0, 10).map((item) => <NewsItem key={item.guid.text} item={item} />);
   };
 
   return (
-    <Box mt="1.5rem" style={{ backgroundColor: '#f8fbff', margin: '0' }}>
-      <Container maxWidth="md">
-        <Box mb="2rem">
-          <Typography variant="h3">Market</Typography>
-          <Card>
-            <CardContent className={classes.chipContainer}>
-              {country.map((option, index) => (
-                <SelectedChip
-                  key={option.value}
-                  index={index}
-                  label={option.label}
-                  selected={option.selected}
-                  onClick={handleClickCountry}
-                />
-              ))}
-            </CardContent>
-          </Card>
-        </Box>
-        <Box mb="2rem">
-          <Typography variant="h3">Companies</Typography>
-          <Card>
-            <CardContent className={classes.chipContainer}>
-              {companies.map((option, index) => (
-                <SelectedChip
-                  key={`companies-${index + 1}`}
-                  index={index}
-                  label={option.label}
-                  selected={option.selected}
-                  onClick={handleClickCompanies}
-                />
-              ))}
-            </CardContent>
-          </Card>
-        </Box>
-        <Box mb="2rem">
-          <Typography variant="h3">Themes</Typography>
-          <Card>
-            <CardContent className={classes.chipContainer}>
-              {themes.map((option, index) => (
-                <SelectedChip
-                  key={`themes-${index + 1}`}
-                  index={index}
-                  label={option.label}
-                  selected={option.selected}
-                  onClick={handleClickThemes}
-                />
-              ))}
-            </CardContent>
-          </Card>
-        </Box>
-
+    <>
+      <HeroSection />
+      <CategorySection
+        country={country}
+        companies={companies}
+        themes={themes}
+        handleClickCountry={handleClickCountry}
+        handleClickCompanies={handleClickCompanies}
+        handleClickThemes={handleClickThemes}
+      />
+      <Container>
         <Box>
           <Grid
-            container
-            justifyContent="center"
-            direction="column"
-            spacing={4}
+              container
+              justifyContent="center"
+              direction="column"
+              spacing={4}
           >
             {getContent()}
+            <Grid item>
+              <Typography className={classes.pagination}>
+                Seemore result
+              </Typography>
+              <Typography className={classes.pagination}>
+                Seemore result
+              </Typography>
+            </Grid>
           </Grid>
+          {getContent()}
         </Box>
       </Container>
-    </Box>
+    </>
   );
 };
 
