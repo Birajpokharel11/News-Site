@@ -222,7 +222,9 @@ const Home = (props) => {
       return <Typography variant="h4">No results</Typography>;
     }
 
-    return list.slice(0, 10).map((item) => <NewsItem key={item.guid.text} item={item} />);
+    return list
+      .slice(0, 10)
+      .map((item) => <NewsItem key={item.guid.text} item={item} />);
   };
 
   return (
@@ -239,10 +241,10 @@ const Home = (props) => {
       <Container>
         <Box>
           <Grid
-              container
-              justifyContent="center"
-              direction="column"
-              spacing={4}
+            container
+            justifyContent="center"
+            direction="column"
+            spacing={4}
           >
             {getContent()}
             <Grid item>
@@ -254,7 +256,6 @@ const Home = (props) => {
               </Typography>
             </Grid>
           </Grid>
-          {getContent()}
         </Box>
       </Container>
     </>
