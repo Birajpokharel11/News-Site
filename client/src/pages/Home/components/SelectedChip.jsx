@@ -18,16 +18,14 @@ const useStyles = makeStyles((theme) => ({
 export default function Markets({ label, selected, onClick, index }) {
   const classes = useStyles();
   return (
-    <>
-      <Button
-        color="primary"
-        label={label}
-        variant={selected ? 'contained' : 'outlined'}
-        onClick={onClick(index)}
-        className={classes.button}
-      >
-        {label}
-      </Button>
-    </>
+    <Button
+      color="primary"
+      label={label}
+      variant={selected ? 'contained' : 'outlined'}
+      onClick={onClick(index)}
+      className={classes.button}
+    >
+      {label}
+    </Button>
   );
 }

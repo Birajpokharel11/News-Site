@@ -99,7 +99,7 @@ const Footer = (props) => {
           </Typography>
 
           <Box mt="1.5rem">
-            <Grid container direction="column" spacing={1}>
+            <Grid container direction="column" alignItems="center" spacing={1}>
               <Grid item>
                 <Paper component="form" className={classes.paper}>
                   <InputBase
