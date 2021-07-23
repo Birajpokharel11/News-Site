@@ -96,8 +96,6 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   pagination: {
-    width: '191.18px',
-    height: '22.61px',
     fontFamily: 'Montserrat',
     fontStyle: 'normal',
     fontWeight: '600',
@@ -105,11 +103,10 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: '23px',
     textAlign: 'right',
     textDecorationLine: 'underline',
-    color: '#000000',
-    flex: 'none',
-    order: '0',
-    flexGrow: '0',
-    margin: '0px 8.22286px'
+    color: '#000000'
+  },
+  label: {
+    textTransform: 'none'
   }
 }));
 
@@ -265,11 +262,14 @@ const Home = (props) => {
             1.535 results
           </Typography>
           <Button
-            className={classes.pagination}
+            classes={{
+              root: classes.pagination, // class name, e.g. `classes-nesting-root-x`
+              label: classes.label // class name, e.g. `classes-nesting-label-x`
+            }}
             onClick={handleChangePage}
             endIcon={<ArrowForwardIcon />}
           >
-            Seemore result
+            Show me more results
           </Button>
         </Grid>
       </Grid>
