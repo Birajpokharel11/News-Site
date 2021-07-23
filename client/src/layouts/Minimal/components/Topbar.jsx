@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
 
 import Logo from '../../../assets/img/logo.svg';
+import { Hidden } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,12 +36,20 @@ const useStyles = makeStyles((theme) => ({
   search: {
     position: 'relative',
     boxShadow: '0px 4px 24px rgba(84, 95, 219, 0.25)',
-    borderRadius: '9px',
-    marginLeft: 0,
+    borderRadius: '17px',
+    marginLeft: '8px',
     width: '100%',
+    height: '74px',
     [theme.breakpoints.up('sm')]: {
       width: 'auto'
     }
+  },
+  Button: {
+    width: '140px',
+    height: '74px',
+    borderRadius: '17px',
+    background: '#545FDB',
+    color: 'white'
   },
   searchIcon: {
     padding: theme.spacing(0, 2),
@@ -63,6 +72,27 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('md')]: {
       width: '20ch'
     }
+  },
+  MobileInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create('width'),
+    marginLeft: '6px',
+    width: 0,
+    '&:hover': {
+      width: '20ch'
+    }
+  },
+  MobileSearch: {
+    position: 'relative',
+    boxShadow: '0px 4px 24px rgba(84, 95, 219, 0.25)',
+    borderRadius: '9px',
+    marginLeft: '8px',
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: 'auto'
+    }
   }
 }));
 
@@ -80,27 +110,39 @@ const Topbar = (props) => {
         <img className={classes.logo} alt="Logo" src={Logo} />
 
         <div className={classes.flexGrow} />
-
-        <Paper className={classes.search}>
-          <div className={classes.searchIcon}>
-            <SearchIcon />
-          </div>
-          <InputBase
-            placeholder="Search…"
-            classes={{
-              root: classes.inputRoot,
-              input: classes.inputInput
-            }}
-            inputProps={{ 'aria-label': 'search' }}
-          />
-          <Button
-            variant="contained"
-            color="Primary"
-            className={classes.Button}
-          >
-            Search
-          </Button>
-        </Paper>
+        <Hidden smDown>
+          <Paper className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <InputBase
+              placeholder="Search…"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput
+              }}
+              inputProps={{ 'aria-label': 'search' }}
+            />
+            <Button variant="contained" className={classes.Button}>
+              Search
+            </Button>
+          </Paper>
+        </Hidden>
+        <Hidden mdUp>
+          <Paper className={classes.MobileSearch}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <InputBase
+              placeholder="Search…"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.MobileInput
+              }}
+              inputProps={{ 'aria-label': 'search' }}
+            />
+          </Paper>
+        </Hidden>
       </Toolbar>
     </AppBar>
   );
