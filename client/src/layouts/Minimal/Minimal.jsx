@@ -9,7 +9,7 @@ const useStyles = makeStyles(() => ({
     height: '100%'
   },
   content: {
-    marginTop: 64,
+    marginTop: 10,
     height: '100%'
   }
 }));

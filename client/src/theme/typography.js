@@ -1,6 +1,7 @@
 import palette from './palette';
 
 export default {
+  fontFamily: 'Ubuntu, sans-serif',
   h1: {
     color: palette.text.primary,
     fontWeight: 500,

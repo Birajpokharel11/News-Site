@@ -6,12 +6,15 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+import CardActionArea from '@material-ui/core/CardActionArea';
 
 const useStyles = makeStyles({
   card: {
     display: 'flex',
     boxShadow: '0px 4px 24px rgba(84, 95, 219, 0.25)',
-    borderRadius: '17px'
+    borderRadius: '17px',
+    padding: 4,
+    minHeight: 140
   },
   cardDetails: {
     flex: 1
@@ -23,13 +26,18 @@ const useStyles = makeStyles({
   },
   title: {
     fontFamily: 'Ubuntu',
-    fontSize: '31px',
     fontStyle: 'normal',
-    fontWeight: '700',
+    fontWeight: 'bold',
+    fontSize: '30px',
     lineHeight: '35px',
-    letterSpacing: '0em'
+    color: '#000000'
   },
-  author: {
+  subtitle: {
+    fontFamily: 'Ubuntu',
+    fontStyle: 'normal',
+    fontWeight: 500,
+    fontSize: '14.39px',
+    lineHeight: '17px',
     color: '#999FAA'
   }
 });
@@ -42,33 +50,34 @@ export default function NewsItem(props) {
   const formatDate = (s) =>
     new Date(s).toLocaleDateString(undefined, { dateStyle: 'long' });
 
+  const redirect = () => {
+    // route to new page by changing window.location
+    window.open(item.link, '_blank'); //to open new page
+  };
+
   return (
     <Grid item>
       <Card className={classes.card}>
-        {item.media && (
-          <CardMedia
-            className={classes.cardMedia}
-            image={item.media}
-            title={item.title}
-          />
-        )}
+        <CardActionArea onClick={redirect} style={{ display: 'flex' }}>
+          {item.media && (
+            <CardMedia
+              className={classes.cardMedia}
+              image={item.media}
+              title={item.title}
+            />
+          )}
 
-        <div className={classes.cardDetails}>
-          <CardContent>
-            <Typography className={classes.title} component="h2" variant="h5">
-              {item.title}
-            </Typography>
-
-            {/* <Typography
-              variant="subtitle1"
-              paragraph
-              dangerouslySetInnerHTML={{ __html: item.description }}
-            /> */}
-            <Typography variant="subtitle1" className={classes.author}>
-              by Billy Jackson {formatDate(item.pubDate)}
-            </Typography>
-          </CardContent>
-        </div>
+          <div className={classes.cardDetails}>
+            <CardContent style={{ height: '85%' }}>
+              <Grid container alignItems="center" style={{ height: '100%' }}>
+                <Typography className={classes.title}>{item.title}</Typography>
+                <Typography className={classes.subtitle}>
+                  by Billy Jackson {formatDate(item.pubDate)}
+                </Typography>
+              </Grid>
+            </CardContent>
+          </div>
+        </CardActionArea>
       </Card>
     </Grid>
   );

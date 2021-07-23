@@ -9,6 +9,8 @@ import InputBase from '@material-ui/core/InputBase';
 import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
 
+import Logo from '../../../assets/img/logo.svg';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: '2%',
@@ -70,9 +72,8 @@ const Topbar = (props) => {
       elevation={0}
     >
       <Toolbar>
-        <Typography variant="h3" className={classes.title}>
-          DATACenterInvest.ASIA
-        </Typography>
+        <img alt="Logo" src={Logo} />
+
         <div className={classes.flexGrow} />
 
         <Paper className={classes.search}>
