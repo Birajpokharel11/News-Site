@@ -152,7 +152,8 @@ const Footer = (props) => {
         }}
       >
         <Typography className={classes.footer}>
-          {new Date().getFullYear()} DataCenterinvest.Asia, All rights reserved
+          © {new Date().getFullYear()} DataCenterinvest.Asia, All rights
+          reserved
         </Typography>
       </Paper>
     </>
