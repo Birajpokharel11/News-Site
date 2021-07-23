@@ -9,11 +9,11 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
-import Test from '../../../assets/img/testjpg.jpg';
-import Test2 from '../../../assets/img/logo2.jpg';
-import Test3 from '../../../assets/img/logo3.jpg';
-import Test4 from '../../../assets/img/logo4.jpg';
-import Test5 from '../../../assets/img/logo5.jpg';
+import Test from '../../../assets/img/image1.jpeg';
+import Test2 from '../../../assets/img/image2.jpeg';
+import Test3 from '../../../assets/img/image3.jpeg';
+import Test4 from '../../../assets/img/image4.jpeg';
+import Test5 from '../../../assets/img/image5.jpeg';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -21,9 +21,45 @@ const useStyles = makeStyles(() => ({
     boxShadow: '0px 4px 24px rgba(84, 95, 219, 0.25)',
     borderRadius: 0
   },
-  media: {
-    height: 140,
-    borderRadius: 6
+  title1: {
+    fontFamily: 'Ubuntu',
+    fontStyle: 'normal',
+    fontWeight: 'bold',
+    fontSize: '29.8453px',
+    lineHeight: '34px',
+    color: '#000000'
+  },
+  subtitle1: {
+    fontFamily: 'Ubuntu',
+    fontStyle: 'normal',
+    fontWeight: 500,
+    fontSize: '13.9278px',
+    lineHeight: '16px',
+    color: '#999FAA'
+  },
+  title2: {
+    fontFamily: 'Ubuntu',
+    fontStyle: 'normal',
+    fontWeight: 'bold',
+    fontSize: '15.9175px',
+    lineHeight: '18px',
+    color: '#000000'
+  },
+  subtitle2: {
+    fontFamily: 'Ubuntu',
+    fontStyle: 'normal',
+    fontWeight: 500,
+    fontSize: '9.94844px',
+    lineHeight: '11px',
+    color: '#999FAA'
+  },
+  mediaLg: {
+    height: 350,
+    borderRadius: 16
+  },
+  mediaSm: {
+    height: 165,
+    borderRadius: 16
   }
 }));
 
@@ -37,16 +73,21 @@ const HeroSection = () => {
           <Card elevation={0}>
             <CardActionArea>
               <CardMedia
-                className={classes.media}
+                className={classes.mediaLg}
                 image={Test}
                 title="Contemplative Reptile"
               />
               <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="h2"
+                  className={classes.title1}
+                >
                   "London Black Lives Matter": peaceful Protest from Hyde Park
                   to Trafalgar Square via Buckingham Palace
                 </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
+                <Typography className={classes.subtitle1}>
                   by Billy Jackson 16 hours ago
                 </Typography>
               </CardContent>
@@ -58,20 +99,21 @@ const HeroSection = () => {
             <Card elevation={0}>
               <CardActionArea>
                 <CardMedia
-                  className={classes.media}
+                  className={classes.mediaSm}
                   image={Test2}
                   title="Contemplative Reptile"
                 />
                 <CardContent>
-                  <Typography gutterBottom variant="h5" component="h2">
+                  <Typography
+                    gutterBottom
+                    variant="h5"
+                    component="h2"
+                    className={classes.title2}
+                  >
                     Elon musk reveals huge first test of starship rocket booster
                     built for mars
                   </Typography>
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    component="p"
-                  >
+                  <Typography className={classes.subtitle2}>
                     by Billy Jackson 16 hours ago
                   </Typography>
                 </CardContent>
@@ -82,19 +124,20 @@ const HeroSection = () => {
             <Card elevation={0}>
               <CardActionArea>
                 <CardMedia
-                  className={classes.media}
+                  className={classes.mediaSm}
                   image={Test3}
                   title="Contemplative Reptile"
                 />
                 <CardContent>
-                  <Typography gutterBottom variant="h5" component="h2">
+                  <Typography
+                    gutterBottom
+                    variant="h5"
+                    component="h2"
+                    className={classes.title2}
+                  >
                     Covid-19: PM and chancellor to self-isolate in U-turn
                   </Typography>
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    component="p"
-                  >
+                  <Typography className={classes.subtitle2}>
                     by Billy Jackson 16 hours ago
                   </Typography>
                 </CardContent>
@@ -105,20 +148,21 @@ const HeroSection = () => {
             <Card elevation={0}>
               <CardActionArea>
                 <CardMedia
-                  className={classes.media}
+                  className={classes.mediaSm}
                   image={Test4}
                   title="Contemplative Reptile"
                 />
                 <CardContent>
-                  <Typography gutterBottom variant="h5" component="h2">
+                  <Typography
+                    gutterBottom
+                    variant="h5"
+                    component="h2"
+                    className={classes.title2}
+                  >
                     Anna Kendrick lands next lead role in Marvel star's new
                     movie
                   </Typography>
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    component="p"
-                  >
+                  <Typography className={classes.subtitle2}>
                     by Billy Jackson 16 hours ago
                   </Typography>
                 </CardContent>
@@ -129,20 +173,21 @@ const HeroSection = () => {
             <Card elevation={0}>
               <CardActionArea>
                 <CardMedia
-                  className={classes.media}
+                  className={classes.mediaSm}
                   image={Test5}
                   title="Contemplative Reptile"
                 />
                 <CardContent>
-                  <Typography gutterBottom variant="h5" component="h2">
+                  <Typography
+                    gutterBottom
+                    variant="h5"
+                    component="h2"
+                    className={classes.title2}
+                  >
                     Facebook Tells Biden: ‘Facebook Is Not the Reason’
                     Vaccination Goal Was Missed
                   </Typography>
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    component="p"
-                  >
+                  <Typography className={classes.subtitle2}>
                     by Billy Jackson 16 hours ago
                   </Typography>
                 </CardContent>

@@ -3,6 +3,7 @@ import React from 'react';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import Button from '@material-ui/core/Button';
@@ -26,16 +27,11 @@ const useStyles = makeStyles((theme) => ({
   },
   search: {
     position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.25)
-    },
-    marginRight: theme.spacing(2),
+    boxShadow: '0px 4px 24px rgba(84, 95, 219, 0.25)',
+    borderRadius: '9px',
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
       width: 'auto'
     }
   },
@@ -79,7 +75,7 @@ const Topbar = (props) => {
         </Typography>
         <div className={classes.flexGrow} />
 
-        <div className={classes.search}>
+        <Paper className={classes.search}>
           <div className={classes.searchIcon}>
             <SearchIcon />
           </div>
@@ -98,7 +94,7 @@ const Topbar = (props) => {
           >
             Search
           </Button>
-        </div>
+        </Paper>
       </Toolbar>
     </AppBar>
   );
