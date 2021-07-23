@@ -97,8 +97,11 @@ const useStyles = makeStyles((theme) => ({
   mobileRoot: {
     display: 'flex',
     alignItems: 'center',
-    height: '64px',
-    width: '100%'
+    height: '56px',
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      height: '64px'
+    }
   },
   mobileInput: {
     padding: theme.spacing(1, 1, 1, 0),
