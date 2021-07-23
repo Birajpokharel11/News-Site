@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { alpha, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
+import CloseIcon from '@material-ui/icons/Close';
 
 import Logo from '../../../assets/img/logo.svg';
 import { Hidden } from '@material-ui/core';
@@ -41,22 +42,14 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     height: '74px',
     [theme.breakpoints.up('sm')]: {
-      width: 'auto'
+      width: '350px'
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '390px'
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: '690px'
     }
-  },
-  Button: {
-    width: '140px',
-    height: '74px',
-    borderRadius: '17px',
-    background: '#545FDB',
-    color: 'white',
-    fontFamily: 'Ubuntu',
-    fontSize: '20px',
-    fontStyle: 'normal',
-    fontWeight: '500',
-    lineHeight: '26px',
-    letterSpacing: '0em',
-    textAlign: 'left'
   },
   searchIcon: {
     padding: theme.spacing(0, 2),
@@ -74,36 +67,54 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: 'auto'
+    transition: theme.transitions.create('width')
+  },
+  searchButton: {
+    width: '140px',
+    height: '74px',
+    borderRadius: '17px',
+    background: '#545FDB',
+    color: 'white',
+    '&:hover': {
+      background: '#545FDB'
     }
   },
-  MobileInput: {
+  label: {
+    fontFamily: 'Ubuntu',
+    fontSize: '20px',
+    fontStyle: 'normal',
+    fontWeight: '500',
+    lineHeight: '26px',
+    letterSpacing: '0em',
+    textAlign: 'left',
+    textTransform: 'none'
+  },
+  mobileIcon: {
+    height: 35,
+    width: 35
+  },
+  mobileRoot: {
+    display: 'flex',
+    alignItems: 'center',
+    height: '64px',
+    width: '100%'
+  },
+  mobileInput: {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    paddingLeft: theme.spacing(2),
     transition: theme.transitions.create('width'),
-    marginLeft: '6px',
-    width: 0,
-    '&:hover': {
-      width: '20ch'
-    }
-  },
-  MobileSearch: {
-    position: 'relative',
-    boxShadow: '0px 4px 24px rgba(84, 95, 219, 0.25)',
-    borderRadius: '9px',
-    marginLeft: '8px',
-    [theme.breakpoints.up('sm')]: {
-      width: 'auto'
-    }
+    width: '100%'
   }
 }));
 
 const Topbar = (props) => {
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
+
+  const toggle = () => {
+    setOpen(!open);
+  };
 
   return (
     <AppBar
@@ -113,41 +124,66 @@ const Topbar = (props) => {
       elevation={0}
     >
       <Toolbar>
-        <img className={classes.logo} alt="Logo" src={Logo} />
+        {!open && (
+          <>
+            <img className={classes.logo} alt="Logo" src={Logo} />
+            <div className={classes.flexGrow} />
+          </>
+        )}
 
-        <div className={classes.flexGrow} />
         <Hidden smDown>
-          <Paper className={classes.search}>
+          <Paper component="form" className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
             <InputBase
+              fullWidth
               placeholder="Search…"
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput
               }}
               inputProps={{ 'aria-label': 'search' }}
+              endAdornment={
+                <Button
+                  size="large"
+                  classes={{
+                    root: classes.searchButton,
+                    label: classes.label
+                  }}
+                  type="submit"
+                >
+                  Search
+                </Button>
+              }
             />
-            <Button variant="contained" className={classes.Button}>
-              Search
-            </Button>
           </Paper>
         </Hidden>
         <Hidden mdUp>
-          <Paper className={classes.MobileSearch}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.MobileInput
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Paper>
+          {!open && (
+            <IconButton onClick={toggle}>
+              <SearchIcon className={classes.mobileIcon} />
+            </IconButton>
+          )}
+
+          {open && (
+            <Paper component="form" className={classes.mobileRoot}>
+              <InputBase
+                fullWidth
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.mobileInput
+                }}
+                inputProps={{ 'aria-label': 'search' }}
+                endAdornment={
+                  <IconButton onClick={toggle}>
+                    <CloseIcon />
+                  </IconButton>
+                }
+              />
+            </Paper>
+          )}
         </Hidden>
       </Toolbar>
     </AppBar>
