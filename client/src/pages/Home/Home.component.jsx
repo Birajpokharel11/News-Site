@@ -6,6 +6,7 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 import { NewsItem } from '../../components';
 import { HeroSection, CategorySection } from './components';
@@ -263,7 +264,11 @@ const Home = (props) => {
           <Typography variant="body2" color="textSecondary" component="p">
             1.535 results
           </Typography>
-          <Button className={classes.pagination} onClick={handleChangePage}>
+          <Button
+            className={classes.pagination}
+            onClick={handleChangePage}
+            endIcon={<ArrowForwardIcon />}
+          >
             Seemore result
           </Button>
         </Grid>

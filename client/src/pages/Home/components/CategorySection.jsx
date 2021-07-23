@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Collapse from '@material-ui/core/Collapse';
+import ClearIcon from '@material-ui/icons/Clear';
 
 import SelectedChip from './SelectedChip';
 
@@ -103,7 +104,7 @@ const CategorySection = ({
               />
             ))}
             <Button>Select All</Button>
-            <Button>Reset Filter</Button>
+            <Button endIcon={<ClearIcon />}>Reset Filter</Button>
           </Paper>
         </Box>
         <Box mb="2rem" className={classes.nested}>
@@ -123,7 +124,7 @@ const CategorySection = ({
               />
             ))}
             <Button>Select All</Button>
-            <Button>Reset Filter</Button>
+            <Button endIcon={<ClearIcon />}>Reset Filter</Button>
           </Paper>
         </Box>
         <Box mb="2rem" className={classes.nested}>
@@ -143,7 +144,9 @@ const CategorySection = ({
               />
             ))}
             <Button className={classes.endbutton}>Select All</Button>
-            <Button className={classes.endbutton}>Reset Filter</Button>
+            <Button className={classes.endbutton} endIcon={<ClearIcon />}>
+              Reset Filter
+            </Button>
           </Paper>
         </Box>
       </Collapse>
