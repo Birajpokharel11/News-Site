@@ -60,38 +60,35 @@ export default function NewsItem(props) {
     new Date(s).toLocaleDateString(undefined, { dateStyle: 'long' });
 
   return (
-    <>
-      <Card className={classes.card}>
+    <Card className={classes.card}>
+      {item.media && (
         <CardMedia
           className={classes.cardMedia}
           image={item.media}
           title={item.title}
         />
-        <CardContent className={classes.cardcontent}>
-          <Typography
-            className={classes.typography}
-            component="h2"
-            variant="h5"
-          >
-            {item.title}
-          </Typography>
+      )}
 
-          {/* <Typography
+      <CardContent className={classes.cardcontent}>
+        <Typography className={classes.typography} component="h2" variant="h5">
+          {item.title}
+        </Typography>
+
+        {/* <Typography
               variant="subtitle1"
               paragraph
               dangerouslySetInnerHTML={{ __html: item.description }}
             /> */}
-          <Typography
-            variant="subtitle1"
-            className={classes.author}
-            color="primary"
-            component="a"
-          >
-            by Billy Jackson {formatDate(item.pubDate)}
-          </Typography>
-        </CardContent>
-      </Card>
-    </>
+        <Typography
+          variant="subtitle1"
+          className={classes.author}
+          color="primary"
+          component="a"
+        >
+          by Billy Jackson {formatDate(item.pubDate)}
+        </Typography>
+      </CardContent>
+    </Card>
   );
 }
 

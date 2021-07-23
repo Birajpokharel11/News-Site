@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, PaperBox, Grid, Paper, Button } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { NewsItem } from '../../components';
-import { HeroSection, SelectedChip } from './components';
+import { HeroSection, CategorySection } from './components';
 
 import container from './Home.container';
 
@@ -87,22 +87,7 @@ const options2 = [
   { type: 'theme', key: 52, label: 'infrastructure' }
 ];
 
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2)
-  },
-  chipContainer: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    '& > *': {
-      margin: theme.spacing(0.5)
-    },
-    elevation: '0'
-  },
+const useStyles = makeStyles(() => ({
   pagination: {
     width: '191.18px',
     height: '22.61px',
@@ -118,43 +103,6 @@ const useStyles = makeStyles((theme) => ({
     order: '0',
     flexGrow: '0',
     margin: '0px 8.22286px'
-  },
-  topbutton: {
-    width: '300px',
-    borderColor: '#E5E5E5',
-    height: '80px',
-    fontFamily: 'Ubuntu',
-    fontStyle: 'normal',
-    fontWeight: '500',
-    fontSize: '20.9442px',
-    color: '#000000',
-    marginLeft: '1%',
-    marginTop: '1%'
-  },
-  categories: {
-    marginBottom: '2%',
-    height: '28.858139038085938px',
-    width: '149.6369171142578px',
-    borderRadius: 'nullpx',
-    fontFamily: 'Ubuntu',
-    fontStyle: 'normal',
-    fontWeight: '500',
-    fontSize: '22.1986px',
-    color: '#000000'
-  },
-  endbutton: {
-    fontFamily: 'Montserrat',
-    fontSize: '14px',
-    fontStyle: 'normal',
-    fontWeight: '600',
-    lineHeight: '16px',
-    letterSpacing: '0em',
-    textAlign: 'left',
-    background: '#9DA3E2',
-    color: '#E5E5E5',
-    '&:hover': {
-      background: 'none'
-    }
   }
 }));
 
@@ -292,74 +240,16 @@ const Home = (props) => {
   };
 
   return (
-    <Box mt="1.5rem">
+    <>
       <HeroSection />
-      <Button className={classes.topbutton} variant="outlined">
-        Categorie Selector
-      </Button>
-
-      <Container style={{ marginTop: '2%' }}>
-        <Box mb="2rem">
-          <Typography className={classes.categories}>Market</Typography>
-          <Paper
-            value={country}
-            className={classes.chipContainer}
-            elevation={0}
-          >
-            {country.map((option, index) => (
-              <SelectedChip
-                key={option.value}
-                index={index}
-                label={option.label}
-                selected={option.selected}
-                onClick={handleClickCountry}
-              />
-            ))}
-            <Button>Select All</Button>
-            <Button>Reset Filter</Button>
-          </Paper>
-        </Box>
-        <Box mb="2rem">
-          <Typography className={classes.categories}>Companies</Typography>
-          <Paper
-            value={country}
-            className={classes.chipContainer}
-            elevation={0}
-          >
-            {companies.map((option, index) => (
-              <SelectedChip
-                key={option.key}
-                index={index}
-                label={option.label}
-                selected={option.selected}
-                onClick={handleClickCompanies}
-              />
-            ))}
-            <Button>Select All</Button>
-            <Button>Reset Filter</Button>
-          </Paper>
-        </Box>
-        <Box mb="2rem">
-          <Typography className={classes.categories}>Themes</Typography>
-          <Paper
-            value={country}
-            className={classes.chipContainer}
-            elevation={0}
-          >
-            {themes.map((option, index) => (
-              <SelectedChip
-                key={option.key}
-                index={index}
-                label={option.label}
-                selected={option.selected}
-                onClick={handleClickThemes}
-              />
-            ))}
-            <Button className={classes.endbutton}>Select All</Button>
-            <Button className={classes.endbutton}>Reset Filter</Button>
-          </Paper>
-        </Box>
-      </Container>
+      <CategorySection
+        country={country}
+        companies={companies}
+        themes={themes}
+        handleClickCountry={handleClickCountry}
+        handleClickCompanies={handleClickCompanies}
+        handleClickThemes={handleClickThemes}
+      />
       <Container>
         <Box>
           {getContent()}
@@ -373,7 +263,7 @@ const Home = (props) => {
           </div>
         </Box>
       </Container>
-    </Box>
+    </>
   );
 };
 
