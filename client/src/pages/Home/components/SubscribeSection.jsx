@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Box from '@material-ui/core/Box';
@@ -8,6 +8,7 @@ import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container';
 import InputBase from '@material-ui/core/InputBase';
 import Button from '@material-ui/core/Button';
+import { subscribe } from './apiMethods';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -94,6 +95,35 @@ const SubscribeSection = () => {
   const theme = useTheme();
 
   const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
+
+  const isValid = () => {
+    if (name.length === 0) {
+      setError({ error: 'Name is required' });
+      return false;
+    }
+    // email@domain.com
+    if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+      setError({
+        error: 'A valid Email is required '
+      });
+      return false;
+    }
+    return true;
+  };
+  const clickSubmit = (e) => {
+    e.preventDefault();
+    if (isValid()) {
+      const user = {
+        name,
+        email
+      };
+
+      subscribe(user);
+    }
+  };
 
   return (
     <Box
@@ -108,7 +138,6 @@ const SubscribeSection = () => {
         <Typography className={classes.body}>
           Sign Up to Recieve Weekly Data
         </Typography>
-
         <Box component="form" mt="1.5rem">
           <Grid
             container
@@ -120,6 +149,7 @@ const SubscribeSection = () => {
               <Paper component="form" className={classes.paper}>
                 <InputBase
                   className={classes.input}
+                  onChange={(e) => setName(e.target.value)}
                   placeholder="Enter your name"
                 />
               </Paper>
@@ -128,6 +158,7 @@ const SubscribeSection = () => {
               <Paper component="form" className={classes.paper}>
                 <InputBase
                   className={classes.input}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
                 />
               </Paper>
@@ -136,6 +167,7 @@ const SubscribeSection = () => {
               <Button
                 variant="contained"
                 fullWidth
+                onClick={clickSubmit}
                 className={classes.subscribeButton}
                 type="submit"
               >
