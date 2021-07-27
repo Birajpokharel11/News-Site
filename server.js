@@ -39,10 +39,15 @@ app.use(hpp());
 // enable CORS
 app.use(cors());
 
-app.get('/', (req, res) => res.send('API running...'));
+// Serve static assets in production
+if (process.env.NODE_ENV === 'production') {
+  // set static folder
+  app.use(express.static('client/build'));
 
-// mount routers
-app.use('/api/v1/news', news);
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 // mount routers
 app.use('/api/v1/news', news);
