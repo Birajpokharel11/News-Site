@@ -4,17 +4,28 @@ const colors = require('colors');
 const helmet = require('helmet');
 const xss = require('xss-clean');
 const hpp = require('hpp');
+const morgan = require('morgan');
 const cors = require('cors');
 
 const errorHandler = require('./middleware/error');
+const connectDB = require('./config/db');
+
+// connect to database
+connectDB();
 
 // route files
 const news = require('./routes/news');
+const subs = require('./routes/subs');
 
 const app = express();
 
 // body parser
 app.use(express.json());
+
+// dev logging middleware
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 
 // set security headers
 app.use(helmet());
@@ -32,6 +43,10 @@ app.get('/', (req, res) => res.send('API running...'));
 
 // mount routers
 app.use('/api/v1/news', news);
+
+// mount routers
+app.use('/api/v1/news', news);
+app.use('/api/v1/subscribe', subs);
 
 app.use(errorHandler);
 
