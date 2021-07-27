@@ -158,7 +158,12 @@ const SubscribeSection = () => {
         <Typography className={classes.body}>
           Sign Up to Recieve Weekly Data
         </Typography>
-        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Snackbar
+          open={open}
+          autoHideDuration={6000}
+          direction="up"
+          onClose={handleClose}
+        >
           <MuiAlert
             elevation={6}
             variant="filled"
