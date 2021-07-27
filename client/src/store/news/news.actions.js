@@ -24,3 +24,18 @@ export const getOGFail = (error) => ({
   type: actionTypes.GET_OG_FAIL,
   payload: error
 });
+
+export const newsSubscribeStart = (email, name) => ({
+  type: actionTypes.NEWS_SUBSCRIBE_START,
+  payload: { email, name }
+});
+
+export const newsSubscribeSuccess = (response) => ({
+  type: actionTypes.NEWS_SUBSCRIBE_SUCCESS,
+  payload: response
+});
+
+export const newsSubscribeFail = (error) => ({
+  type: actionTypes.NEWS_SUBSCRIBE_FAIL,
+  payload: error
+});

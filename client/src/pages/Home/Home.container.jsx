@@ -2,7 +2,10 @@
 /* eslint-disable arrow-parens */
 import { connect } from 'react-redux';
 
-import { fetchNewsStart } from '../../store/news/news.actions';
+import {
+  fetchNewsStart,
+  newsSubscribeStart
+} from '../../store/news/news.actions';
 
 const mapStateToProps = (state) => ({
   news: state.news
@@ -10,7 +13,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onFetchNewsStart: (country, companies, themes) =>
-    dispatch(fetchNewsStart(country, companies, themes))
+    dispatch(fetchNewsStart(country, companies, themes)),
+  onNewsSubscribeStart: (email, name) =>
+    dispatch(newsSubscribeStart(email, name))
 });
 
 const container = connect(mapStateToProps, mapDispatchToProps);

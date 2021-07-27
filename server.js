@@ -6,22 +6,12 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const morgan = require('morgan');
 const cors = require('cors');
-const mongoose = require('mongoose');
-//mongoose connect
-mongoose
-  .connect(
-    'mongodb+srv://news123:news123@newssubs.c1wov.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
-    {
-      useUnifiedTopology: true,
-      useNewUrlParser: true
-    }
-  )
-  .then(console.log('connected to database'));
 
-mongoose.connection.on('error', (err) => {
-  console.log(`DB connection error: ${err.message}`);
-});
 const errorHandler = require('./middleware/error');
+const connectDB = require('./config/db');
+
+// connect to database
+connectDB();
 
 // route files
 const news = require('./routes/news');
@@ -29,11 +19,13 @@ const subs = require('./routes/subs');
 
 const app = express();
 
-//middleware4
-app.use(morgan('dev'));
-
 // body parser
 app.use(express.json());
+
+// dev logging middleware
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 
 // set security headers
 app.use(helmet());
@@ -47,10 +39,19 @@ app.use(hpp());
 // enable CORS
 app.use(cors());
 
-app.get('/', (req, res) => res.send('API running...'));
+// Serve static assets in production
+if (process.env.NODE_ENV === 'production') {
+  // set static folder
+  app.use(express.static('client/build'));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 // mount routers
 app.use('/api/v1/news', news);
+app.use('/api/v1/subscribe', subs);
 
 app.use(errorHandler);
 

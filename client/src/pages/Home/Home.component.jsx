@@ -115,7 +115,8 @@ const Home = (props) => {
 
   const {
     news: { newsIDs, news, loading },
-    onFetchNewsStart
+    onFetchNewsStart,
+    onNewsSubscribeStart
   } = props;
 
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -293,7 +294,7 @@ const Home = (props) => {
       />
 
       <Container>{getContent()}</Container>
-      <SubscribeSection />
+      <SubscribeSection onNewsSubscribeStart={onNewsSubscribeStart} />
     </>
   );
 };

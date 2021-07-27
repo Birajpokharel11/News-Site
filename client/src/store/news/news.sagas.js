@@ -4,6 +4,8 @@ import axios from 'axios';
 import * as actionTypes from './news.types';
 import * as actions from './news.actions';
 
+import { openAlert } from '../alert/alert.actions';
+
 const getNews = (state) => state.news;
 
 export function* fetchNewsAsync({ payload: { country, companies, themes } }) {
@@ -15,14 +17,11 @@ export function* fetchNewsAsync({ payload: { country, companies, themes } }) {
   }
 
   try {
-    const { data } = yield axios.post(
-      'https://api.datacenterinvest.asia/api/v1/news/search',
-      {
-        country,
-        companies,
-        themes
-      }
-    );
+    const { data } = yield axios.post('/api/v1/news/search', {
+      country,
+      companies,
+      themes
+    });
     yield put(actions.fetchNewsSuccess(data.items));
   } catch (err) {
     yield put(actions.fetchNewsFail(err));
@@ -34,12 +33,9 @@ export function* fetchOgTag(item) {
 
   if (!newsState.news[item.guid.text].media) {
     try {
-      const { data } = yield axios.post(
-        'https://api.datacenterinvest.asia/api/v1/news/scrape',
-        {
-          url: item.link
-        }
-      );
+      const { data } = yield axios.post('/api/v1/news/scrape', {
+        url: item.link
+      });
       console.log(data);
 
       yield put(actions.getOGSuccess(item.guid.text, data));
@@ -47,6 +43,23 @@ export function* fetchOgTag(item) {
       console.error(err);
       yield put(actions.getOGFail(err));
     }
+  }
+}
+
+export function* newsSubscribeAsync({ payload: { email, name } }) {
+  try {
+    const { data } = yield axios.post('/api/v1/news/subscribe', {
+      email,
+      name
+    });
+    console.log(data);
+
+    yield put(actions.newsSubscribeSuccess(data));
+    yield put(openAlert('Successfully Subscribed!!', 'success'));
+  } catch (err) {
+    console.error(err);
+    yield put(actions.newsSubscribeFail(err));
+    yield put(openAlert('Error Occurred!!!', 'error'));
   }
 }
 
@@ -80,10 +93,18 @@ export function* watchFetchNews() {
   yield takeLatest(actionTypes.FETCH_NEWS_START, fetchNewsAsync);
 }
 
+export function* watchNewsSubscribe() {
+  yield takeLatest(actionTypes.NEWS_SUBSCRIBE_START, newsSubscribeAsync);
+}
+
 export function* watchFetchNewsSuccess() {
   yield takeLatest(actionTypes.FETCH_NEWS_SUCCESS, fetchOgTagAsync);
 }
 
 export function* newsSagas() {
-  yield all([call(watchFetchNews), call(watchFetchNewsSuccess)]);
+  yield all([
+    call(watchFetchNews),
+    call(watchFetchNewsSuccess),
+    call(watchNewsSubscribe)
+  ]);
 }
