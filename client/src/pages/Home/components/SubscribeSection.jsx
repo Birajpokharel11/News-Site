@@ -119,6 +119,8 @@ const SubscribeSection = ({ onNewsSubscribeStart }) => {
 
     if (isValid()) {
       onNewsSubscribeStart(email, name);
+      setName('');
+      setEmail('');
     }
   };
 
