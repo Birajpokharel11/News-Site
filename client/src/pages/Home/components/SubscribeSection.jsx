@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import React, { useState } from 'react';
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -115,16 +116,24 @@ const SubscribeSection = () => {
   };
   const clickSubmit = (e) => {
     e.preventDefault();
+    const user = {
+      name,
+      email
+    };
     if (isValid()) {
-      const user = {
-        name,
-        email
-      };
-
-      subscribe(user);
+      subscribe(user).then((data) => {
+        if (data.error) console.log('fetchError', data.error);
+        // eslint-disable-next-line no-unused-expressions
+        else setEmail(''), setName('');
+      });
     }
   };
-
+  const handleName = (e) => {
+    setName(e.target.value), setError('');
+  };
+  const handleEmail = (e) => {
+    setEmail(e.target.value), setError('');
+  };
   return (
     <Box
       component={Paper}
@@ -133,6 +142,7 @@ const SubscribeSection = () => {
       justifyContent="center"
       className={classes.root}
     >
+      {console.log('errors', error)}
       <Container maxWidth="md">
         <Typography className={classes.title}>NEWSLETTER</Typography>
         <Typography className={classes.body}>
@@ -149,8 +159,9 @@ const SubscribeSection = () => {
               <Paper component="form" className={classes.paper}>
                 <InputBase
                   className={classes.input}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={(e) => handleName(e)}
                   placeholder="Enter your name"
+                  value={name}
                 />
               </Paper>
             </Grid>
@@ -158,8 +169,9 @@ const SubscribeSection = () => {
               <Paper component="form" className={classes.paper}>
                 <InputBase
                   className={classes.input}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => handleEmail(e)}
                   placeholder="Enter your email"
+                  value={email}
                 />
               </Paper>
             </Grid>
