@@ -8,7 +8,8 @@ const usersubscribe = new mongoose.Schema({
   email: {
     type: String,
     trim: true,
-    required: true
+    required: true,
+    unique: true
   },
   created: {
     type: Date,
