@@ -1,5 +1,12 @@
 const Post = require('../models/subscribe');
 
+exports.getsubs = (req, res) => {
+  const posts = Post.find()
+    .then((posts) => {
+      res.json({ posts: posts });
+    })
+    .catch((err) => console.log(err));
+};
 exports.createSubs = (req, res) => {
   const post = new Post(req.body);
   post.save((err, result) => {
