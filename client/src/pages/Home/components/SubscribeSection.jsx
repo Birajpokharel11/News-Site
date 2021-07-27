@@ -9,9 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container';
 import InputBase from '@material-ui/core/InputBase';
 import Button from '@material-ui/core/Button';
-import { subscribe } from './apiMethods';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100%',
@@ -92,7 +90,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const SubscribeSection = () => {
+const SubscribeSection = ({ onNewsSubscribeStart }) => {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -100,7 +98,6 @@ const SubscribeSection = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
-  const [open, setOpen] = useState(false);
 
   const isValid = () => {
     if (name.length === 0) {
@@ -116,34 +113,24 @@ const SubscribeSection = () => {
     }
     return true;
   };
+
   const clickSubmit = (e) => {
     e.preventDefault();
-    const user = {
-      name,
-      email
-    };
+
     if (isValid()) {
-      subscribe(user).then((data) => {
-        if (data.error) console.log('fetchError', data.error);
-        // eslint-disable-next-line no-unused-expressions
-        else setEmail(''), setName(''), setOpen(true);
-      });
+      onNewsSubscribeStart(email, name);
     }
   };
+
   const handleName = (e) => {
-    setName(e.target.value), setError('');
+    setName(e.target.value);
+    setError('');
   };
   const handleEmail = (e) => {
-    setEmail(e.target.value), setError('');
+    setEmail(e.target.value);
+    setError('');
   };
 
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
-  };
   return (
     <Box
       component={Paper}
@@ -158,21 +145,6 @@ const SubscribeSection = () => {
         <Typography className={classes.body}>
           Sign Up to Recieve Weekly Data
         </Typography>
-        <Snackbar
-          open={open}
-          autoHideDuration={6000}
-          direction="up"
-          onClose={handleClose}
-        >
-          <MuiAlert
-            elevation={6}
-            variant="filled"
-            onClose={handleClose}
-            severity="success"
-          >
-            User Subscribtion Sucessfull
-          </MuiAlert>
-        </Snackbar>
 
         <Box component="form" mt="1.5rem">
           <Grid

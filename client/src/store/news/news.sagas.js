@@ -4,6 +4,8 @@ import axios from 'axios';
 import * as actionTypes from './news.types';
 import * as actions from './news.actions';
 
+import { openAlert } from '../alert/alert.actions';
+
 const getNews = (state) => state.news;
 
 export function* fetchNewsAsync({ payload: { country, companies, themes } }) {
@@ -50,6 +52,26 @@ export function* fetchOgTag(item) {
   }
 }
 
+export function* newsSubscribeAsync({ payload: { email, name } }) {
+  try {
+    const { data } = yield axios.post(
+      'https://api.datacenterinvest.asia/api/v1/news/subscribe',
+      {
+        email,
+        name
+      }
+    );
+    console.log(data);
+
+    yield put(actions.newsSubscribeSuccess(data));
+    yield put(openAlert('Successfully Subscribed!!', 'success'));
+  } catch (err) {
+    console.error(err);
+    yield put(actions.newsSubscribeFail(err));
+    yield put(openAlert('Error Occurred!!!', 'error'));
+  }
+}
+
 export function* fetchOgTagAsync({ payload: { response } }) {
   const chunkedList = yield call(chunk, response, 10);
 
@@ -80,10 +102,18 @@ export function* watchFetchNews() {
   yield takeLatest(actionTypes.FETCH_NEWS_START, fetchNewsAsync);
 }
 
+export function* watchNewsSubscribe() {
+  yield takeLatest(actionTypes.NEWS_SUBSCRIBE_START, newsSubscribeAsync);
+}
+
 export function* watchFetchNewsSuccess() {
   yield takeLatest(actionTypes.FETCH_NEWS_SUCCESS, fetchOgTagAsync);
 }
 
 export function* newsSagas() {
-  yield all([call(watchFetchNews), call(watchFetchNewsSuccess)]);
+  yield all([
+    call(watchFetchNews),
+    call(watchFetchNewsSuccess),
+    call(watchNewsSubscribe)
+  ]);
 }

@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 
+import CustomAlert from '../../components/CustomAlert';
+
 import { Topbar, Footer } from './components';
 
 const useStyles = makeStyles(() => ({
@@ -21,6 +23,7 @@ const Minimal = (props) => {
 
   return (
     <div className={classes.root}>
+      <CustomAlert />
       <Topbar />
       <main className={classes.content}>{children}</main>
       <Footer />
