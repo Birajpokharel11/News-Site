@@ -47,7 +47,7 @@ app.use('/api/v1/subscribe', subs);
 
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5000;
 
 const server = app.listen(
   PORT,
