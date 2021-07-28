@@ -9,13 +9,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
-import fallbackImg from '../../assets/img/fallback_image.jpg';
-
-import Test from '../../../assets/img/image1.jpeg';
-import Test2 from '../../../assets/img/image2.jpeg';
-import Test3 from '../../../assets/img/image3.jpeg';
-import Test4 from '../../../assets/img/image4.jpeg';
-import Test5 from '../../../assets/img/image5.jpeg';
+import fallbackImg from '../../../assets/img/fallback_image.jpg';
 
 const useStyles = makeStyles((theme) => ({
   root: {
