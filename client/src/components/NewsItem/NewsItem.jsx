@@ -11,6 +11,8 @@ import Hidden from '@material-ui/core/Hidden';
 
 import fallbackImg from '../../assets/img/fallback_image.jpg';
 
+import { formatDate } from '../../utils/misc';
+
 const useStyles = makeStyles((theme) => ({
   card: {
     display: 'flex',
@@ -54,13 +56,6 @@ const useStyles = makeStyles((theme) => ({
 export default function NewsItem(props) {
   const classes = useStyles();
   const { item } = props;
-
-  const separateWords = (s) => s.replace(/[A-Z][a-z]+/g, '$& ').trim();
-  const formatDate = (s) =>
-    new Date(s).toLocaleDateString(undefined, {
-      dateStyle: 'long',
-      timeZone: 'UTC'
-    });
 
   const redirect = () => {
     // route to new page by changing window.location
