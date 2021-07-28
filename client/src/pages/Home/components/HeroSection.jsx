@@ -11,6 +11,8 @@ import Typography from '@material-ui/core/Typography';
 
 import fallbackImg from '../../../assets/img/fallback_image.jpg';
 
+import { formatDate } from '../../../utils/misc';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: '2.5rem',
@@ -71,9 +73,6 @@ const HeroSection = ({ featureNewsIDs, news, loading }) => {
   if (loading || !featureNewsIDs.length) {
     return <div></div>;
   }
-
-  const formatDate = (s) =>
-    new Date(s).toLocaleDateString(undefined, { dateStyle: 'long' });
 
   const redirect = (link) => {
     // route to new page by changing window.location
