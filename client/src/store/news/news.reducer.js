@@ -3,6 +3,7 @@ import * as actionTypes from './news.types';
 
 const INITIAL_STATE = {
   news: {},
+  featureNewsIDs: [],
   newsIDs: [],
   error: null,
   loading: false
@@ -26,7 +27,9 @@ const newsReducer = (state = INITIAL_STATE, action) => {
       };
 
       if (response.length) {
-        updatedState.newsIDs = response.map((item) => item.guid.text);
+        const ids = response.map((item) => item.guid.text);
+        updatedState.newsIDs = ids;
+        updatedState.featureNewsIDs = ids.slice(0, 5);
         response.forEach((item) => {
           if (!updatedState.news[item.guid.text]) {
             updatedState.news[item.guid.text] = item;

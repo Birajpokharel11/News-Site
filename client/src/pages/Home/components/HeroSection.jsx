@@ -9,6 +9,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
+import fallbackImg from '../../assets/img/fallback_image.jpg';
+
 import Test from '../../../assets/img/image1.jpeg';
 import Test2 from '../../../assets/img/image2.jpeg';
 import Test3 from '../../../assets/img/image3.jpeg';
@@ -69,19 +71,25 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const HeroSection = () => {
+const HeroSection = ({ featureNewsIDs, news, loading }) => {
   const classes = useStyles();
 
-  return (
-    <Paper className={classes.root}>
+  if (loading && !featureNewsIDs.length) {
+    return <div></div>;
+  }
+
+  const getContent = () => {
+    const list = featureNewsIDs.map((id) => news[id]);
+
+    return (
       <Grid container spacing={2}>
         <Grid item md>
           <Card elevation={0}>
             <CardActionArea>
               <CardMedia
                 className={classes.mediaLg}
-                image={Test}
-                title="Contemplative Reptile"
+                image={list[0].media ?? fallbackImg}
+                title={list[0].title}
               />
               <CardContent>
                 <Typography
@@ -90,8 +98,7 @@ const HeroSection = () => {
                   component="h2"
                   className={classes.title1}
                 >
-                  "London Black Lives Matter": peaceful Protest from Hyde Park
-                  to Trafalgar Square via Buckingham Palace
+                  {list[0].title}
                 </Typography>
                 <Typography className={classes.subtitle1}>
                   by Billy Jackson 16 hours ago
@@ -101,109 +108,38 @@ const HeroSection = () => {
           </Card>
         </Grid>
         <Grid item container md spacing={2}>
-          <Grid item md={6} sm={6} xs={12}>
-            <Card elevation={0}>
-              <CardActionArea>
-                <CardMedia
-                  className={classes.mediaSm}
-                  image={Test2}
-                  title="Contemplative Reptile"
-                />
-                <CardContent>
-                  <Typography
-                    gutterBottom
-                    variant="h5"
-                    component="h2"
-                    className={classes.title2}
-                  >
-                    Elon musk reveals huge first test of starship rocket booster
-                    built for mars
-                  </Typography>
-                  <Typography className={classes.subtitle2}>
-                    by Billy Jackson 16 hours ago
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
-          <Grid item md={6} sm={6} xs={12}>
-            <Card elevation={0}>
-              <CardActionArea>
-                <CardMedia
-                  className={classes.mediaSm}
-                  image={Test3}
-                  title="Contemplative Reptile"
-                />
-                <CardContent>
-                  <Typography
-                    gutterBottom
-                    variant="h5"
-                    component="h2"
-                    className={classes.title2}
-                  >
-                    Covid-19: PM and chancellor to self-isolate in U-turn
-                  </Typography>
-                  <Typography className={classes.subtitle2}>
-                    by Billy Jackson 16 hours ago
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
-          <Grid item md={6} sm={6} xs={12}>
-            <Card elevation={0}>
-              <CardActionArea>
-                <CardMedia
-                  className={classes.mediaSm}
-                  image={Test4}
-                  title="Contemplative Reptile"
-                />
-                <CardContent>
-                  <Typography
-                    gutterBottom
-                    variant="h5"
-                    component="h2"
-                    className={classes.title2}
-                  >
-                    Anna Kendrick lands next lead role in Marvel star's new
-                    movie
-                  </Typography>
-                  <Typography className={classes.subtitle2}>
-                    by Billy Jackson 16 hours ago
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
-          <Grid item md={6} sm={6} xs={12}>
-            <Card elevation={0}>
-              <CardActionArea>
-                <CardMedia
-                  className={classes.mediaSm}
-                  image={Test5}
-                  title="Contemplative Reptile"
-                />
-                <CardContent>
-                  <Typography
-                    gutterBottom
-                    variant="h5"
-                    component="h2"
-                    className={classes.title2}
-                  >
-                    Facebook Tells Biden: ‘Facebook Is Not the Reason’
-                    Vaccination Goal Was Missed
-                  </Typography>
-                  <Typography className={classes.subtitle2}>
-                    by Billy Jackson 16 hours ago
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
+          {list.slice(1, 5).map((item) => (
+            <Grid item md={6} sm={6} xs={12}>
+              <Card elevation={0}>
+                <CardActionArea>
+                  <CardMedia
+                    className={classes.mediaSm}
+                    image={item.media ?? fallbackImg}
+                    title={item.title}
+                  />
+                  <CardContent>
+                    <Typography
+                      gutterBottom
+                      variant="h5"
+                      component="h2"
+                      className={classes.title2}
+                    >
+                      {item.title}
+                    </Typography>
+                    <Typography className={classes.subtitle2}>
+                      by Billy Jackson 16 hours ago
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </Grid>
+          ))}
         </Grid>
       </Grid>
-    </Paper>
-  );
+    );
+  };
+
+  return <Paper className={classes.root}>{getContent()}</Paper>;
 };
 
 export default HeroSection;

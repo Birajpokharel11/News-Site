@@ -114,7 +114,7 @@ const Home = (props) => {
   const classes = useStyles();
 
   const {
-    news: { newsIDs, news, loading },
+    news: { featureNewsIDs, newsIDs, news, loading },
     onFetchNewsStart,
     onNewsSubscribeStart
   } = props;
@@ -283,7 +283,11 @@ const Home = (props) => {
 
   return (
     <>
-      <HeroSection />
+      <HeroSection
+        news={news}
+        featureNewsIDs={featureNewsIDs}
+        loading={loading}
+      />
       <CategorySection
         country={country}
         companies={companies}
