@@ -73,7 +73,10 @@ const HeroSection = ({ featureNewsIDs, news, loading }) => {
   }
 
   const formatDate = (s) =>
-    new Date(s).toLocaleDateString(undefined, { dateStyle: 'long' });
+    new Date(s).toLocaleDateString(undefined, {
+      dateStyle: 'long',
+      timeZone: 'UTC'
+    });
 
   const redirect = (link) => {
     // route to new page by changing window.location

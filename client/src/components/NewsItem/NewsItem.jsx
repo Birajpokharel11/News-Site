@@ -57,7 +57,10 @@ export default function NewsItem(props) {
 
   const separateWords = (s) => s.replace(/[A-Z][a-z]+/g, '$& ').trim();
   const formatDate = (s) =>
-    new Date(s).toLocaleDateString(undefined, { dateStyle: 'long' });
+    new Date(s).toLocaleDateString(undefined, {
+      dateStyle: 'long',
+      timeZone: 'UTC'
+    });
 
   const redirect = () => {
     // route to new page by changing window.location
