@@ -1,4 +1,4 @@
-const { check } = require('express-validator');
+const { validationResult } = require('express-validator');
 
 const asyncHandler = require('../middleware/async');
 const ErrorResponse = require('../utils/errorResponse');
@@ -26,7 +26,7 @@ exports.createSubs = asyncHandler(async (req, res, next) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-
+  console.log(req.body);
   const user = await User.create(req.body);
   res.status(200).json({
     success: true,
