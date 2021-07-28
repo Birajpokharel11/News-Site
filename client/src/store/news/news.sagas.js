@@ -55,7 +55,7 @@ export function* fetchOgTag(item) {
 export function* newsSubscribeAsync({ payload: { email, name } }) {
   try {
     const { data } = yield axios.post(
-      'https://api.datacenterinvest.asia/api/v1/news/subscribe',
+      'https://api.datacenterinvest.asia/api/v1/subscribe',
       {
         email,
         name

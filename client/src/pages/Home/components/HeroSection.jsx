@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
 const HeroSection = ({ featureNewsIDs, news, loading }) => {
   const classes = useStyles();
 
-  if (loading && !featureNewsIDs.length) {
+  if (loading || !featureNewsIDs.length) {
     return <div></div>;
   }
 

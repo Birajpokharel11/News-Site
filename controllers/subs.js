@@ -1,7 +1,9 @@
+const { validationResult } = require('express-validator');
+
 const asyncHandler = require('../middleware/async');
 const ErrorResponse = require('../utils/errorResponse');
 
-const Post = require('../models/subscribe');
+const User = require('../models/subscribe');
 
 // @desc    Get Subscriber
 // @route   GET /api/v1/subscribe
@@ -19,10 +21,15 @@ exports.getsubs = asyncHandler(async (req, res, next) => {
 // @desc    Create Subscriber
 // @route   POST /api/v1/subscribe
 // @access  Public
-exports.createSubs = asyncHandler(async (req, res) => {
-  const post = await Post.create(req.body);
+exports.createSubs = asyncHandler(async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  console.log(req.body);
+  const user = await User.create(req.body);
   res.status(200).json({
     success: true,
-    data: post
+    data: user
   });
 });
