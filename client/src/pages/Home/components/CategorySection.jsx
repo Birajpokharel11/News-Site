@@ -107,19 +107,6 @@ const CategorySection = ({
                 onClick={handleClickCountry}
               />
             ))}
-            <Button
-              size="small"
-              classes={{ root: classes.endbutton, label: classes.label }}
-            >
-              Select All
-            </Button>
-            <Button
-              size="small"
-              classes={{ root: classes.endbutton, label: classes.label }}
-              endIcon={<ClearIcon />}
-            >
-              Reset Filter
-            </Button>
           </Paper>
         </Box>
         <Box mb="2rem" className={classes.nested}>
