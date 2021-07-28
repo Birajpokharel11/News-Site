@@ -254,6 +254,7 @@ const Home = (props) => {
         direction="column"
         spacing={4}
         className={classes.nested}
+        style={{ marginTop: '3%' }}
       >
         {list.slice(0, rowsPerPage).map((item) => (
           <NewsItem key={item.guid.text} item={item} />
