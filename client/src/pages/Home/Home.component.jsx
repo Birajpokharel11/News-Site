@@ -220,7 +220,7 @@ const Home = (props) => {
   };
 
   const getContent = () => {
-    const list = newsIDs.map((id) => news[id]);
+    const list = newsIDs.slice().map((id) => news[id]);
     if (loading) {
       return (
         <Box
@@ -256,7 +256,7 @@ const Home = (props) => {
         className={classes.nested}
         style={{ marginTop: '3%' }}
       >
-        {list.slice(0, rowsPerPage).map((item) => (
+        {list.slice(5, rowsPerPage).map((item) => (
           <NewsItem key={item.guid.text} item={item} />
         ))}
         <Grid item container justifyContent="space-between">

@@ -86,7 +86,7 @@ export default function NewsItem(props) {
               <Grid container alignItems="center" style={{ height: '100%' }}>
                 <Typography className={classes.title}>{item.title}</Typography>
                 <Typography className={classes.subtitle}>
-                  by Billy Jackson {formatDate(item.pubDate)}
+                  by {item.source.text} {formatDate(item.pubDate)}
                 </Typography>
               </Grid>
             </div>
@@ -105,7 +105,7 @@ export default function NewsItem(props) {
             <CardContent>
               <Typography className={classes.title}>{item.title}</Typography>
               <Typography className={classes.subtitle}>
-                by Billy Jackson {formatDate(item.pubDate)}
+                by {item.source.text} {formatDate(item.pubDate)}
               </Typography>
             </CardContent>
           </CardActionArea>
