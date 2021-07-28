@@ -80,7 +80,26 @@ const CategorySection = ({
   const handleClick = () => {
     setOpen(!open);
   };
-
+  const mappingAll = () => {
+    companies.map((option) => {
+      return (option.selected = true);
+    });
+  };
+  const RemoveAll = () => {
+    companies.map((option) => {
+      return (option.selected = false);
+    });
+  };
+  const mappingThemes = () => {
+    themes.map((option) => {
+      return (option.selected = true);
+    });
+  };
+  const RemoveThemes = () => {
+    themes.map((option) => {
+      return (option.selected = false);
+    });
+  };
   return (
     <Box component={Container} mt="1.5rem">
       <Button
@@ -128,6 +147,7 @@ const CategorySection = ({
             <Button
               size="small"
               classes={{ root: classes.endbutton, label: classes.label }}
+              onClick={mappingAll}
             >
               Select All
             </Button>
@@ -135,6 +155,7 @@ const CategorySection = ({
               size="small"
               classes={{ root: classes.endbutton, label: classes.label }}
               endIcon={<ClearIcon />}
+              onClick={RemoveAll}
             >
               Reset Filter
             </Button>
@@ -159,6 +180,7 @@ const CategorySection = ({
             <Button
               size="small"
               classes={{ root: classes.endbutton, label: classes.label }}
+              onClick={mappingThemes}
             >
               Select All
             </Button>
@@ -166,6 +188,7 @@ const CategorySection = ({
               size="small"
               classes={{ root: classes.endbutton, label: classes.label }}
               endIcon={<ClearIcon />}
+              onClick={RemoveThemes}
             >
               Reset Filter
             </Button>
