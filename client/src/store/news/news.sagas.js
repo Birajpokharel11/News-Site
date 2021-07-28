@@ -17,11 +17,14 @@ export function* fetchNewsAsync({ payload: { country, companies, themes } }) {
   }
 
   try {
-    const { data } = yield axios.post('/api/v1/news/search', {
-      country,
-      companies,
-      themes
-    });
+    const { data } = yield axios.post(
+      'https://api.datacenterinvest.asia/api/v1/news/search',
+      {
+        country,
+        companies,
+        themes
+      }
+    );
     yield put(actions.fetchNewsSuccess(data.items));
   } catch (err) {
     yield put(actions.fetchNewsFail(err));
@@ -33,9 +36,12 @@ export function* fetchOgTag(item) {
 
   if (!newsState.news[item.guid.text].media) {
     try {
-      const { data } = yield axios.post('/api/v1/news/scrape', {
-        url: item.link
-      });
+      const { data } = yield axios.post(
+        'https://api.datacenterinvest.asia/api/v1/news/scrape',
+        {
+          url: item.link
+        }
+      );
       console.log(data);
 
       yield put(actions.getOGSuccess(item.guid.text, data));
@@ -48,10 +54,13 @@ export function* fetchOgTag(item) {
 
 export function* newsSubscribeAsync({ payload: { email, name } }) {
   try {
-    const { data } = yield axios.post('/api/v1/news/subscribe', {
-      email,
-      name
-    });
+    const { data } = yield axios.post(
+      'https://api.datacenterinvest.asia/api/v1/news/subscribe',
+      {
+        email,
+        name
+      }
+    );
     console.log(data);
 
     yield put(actions.newsSubscribeSuccess(data));
