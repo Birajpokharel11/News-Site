@@ -48,13 +48,10 @@ export function* fetchOgTag(item) {
 
 export function* newsSubscribeAsync({ payload: { email, name } }) {
   try {
-    const { data } = yield axios.post(
-      'http://localhost:5000/api/v1/subscribe',
-      {
-        email,
-        name
-      }
-    );
+    const { data } = yield axios.post('/api/v1/subscribe', {
+      email,
+      name
+    });
     console.log(data);
 
     yield put(actions.newsSubscribeSuccess(data));
