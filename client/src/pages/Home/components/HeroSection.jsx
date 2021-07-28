@@ -72,6 +72,14 @@ const HeroSection = ({ featureNewsIDs, news, loading }) => {
     return <div></div>;
   }
 
+  const formatDate = (s) =>
+    new Date(s).toLocaleDateString(undefined, { dateStyle: 'long' });
+
+  const redirect = (link) => {
+    // route to new page by changing window.location
+    window.open(link, '_blank'); //to open new page
+  };
+
   const getContent = () => {
     const list = featureNewsIDs.map((id) => news[id]);
 
@@ -79,7 +87,7 @@ const HeroSection = ({ featureNewsIDs, news, loading }) => {
       <Grid container spacing={2}>
         <Grid item md>
           <Card elevation={0}>
-            <CardActionArea>
+            <CardActionArea onClick={() => redirect(list[0].link)}>
               <CardMedia
                 className={classes.mediaLg}
                 image={list[0].media ?? fallbackImg}
@@ -95,7 +103,7 @@ const HeroSection = ({ featureNewsIDs, news, loading }) => {
                   {list[0].title}
                 </Typography>
                 <Typography className={classes.subtitle1}>
-                  by Billy Jackson 16 hours ago
+                  by {list[0].source.text} {formatDate(list[0].pubDate)}
                 </Typography>
               </CardContent>
             </CardActionArea>
@@ -105,7 +113,7 @@ const HeroSection = ({ featureNewsIDs, news, loading }) => {
           {list.slice(1, 5).map((item) => (
             <Grid item md={6} sm={6} xs={12}>
               <Card elevation={0}>
-                <CardActionArea>
+                <CardActionArea onClick={() => redirect(item.link)}>
                   <CardMedia
                     className={classes.mediaSm}
                     image={item.media ?? fallbackImg}
@@ -121,7 +129,7 @@ const HeroSection = ({ featureNewsIDs, news, loading }) => {
                       {item.title}
                     </Typography>
                     <Typography className={classes.subtitle2}>
-                      by Billy Jackson 16 hours ago
+                      by {item.source.text} {formatDate(item.pubDate)}
                     </Typography>
                   </CardContent>
                 </CardActionArea>
