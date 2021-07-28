@@ -23,10 +23,10 @@ const Minimal = (props) => {
 
   return (
     <div className={classes.root}>
-      <CustomAlert />
       <Topbar />
       <main className={classes.content}>{children}</main>
       <Footer />
+      <CustomAlert />
     </div>
   );
 };

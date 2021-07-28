@@ -57,7 +57,10 @@ export default function NewsItem(props) {
 
   const separateWords = (s) => s.replace(/[A-Z][a-z]+/g, '$& ').trim();
   const formatDate = (s) =>
-    new Date(s).toLocaleDateString(undefined, { dateStyle: 'long' });
+    new Date(s).toLocaleDateString(undefined, {
+      dateStyle: 'long',
+      timeZone: 'UTC'
+    });
 
   const redirect = () => {
     // route to new page by changing window.location
@@ -86,7 +89,7 @@ export default function NewsItem(props) {
               <Grid container alignItems="center" style={{ height: '100%' }}>
                 <Typography className={classes.title}>{item.title}</Typography>
                 <Typography className={classes.subtitle}>
-                  by Billy Jackson {formatDate(item.pubDate)}
+                  by {item.source.text} {formatDate(item.pubDate)}
                 </Typography>
               </Grid>
             </div>
@@ -105,7 +108,7 @@ export default function NewsItem(props) {
             <CardContent>
               <Typography className={classes.title}>{item.title}</Typography>
               <Typography className={classes.subtitle}>
-                by Billy Jackson {formatDate(item.pubDate)}
+                by {item.source.text} {formatDate(item.pubDate)}
               </Typography>
             </CardContent>
           </CardActionArea>

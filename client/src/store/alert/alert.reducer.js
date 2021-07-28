@@ -1,7 +1,7 @@
 const INITIAL_STATE = {
   openAlert: false,
   message: 'Something went wrong!',
-  severity: 'error',
+  severity: 'error'
 };
 
 const alertReducer = (state = INITIAL_STATE, action) => {
@@ -12,7 +12,7 @@ const alertReducer = (state = INITIAL_STATE, action) => {
       return {
         openAlert: true,
         message: payload.message,
-        severity: payload.severity,
+        severity: payload.severity
       };
     case 'CLOSE_ALERT':
       return { ...state, openAlert: false };
