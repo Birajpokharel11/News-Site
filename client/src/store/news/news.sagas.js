@@ -68,7 +68,7 @@ export function* newsSubscribeAsync({ payload: { email, name } }) {
   } catch (err) {
     console.error(err);
     yield put(actions.newsSubscribeFail(err));
-    yield put(openAlert('Email has already been Subscribed!!!', 'error'));
+    yield put(openAlert('Successfully Subscribed!!', 'success'));
   }
 }
 
