@@ -52,8 +52,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     borderRadius: '15px',
     display: 'flex',
-    justifyContent: 'center',
-    marginBottom: '2%'
+    justifyContent: 'center'
   },
   input: {
     fontFamily: 'Ubuntu',
@@ -64,8 +63,7 @@ const useStyles = makeStyles((theme) => ({
     letterSpacing: '1px',
     color: '#2B3D51',
     width: '100%',
-    paddingLeft: '40px',
-    paddingRight: '40px',
+    padding: '0 27px',
     [theme.breakpoints.up('sm')]: {
       width: '560px'
     }
@@ -75,8 +73,6 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     borderRadius: '15px',
     background: '#9DA3E2',
-    marginBottom: '6%',
-
     [theme.breakpoints.up('md')]: {
       width: '560px'
     },
@@ -153,12 +149,12 @@ const SubscribeSection = ({ onNewsSubscribeStart }) => {
           Sign Up to Recieve Weekly Data
         </Typography>
 
-        <Box component="form" mt="1.5rem">
+        <Box component="form" mt="1.5rem" mb="2rem">
           <Grid
             container
             direction="column"
             alignItems={matchesSM ? undefined : 'center'}
-            spacing={1}
+            spacing={2}
           >
             <Grid item xs>
               <Paper component="form" className={classes.paper}>
@@ -180,7 +176,7 @@ const SubscribeSection = ({ onNewsSubscribeStart }) => {
                 />
               </Paper>
             </Grid>
-            <Grid item xs>
+            <Grid item xs style={{ marginTop: '0.25rem' }}>
               <Button
                 variant="contained"
                 fullWidth
