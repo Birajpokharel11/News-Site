@@ -267,7 +267,7 @@ const Home = (props) => {
     }
     const scrollToTop = () => {
       window.scrollTo({
-        top: 0,
+        top: 800,
         behavior: 'smooth'
         /* you can also use 'auto' behaviour
            in place of 'smooth' */
