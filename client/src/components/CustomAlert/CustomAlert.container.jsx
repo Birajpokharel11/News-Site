@@ -8,6 +8,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onCloseAlert: () => dispatch(closeAlert())
 });
+
 const container = connect(mapStateToProps, mapDispatchToProps);
-console.log(container);
+
 export default container;
