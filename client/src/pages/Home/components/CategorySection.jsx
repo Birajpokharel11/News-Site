@@ -84,7 +84,7 @@ const CategorySection = ({
   };
 
   return (
-    <Box component={Container} mt="1.5rem">
+    <Box component={Container} mt="1.5rem" mb="1rem">
       <Button
         className={classes.topbutton}
         variant="outlined"
