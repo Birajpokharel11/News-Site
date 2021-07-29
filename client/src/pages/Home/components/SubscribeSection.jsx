@@ -63,7 +63,8 @@ const useStyles = makeStyles((theme) => ({
     letterSpacing: '1px',
     color: '#2B3D51',
     width: '100%',
-    paddingLeft: '10px',
+    paddingLeft: '40px',
+    paddingRight: '20px',
     [theme.breakpoints.up('sm')]: {
       width: '560px'
     }
