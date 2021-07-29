@@ -214,6 +214,15 @@ const Home = (props) => {
     search();
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 800,
+      behavior: 'smooth'
+      /* you can also use 'auto' behaviour
+         in place of 'smooth' */
+    });
+  };
+
   const getContent = () => {
     const list = newsIDs.map((id) => news[id]);
     if (loading) {
@@ -241,14 +250,6 @@ const Home = (props) => {
         </Box>
       );
     }
-    const scrollToTop = () => {
-      window.scrollTo({
-        top: 800,
-        behavior: 'smooth'
-        /* you can also use 'auto' behaviour
-           in place of 'smooth' */
-      });
-    };
 
     return (
       <Grid
