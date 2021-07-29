@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
     background: '#9DA3E2',
     marginBottom: '6%',
 
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       width: '560px'
     },
     '&:hover': {
