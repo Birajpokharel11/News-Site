@@ -49,14 +49,10 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     height: '57px',
-    width: '100%',
     borderRadius: '15px',
     display: 'flex',
     justifyContent: 'center',
-    marginBottom: '2%',
-    [theme.breakpoints.up('sm')]: {
-      width: '560px'
-    }
+    marginBottom: '2%'
   },
   input: {
     fontFamily: 'Ubuntu',
@@ -65,7 +61,12 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: '400',
     lineHeight: '22px',
     letterSpacing: '1px',
-    color: '#2B3D51'
+    color: '#2B3D51',
+    width: '100%',
+    paddingLeft: '10px',
+    [theme.breakpoints.up('sm')]: {
+      width: '560px'
+    }
   },
   subscribeButton: {
     height: '57px',
