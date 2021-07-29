@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     height: '57px',
+    width: '100%',
     borderRadius: '15px',
     display: 'flex',
     justifyContent: 'center',
@@ -63,7 +64,8 @@ const useStyles = makeStyles((theme) => ({
     letterSpacing: '1px',
     color: '#2B3D51',
     width: '100%',
-    paddingLeft: '10px',
+    paddingLeft: '40px',
+    paddingRight: '40px',
     [theme.breakpoints.up('sm')]: {
       width: '560px'
     }
@@ -75,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
     background: '#9DA3E2',
     marginBottom: '6%',
 
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       width: '560px'
     },
     '&:hover': {

@@ -6,11 +6,10 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import { NewsItem } from '../../components';
 import { HeroSection, CategorySection, SubscribeSection } from './components';
-
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import container from './Home.container';
 
 const options = [
@@ -132,32 +131,8 @@ const Home = (props) => {
       return item;
     })
   ]);
-  const [companies, setCompanies] = useState([
-    ...options1.map((item) => {
-      if (
-        item.label === 'facebook' ||
-        item.label === 'Google' ||
-        item.label === 'Microsoft'
-      ) {
-        return {
-          ...item,
-          selected: true
-        };
-      }
-      return item;
-    })
-  ]);
-  const [themes, setThemes] = useState([
-    ...options2.map((item) => {
-      if (item.label === 'technology') {
-        return {
-          ...item,
-          selected: true
-        };
-      }
-      return item;
-    })
-  ]);
+  const [companies, setCompanies] = useState([...options1]);
+  const [themes, setThemes] = useState([...options2]);
 
   useEffect(() => {
     search();
@@ -266,6 +241,14 @@ const Home = (props) => {
         </Box>
       );
     }
+    const scrollToTop = () => {
+      window.scrollTo({
+        top: 800,
+        behavior: 'smooth'
+        /* you can also use 'auto' behaviour
+           in place of 'smooth' */
+      });
+    };
 
     return (
       <Grid
@@ -288,9 +271,19 @@ const Home = (props) => {
               label: classes.label // class name, e.g. `classes-nesting-label-x`
             }}
             onClick={handleChangePage}
-            endIcon={<ArrowForwardIcon />}
+            endIcon={<ArrowDownwardIcon />}
           >
             Show me more results
+          </Button>
+          <Button
+            classes={{
+              root: classes.pagination, // class name, e.g. `classes-nesting-root-x`
+              label: classes.label // class name, e.g. `classes-nesting-label-x`
+            }}
+            onClick={scrollToTop}
+            endIcon={<ArrowUpwardIcon />}
+          >
+            Go to Top
           </Button>
         </Grid>
       </Grid>
