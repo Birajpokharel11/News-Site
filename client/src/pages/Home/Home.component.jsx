@@ -214,6 +214,13 @@ const Home = (props) => {
     search();
   };
 
+  const scrollToTop = () => {
+    const anchor = document.querySelector('#back-to-top');
+    if (anchor) {
+      anchor.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const getContent = () => {
     const list = newsIDs.map((id) => news[id]);
     if (loading) {
@@ -241,14 +248,6 @@ const Home = (props) => {
         </Box>
       );
     }
-    const scrollToTop = () => {
-      window.scrollTo({
-        top: 800,
-        behavior: 'smooth'
-        /* you can also use 'auto' behaviour
-           in place of 'smooth' */
-      });
-    };
 
     return (
       <Grid
@@ -312,7 +311,7 @@ const Home = (props) => {
         toggleAllThemes={toggleAllThemes}
       />
 
-      <Container>{getContent()}</Container>
+      <Container id="back-to-top">{getContent()}</Container>
       <SubscribeSection onNewsSubscribeStart={onNewsSubscribeStart} />
     </>
   );
