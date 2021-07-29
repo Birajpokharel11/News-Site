@@ -219,8 +219,28 @@ const Home = (props) => {
     search();
   };
 
+  const toggleAllCompanies = (value) => {
+    setCompanies((prev) => {
+      return prev.map((option) => ({
+        ...option,
+        selected: value
+      }));
+    });
+    search();
+  };
+
+  const toggleAllThemes = (value) => {
+    setThemes((prev) => {
+      return prev.map((option) => ({
+        ...option,
+        selected: value
+      }));
+    });
+    search();
+  };
+
   const getContent = () => {
-    const list = newsIDs.slice().map((id) => news[id]);
+    const list = newsIDs.map((id) => news[id]);
     if (loading) {
       return (
         <Box
@@ -254,9 +274,8 @@ const Home = (props) => {
         direction="column"
         spacing={4}
         className={classes.nested}
-        style={{ marginTop: '3%' }}
       >
-        {list.slice(5, rowsPerPage).map((item) => (
+        {list.slice(0, rowsPerPage).map((item) => (
           <NewsItem key={item.guid.text} item={item} />
         ))}
         <Grid item container justifyContent="space-between">
@@ -296,6 +315,8 @@ const Home = (props) => {
         handleClickCountry={handleClickCountry}
         handleClickCompanies={handleClickCompanies}
         handleClickThemes={handleClickThemes}
+        toggleAllCompanies={toggleAllCompanies}
+        toggleAllThemes={toggleAllThemes}
       />
 
       <Container>{getContent()}</Container>

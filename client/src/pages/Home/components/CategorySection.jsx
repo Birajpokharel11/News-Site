@@ -71,8 +71,10 @@ const CategorySection = ({
   handleClickCountry,
   companies,
   handleClickCompanies,
+  toggleAllCompanies,
   themes,
-  handleClickThemes
+  handleClickThemes,
+  toggleAllThemes
 }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
@@ -128,6 +130,7 @@ const CategorySection = ({
             <Button
               size="small"
               classes={{ root: classes.endbutton, label: classes.label }}
+              onClick={() => toggleAllCompanies(true)}
             >
               Select All
             </Button>
@@ -135,6 +138,7 @@ const CategorySection = ({
               size="small"
               classes={{ root: classes.endbutton, label: classes.label }}
               endIcon={<ClearIcon />}
+              onClick={() => toggleAllCompanies(false)}
             >
               Reset Filter
             </Button>
@@ -159,6 +163,7 @@ const CategorySection = ({
             <Button
               size="small"
               classes={{ root: classes.endbutton, label: classes.label }}
+              onClick={() => toggleAllThemes(true)}
             >
               Select All
             </Button>
@@ -166,6 +171,7 @@ const CategorySection = ({
               size="small"
               classes={{ root: classes.endbutton, label: classes.label }}
               endIcon={<ClearIcon />}
+              onClick={() => toggleAllThemes(false)}
             >
               Reset Filter
             </Button>
