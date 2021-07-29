@@ -71,8 +71,10 @@ const CategorySection = ({
   handleClickCountry,
   companies,
   handleClickCompanies,
+  toggleAllCompanies,
   themes,
-  handleClickThemes
+  handleClickThemes,
+  toggleAllThemes
 }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
@@ -80,26 +82,7 @@ const CategorySection = ({
   const handleClick = () => {
     setOpen(!open);
   };
-  const mappingAll = () => {
-    companies.map((option) => {
-      return (option.selected = true);
-    });
-  };
-  const RemoveAll = () => {
-    companies.map((option) => {
-      return (option.selected = false);
-    });
-  };
-  const mappingThemes = () => {
-    themes.map((option) => {
-      return (option.selected = true);
-    });
-  };
-  const RemoveThemes = () => {
-    themes.map((option) => {
-      return (option.selected = false);
-    });
-  };
+
   return (
     <Box component={Container} mt="1.5rem">
       <Button
@@ -147,7 +130,7 @@ const CategorySection = ({
             <Button
               size="small"
               classes={{ root: classes.endbutton, label: classes.label }}
-              onClick={mappingAll}
+              onClick={() => toggleAllCompanies(true)}
             >
               Select All
             </Button>
@@ -155,7 +138,7 @@ const CategorySection = ({
               size="small"
               classes={{ root: classes.endbutton, label: classes.label }}
               endIcon={<ClearIcon />}
-              onClick={RemoveAll}
+              onClick={() => toggleAllCompanies(false)}
             >
               Reset Filter
             </Button>
@@ -180,7 +163,7 @@ const CategorySection = ({
             <Button
               size="small"
               classes={{ root: classes.endbutton, label: classes.label }}
-              onClick={mappingThemes}
+              onClick={() => toggleAllThemes(true)}
             >
               Select All
             </Button>
@@ -188,7 +171,7 @@ const CategorySection = ({
               size="small"
               classes={{ root: classes.endbutton, label: classes.label }}
               endIcon={<ClearIcon />}
-              onClick={RemoveThemes}
+              onClick={() => toggleAllThemes(false)}
             >
               Reset Filter
             </Button>

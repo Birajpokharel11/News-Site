@@ -219,6 +219,26 @@ const Home = (props) => {
     search();
   };
 
+  const toggleAllCompanies = (value) => {
+    setCompanies((prev) => {
+      return prev.map((option) => ({
+        ...option,
+        selected: value
+      }));
+    });
+    search();
+  };
+
+  const toggleAllThemes = (value) => {
+    setThemes((prev) => {
+      return prev.map((option) => ({
+        ...option,
+        selected: value
+      }));
+    });
+    search();
+  };
+
   const getContent = () => {
     const list = newsIDs.map((id) => news[id]);
     if (loading) {
@@ -295,6 +315,8 @@ const Home = (props) => {
         handleClickCountry={handleClickCountry}
         handleClickCompanies={handleClickCompanies}
         handleClickThemes={handleClickThemes}
+        toggleAllCompanies={toggleAllCompanies}
+        toggleAllThemes={toggleAllThemes}
       />
 
       <Container>{getContent()}</Container>
