@@ -13,8 +13,8 @@ const useStyles = makeStyles(() => ({
     textAlign: 'center',
     fontFamily: 'Ubuntu',
     fontWeight: 'normal',
-    fontSize: '18.4846px',
-    lineHeight: '22px',
+    fontSize: '10.4846px',
+    lineHeight: '12px',
     color: '#545FDB'
   }
 }));
