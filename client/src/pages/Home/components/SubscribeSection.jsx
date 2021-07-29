@@ -72,13 +72,6 @@ const useStyles = makeStyles((theme) => ({
     height: '57px',
     width: '100%',
     borderRadius: '15px',
-    fontFamily: 'Ubuntu',
-    fontStyle: 'normal',
-    fontWeight: 'normal',
-    fontSize: '20px',
-    lineHeight: '23px',
-    textAlign: 'center',
-    color: '#FFFFFF',
     background: '#9DA3E2',
     marginBottom: '6%',
 
@@ -88,6 +81,16 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       background: '#000000'
     }
+  },
+  label: {
+    fontFamily: 'Ubuntu',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    fontSize: '20px',
+    lineHeight: '23px',
+    textAlign: 'center',
+    color: '#FFFFFF',
+    textTransform: 'none'
   }
 }));
 
@@ -180,7 +183,10 @@ const SubscribeSection = ({ onNewsSubscribeStart }) => {
                 variant="contained"
                 fullWidth
                 onClick={clickSubmit}
-                className={classes.subscribeButton}
+                classes={{
+                  root: classes.subscribeButton, // class name, e.g. `classes-nesting-root-x`
+                  label: classes.label // class name, e.g. `classes-nesting-label-x`
+                }}
                 type="submit"
               >
                 Subscribe Now
