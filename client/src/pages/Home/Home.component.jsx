@@ -215,12 +215,10 @@ const Home = (props) => {
   };
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 800,
-      behavior: 'smooth'
-      /* you can also use 'auto' behaviour
-         in place of 'smooth' */
-    });
+    const anchor = document.querySelector('#back-to-top');
+    if (anchor) {
+      anchor.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const getContent = () => {
@@ -313,7 +311,7 @@ const Home = (props) => {
         toggleAllThemes={toggleAllThemes}
       />
 
-      <Container>{getContent()}</Container>
+      <Container id="back-to-top">{getContent()}</Container>
       <SubscribeSection onNewsSubscribeStart={onNewsSubscribeStart} />
     </>
   );
