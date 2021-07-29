@@ -189,7 +189,7 @@ const SubscribeSection = ({ onNewsSubscribeStart }) => {
           </Grid>
         </Box>
         <Typography className={classes.subtitle}>
-          For Media and other inquiries, please email us at
+          For media and other inquiries, please email us at
           info@datacenterinvest.asia
         </Typography>
       </Container>
