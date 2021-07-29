@@ -140,7 +140,7 @@ const Home = (props) => {
 
   const search = () => {
     onFetchNewsStart(
-      country.find((item) => item.selected).label,
+      country.find((item) => item.selected).value,
       companies.filter((item) => item.selected).map((item) => item.label),
       themes.filter((item) => item.selected).map((item) => item.label)
     );
