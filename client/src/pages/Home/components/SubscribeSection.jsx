@@ -141,7 +141,6 @@ const SubscribeSection = ({ onNewsSubscribeStart }) => {
       justifyContent="center"
       className={classes.root}
     >
-      {console.log('errors', error)}
       <Container maxWidth="md">
         <Typography className={classes.title}>NEWSLETTER</Typography>
         <Typography className={classes.body}>
