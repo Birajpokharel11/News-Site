@@ -131,32 +131,8 @@ const Home = (props) => {
       return item;
     })
   ]);
-  const [companies, setCompanies] = useState([
-    ...options1.map((item) => {
-      if (
-        item.label === 'facebook' ||
-        item.label === 'Google' ||
-        item.label === 'Microsoft'
-      ) {
-        return {
-          ...item,
-          selected: true
-        };
-      }
-      return item;
-    })
-  ]);
-  const [themes, setThemes] = useState([
-    ...options2.map((item) => {
-      if (item.label === 'technology') {
-        return {
-          ...item,
-          selected: true
-        };
-      }
-      return item;
-    })
-  ]);
+  const [companies, setCompanies] = useState([...options1]);
+  const [themes, setThemes] = useState([...options2]);
 
   useEffect(() => {
     search();
