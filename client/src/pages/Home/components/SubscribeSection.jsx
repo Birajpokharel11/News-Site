@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     height: '57px',
+    width: '100%',
     borderRadius: '15px',
     display: 'flex',
     justifyContent: 'center',
@@ -64,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
     color: '#2B3D51',
     width: '100%',
     paddingLeft: '40px',
-    paddingRight: '20px',
+    paddingRight: '40px',
     [theme.breakpoints.up('sm')]: {
       width: '560px'
     }
