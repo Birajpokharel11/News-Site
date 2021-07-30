@@ -138,9 +138,13 @@ const Home = (props) => {
     search();
   }, []);
 
+  useEffect(() => {
+    search();
+  }, [country, companies, themes]);
+
   const search = () => {
     onFetchNewsStart(
-      country.find((item) => item.selected).value,
+      country.filter((item) => item.selected)[0].value,
       companies.filter((item) => item.selected).map((item) => item.label),
       themes.filter((item) => item.selected).map((item) => item.label)
     );
@@ -161,7 +165,6 @@ const Home = (props) => {
         };
       });
     });
-    search();
   };
 
   const handleClickCompanies = (index) => () => {
@@ -176,7 +179,6 @@ const Home = (props) => {
         return option;
       });
     });
-    search();
   };
 
   const handleClickThemes = (index) => () => {
@@ -191,7 +193,6 @@ const Home = (props) => {
         return option;
       });
     });
-    search();
   };
 
   const toggleAllCompanies = (value) => {
@@ -201,7 +202,6 @@ const Home = (props) => {
         selected: value
       }));
     });
-    search();
   };
 
   const toggleAllThemes = (value) => {
@@ -211,7 +211,6 @@ const Home = (props) => {
         selected: value
       }));
     });
-    search();
   };
 
   const scrollToTop = () => {
