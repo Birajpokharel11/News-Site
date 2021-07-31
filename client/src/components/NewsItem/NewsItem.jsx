@@ -50,7 +50,13 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '14.39px',
     lineHeight: '17px',
     color: '#999FAA'
-  }
+  },
+  actionArea: {
+    '&:hover $focusHighlight': {
+      opacity: 0
+    }
+  },
+  focusHighlight: {}
 }));
 
 export default function NewsItem(props) {
@@ -72,7 +78,16 @@ export default function NewsItem(props) {
     <Grid item>
       <Hidden smDown>
         <Card className={classes.card}>
-          <CardActionArea onClick={redirect} style={{ display: 'flex' }}>
+          <CardActionArea
+            onClick={redirect}
+            style={{ display: 'flex' }}
+            component="div"
+            disableRipple
+            classes={{
+              root: classes.actionArea,
+              focusHighlight: classes.focusHighlight
+            }}
+          >
             <CardMedia
               className={classes.cardMedia}
               image={item.media ?? fallbackImg}
@@ -93,7 +108,14 @@ export default function NewsItem(props) {
       </Hidden>
       <Hidden mdUp>
         <Card className={classes.card}>
-          <CardActionArea>
+          <CardActionArea
+            component="div"
+            disableRipple
+            classes={{
+              root: classes.actionArea,
+              focusHighlight: classes.focusHighlight
+            }}
+          >
             <CardMedia
               className={classes.media}
               image={item.media ?? fallbackImg}

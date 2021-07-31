@@ -64,7 +64,13 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       height: 165
     }
-  }
+  },
+  actionArea: {
+    '&:hover $focusHighlight': {
+      opacity: 0
+    }
+  },
+  focusHighlight: {}
 }));
 
 const HeroSection = ({ featureNewsIDs, news, loading }) => {
@@ -86,7 +92,15 @@ const HeroSection = ({ featureNewsIDs, news, loading }) => {
       <Grid container spacing={2}>
         <Grid item md>
           <Card elevation={0}>
-            <CardActionArea onClick={() => redirect(list[0].link)}>
+            <CardActionArea
+              component="div"
+              disableRipple
+              classes={{
+                root: classes.actionArea,
+                focusHighlight: classes.focusHighlight
+              }}
+              onClick={() => redirect(list[0].link)}
+            >
               <CardMedia
                 className={classes.mediaLg}
                 image={list[0].media ?? fallbackImg}
@@ -112,7 +126,15 @@ const HeroSection = ({ featureNewsIDs, news, loading }) => {
           {list.slice(1, 5).map((item) => (
             <Grid item md={6} sm={6} xs={12}>
               <Card elevation={0}>
-                <CardActionArea onClick={() => redirect(item.link)}>
+                <CardActionArea
+                  component="div"
+                  disableRipple
+                  classes={{
+                    root: classes.actionArea,
+                    focusHighlight: classes.focusHighlight
+                  }}
+                  onClick={() => redirect(item.link)}
+                >
                   <CardMedia
                     className={classes.mediaSm}
                     image={item.media ?? fallbackImg}
