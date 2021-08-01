@@ -39,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: '2%',
     height: '28.858139038085938px',
     width: '149.6369171142578px',
-    borderRadius: 'nullpx',
     fontFamily: 'Ubuntu',
     fontStyle: 'normal',
     fontWeight: '500',
