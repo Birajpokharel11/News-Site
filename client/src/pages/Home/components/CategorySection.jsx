@@ -84,7 +84,7 @@ const CategorySection = ({
   };
 
   return (
-    <Box component={Container} mt="1.5rem" mb="1rem">
+    <Box component={Container} mt="1.5rem" mb="2rem">
       <Button
         className={classes.topbutton}
         variant="outlined"
@@ -144,7 +144,7 @@ const CategorySection = ({
             </Button>
           </Paper>
         </Box>
-        <Box mb="2rem" className={classes.nested}>
+        <Box className={classes.nested}>
           <Typography className={classes.categories}>Themes</Typography>
           <Paper
             value={country}
