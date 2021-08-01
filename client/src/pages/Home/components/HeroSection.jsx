@@ -73,10 +73,10 @@ const useStyles = makeStyles((theme) => ({
   focusHighlight: {}
 }));
 
-const HeroSection = ({ featureNewsIDs, news, loading }) => {
+const HeroSection = ({ featureNews, news, loading }) => {
   const classes = useStyles();
 
-  if (loading || !featureNewsIDs.length) {
+  if (loading || !featureNews.length) {
     return <div></div>;
   }
 
@@ -86,8 +86,6 @@ const HeroSection = ({ featureNewsIDs, news, loading }) => {
   };
 
   const getContent = () => {
-    const list = featureNewsIDs.map((id) => news[id]);
-
     return (
       <Grid container spacing={2}>
         <Grid item md>
@@ -99,12 +97,12 @@ const HeroSection = ({ featureNewsIDs, news, loading }) => {
                 root: classes.actionArea,
                 focusHighlight: classes.focusHighlight
               }}
-              onClick={() => redirect(list[0].link)}
+              onClick={() => redirect(featureNews[0].link)}
             >
               <CardMedia
                 className={classes.mediaLg}
-                image={list[0].media ?? fallbackImg}
-                title={list[0].title}
+                image={featureNews[0].media ?? fallbackImg}
+                title={featureNews[0].title}
               />
               <CardContent>
                 <Typography
@@ -113,17 +111,18 @@ const HeroSection = ({ featureNewsIDs, news, loading }) => {
                   component="h2"
                   className={classes.title1}
                 >
-                  {list[0].title}
+                  {featureNews[0].title}
                 </Typography>
                 <Typography className={classes.subtitle1}>
-                  by {list[0].source.text} {formatDate(list[0].pubDate)}
+                  by {featureNews[0].source.text}{' '}
+                  {formatDate(featureNews[0].pubDate)}
                 </Typography>
               </CardContent>
             </CardActionArea>
           </Card>
         </Grid>
         <Grid item container md spacing={2}>
-          {list.slice(1, 5).map((item) => (
+          {featureNews.slice(1, 5).map((item) => (
             <Grid item md={6} sm={6} xs={12}>
               <Card elevation={0}>
                 <CardActionArea
