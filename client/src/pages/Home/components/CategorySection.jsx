@@ -39,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: '2%',
     height: '28.858139038085938px',
     width: '149.6369171142578px',
-    borderRadius: 'nullpx',
     fontFamily: 'Ubuntu',
     fontStyle: 'normal',
     fontWeight: '500',
@@ -84,7 +83,7 @@ const CategorySection = ({
   };
 
   return (
-    <Box component={Container} mt="1.5rem" mb="1rem">
+    <Box component={Container} mt="1.5rem" mb="2rem">
       <Button
         className={classes.topbutton}
         variant="outlined"
@@ -144,7 +143,7 @@ const CategorySection = ({
             </Button>
           </Paper>
         </Box>
-        <Box mb="2rem" className={classes.nested}>
+        <Box className={classes.nested}>
           <Typography className={classes.categories}>Themes</Typography>
           <Paper
             value={country}

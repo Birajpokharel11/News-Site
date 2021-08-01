@@ -27,12 +27,13 @@ const newsReducer = (state = INITIAL_STATE, action) => {
       };
 
       if (response.length) {
-        const reordered = response.sort(
-          (a, b) => new Date(b.pubDate) - new Date(a.pubDate)
-        );
+        updatedState.featureNewsIDs = response.slice(0, 5);
+
+        const reordered = response
+          .slice(5)
+          .sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
         const ids = reordered.map((item) => item.guid.text);
         updatedState.newsIDs = ids;
-        updatedState.featureNewsIDs = ids.slice(0, 5);
         reordered.forEach((item) => {
           if (!updatedState.news[item.guid.text]) {
             updatedState.news[item.guid.text] = item;
