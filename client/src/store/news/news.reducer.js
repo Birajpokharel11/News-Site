@@ -3,7 +3,7 @@ import * as actionTypes from './news.types';
 
 const INITIAL_STATE = {
   news: {},
-  featureNewsIDs: [],
+  featureNews: [],
   newsIDs: [],
   error: null,
   loading: false
@@ -27,7 +27,7 @@ const newsReducer = (state = INITIAL_STATE, action) => {
       };
 
       if (response.length) {
-        updatedState.featureNewsIDs = response.slice(0, 5);
+        updatedState.featureNews = response.slice(0, 5);
 
         const reordered = response
           .slice(5)
