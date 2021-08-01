@@ -256,7 +256,7 @@ const Home = (props) => {
         spacing={4}
         className={classes.nested}
       >
-        {list.slice(5, rowsPerPage).map((item) => (
+        {list.slice(0, rowsPerPage).map((item) => (
           <NewsItem key={item.guid.text} item={item} />
         ))}
         <Grid item container justifyContent="space-between">
