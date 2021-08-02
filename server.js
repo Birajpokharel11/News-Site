@@ -16,7 +16,7 @@ connectDB();
 // route files
 const news = require('./routes/news');
 const subs = require('./routes/subs');
-
+const auth = require('./routes/auth');
 const app = express();
 
 // body parser
@@ -52,6 +52,7 @@ if (process.env.NODE_ENV === 'production') {
 // mount routers
 app.use('/api/v1/news', news);
 app.use('/api/v1/subscribe', subs);
+app.use('/api/v1', auth);
 
 app.use(errorHandler);
 
