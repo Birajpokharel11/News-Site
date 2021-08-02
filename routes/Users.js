@@ -9,7 +9,7 @@ const gravatar = require('gravatar');
 const auth = require('../middleware/auth');
 
 router.post(
-  '/signin',
+  '/signup',
   [
     check('name', 'Name is required').not().isEmpty(),
     check('email', 'please include a valid email').isEmail(),

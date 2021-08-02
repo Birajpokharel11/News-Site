@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
+
 const User = require('../models/Auth');
 const config = require('config');
 const { check, validationResult } = require('express-validator');
@@ -9,7 +10,7 @@ const bcrypt = require('bcryptjs');
 // @route GET api/auth
 // @desc Test route
 // @access Public
-router.get('/signup', auth, async (req, res) => {
+router.get('/signin', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
     res.json(user);
@@ -23,7 +24,7 @@ router.get('/signup', auth, async (req, res) => {
 // @access Public
 
 router.post(
-  '/signup',
+  '/signin',
   [
     check('email', 'please include a valid email').isEmail(),
     check('password', 'please enter a password with 6 or more characters')
@@ -71,4 +72,5 @@ router.post(
     }
   }
 );
+
 module.exports = router;
