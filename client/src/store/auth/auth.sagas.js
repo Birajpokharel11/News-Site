@@ -9,11 +9,6 @@ import { openAlert } from '../alert/alert.actions';
 //register user
 export function* registerUserAsync({ payload: { name, email, password } }) {
   try {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    };
     const newUser = {
       name,
       email,
@@ -21,7 +16,7 @@ export function* registerUserAsync({ payload: { name, email, password } }) {
     };
     console.log(name);
     const body = JSON.stringify(newUser);
-    const { data } = yield axios.post('/api/v1/signup', config, body);
+    const { data } = yield axios.post('/api/v1/auth/register', body);
     console.log(data.data);
 
     yield put(actions.userRegisterSucess(data));
