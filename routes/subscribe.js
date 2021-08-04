@@ -5,14 +5,14 @@ const { createSubs, getsubs } = require('../controllers/subscribe');
 
 const router = express.Router();
 
-router.get('/', getsubs);
-router.post(
-  '/',
-  [
-    check('email', 'Please include a valid Email').isEmail(),
-    check('name', 'Name is required').exists()
-  ],
-  createSubs
-);
+router
+  .get('/', getsubs)
+  .post(
+    [
+      check('email', 'Please include a valid Email').isEmail(),
+      check('name', 'Name is required').exists()
+    ],
+    createSubs
+  );
 
 module.exports = router;
