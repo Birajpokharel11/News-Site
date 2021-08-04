@@ -1,4 +1,0 @@
-{
-  "/api/v1/signup": "Creates new user",
-  "/api/v1/signin": "logs in registered User, shows registered user when GET reuest"
-}
