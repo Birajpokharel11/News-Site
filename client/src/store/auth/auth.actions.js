@@ -1,4 +1,4 @@
-import * as actionTypes from '../../news/news.types';
+import * as actionTypes from './auth.types';
 
 export const userRegister = (name, email, password) => ({
   type: actionTypes.USER_REGISTER_START,

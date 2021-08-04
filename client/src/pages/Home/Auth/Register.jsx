@@ -14,7 +14,7 @@ import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { userRegister } from '../../../store/auth/reducers/auth.actions';
+import { userRegister } from '../../../store/auth/auth.actions';
 import container from '../Home.container';
 const useStyles = makeStyles((theme) => ({
   paper: {

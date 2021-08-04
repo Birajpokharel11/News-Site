@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const usersubscribe = new mongoose.Schema({
+
+const SubscribeSchema = new mongoose.Schema({
   name: {
     type: String,
     trim: true,
@@ -16,4 +17,5 @@ const usersubscribe = new mongoose.Schema({
     default: Date.now
   }
 });
-module.exports = mongoose.model('Subs', usersubscribe);
+
+module.exports = mongoose.model('Subscribe', SubscribeSchema);

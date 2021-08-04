@@ -9,13 +9,3 @@ export const GET_OG_FAIL = 'GET_OG_FAIL';
 export const NEWS_SUBSCRIBE_START = 'NEWS_SUBSCRIBE_START';
 export const NEWS_SUBSCRIBE_SUCCESS = 'NEWS_SUBSCRIBE_SUCCESS';
 export const NEWS_SUBSCRIBE_FAIL = 'NEWS_SUBSCRIBE_FAIL';
-
-export const USER_REGISTER_START = 'USER_REGISTER_START';
-export const USER_REGISTER_SUCESS = 'USER_REGISTER_SUCESS';
-export const USER_REGISTER_FAIL = 'USER_REGISTER_FAIL';
-
-///////////////////////////////////////////////////////////////
-
-export const USER_LOGIN_START = 'USER_LOGIN_START';
-export const USER_LOGIN_SUCESS = 'USER_LOGIN_SUCESS';
-export const USER_LOGIN_FAIL = 'USER_LOGIN_FAIL';

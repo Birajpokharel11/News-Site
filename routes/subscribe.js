@@ -1,7 +1,7 @@
 const express = require('express');
 const { check } = require('express-validator');
 
-const { createSubs, getsubs } = require('../controllers/subs');
+const { createSubs, getsubs } = require('../controllers/subscribe');
 
 const router = express.Router();
 
