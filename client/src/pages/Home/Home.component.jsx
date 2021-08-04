@@ -140,6 +140,7 @@ const Home = (props) => {
 
   useEffect(() => {
     search();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [country, companies, themes]);
 
   const search = () => {

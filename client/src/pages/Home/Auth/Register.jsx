@@ -5,7 +5,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -13,7 +12,10 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
-
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { userRegister } from '../../../store/auth/reducers/auth.actions';
+import container from '../Home.container';
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -34,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function SignUp() {
+const SignUp = ({ onUserRegister }) => {
   const classes = useStyles();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -69,19 +71,29 @@ export default function SignUp() {
       return false;
     }
     if (password.length === 0) {
-      setError({ error: 'Password is required' });
+      setError({ error: 'Password is required with 6 characters' });
       return false;
     }
     return true;
   };
-  const clickSubmit = (e) => {
+  const clickSubmit = async (e) => {
     e.preventDefault();
     if (isValid()) {
-      axios.post('/api/v1/signup', {
-        name,
-        email,
-        password
-      });
+      onUserRegister(name, email, password);
+
+      // const config = {
+      //   headers: {
+      //     'Content-Type': 'application/json'
+      //   }
+      // };
+      // const newUser = {
+      //   name,
+      //   email,
+      //   password
+      // };
+      // const body = JSON.stringify(newUser);
+      // const res = await axios.post('/api/v1/signup', body, config);
+      // console.log(res.data);
       setName('');
       setEmail('');
       setPassword('');
@@ -164,7 +176,7 @@ export default function SignUp() {
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link to="/login" variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>
@@ -173,4 +185,10 @@ export default function SignUp() {
       </div>
     </Container>
   );
-}
+};
+const mapDispatchToProps = (dispatch) => ({
+  onUserRegister: (name, email, password) =>
+    dispatch(userRegister(name, email, password))
+});
+
+export default connect(null, mapDispatchToProps)(SignUp);
