@@ -16,6 +16,10 @@ const SubscribeSchema = new mongoose.Schema({
       'Please add a valid email'
     ]
   },
+  enabled: {
+    type: Boolean,
+    default: true
+  },
   createdAt: {
     type: Date,
     default: Date.now
