@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 
 const SubscribeSchema = new mongoose.Schema({
   name: {
-    type: String
+    type: String,
     trim: true,
-    required: true
+    required: [true, 'Please add a name']
   },
   email: {
     type: String,
