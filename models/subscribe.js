@@ -2,17 +2,21 @@ const mongoose = require('mongoose');
 
 const SubscribeSchema = new mongoose.Schema({
   name: {
-    type: String,
+    type: String
     trim: true,
     required: true
   },
   email: {
     type: String,
     trim: true,
-    required: true,
-    unique: true
+    required: [true, 'Please add an email'],
+    unique: true,
+    match: [
+      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+      'Please add a valid email'
+    ]
   },
-  created: {
+  createdAt: {
     type: Date,
     default: Date.now
   }
