@@ -6,8 +6,44 @@ import * as actions from './auth.actions';
 
 import { openAlert } from '../alert/alert.actions';
 
-//register user
-export function* registerUserAsync({ payload: { name, email, password } }) {
+import setAuthToken from '../../utils/setAuthToken';
+
+export function* loadUserAsync() {
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
+
+  try {
+    const { data } = yield axios.get('/api/v1/auth/me');
+    console.log(data);
+
+    yield put(actions.loadUserSuccess(data));
+    yield put(openAlert('Registered Sucessfully', 'success'));
+  } catch (err) {
+    console.error(err);
+    yield put(actions.loadUserFail(err));
+    yield put(openAlert('Registration failed !!', 'error'));
+  }
+}
+
+export function* onSigninAsync({ payload: { email, password } }) {
+  try {
+    const { data } = yield axios.post('/api/v1/auth/login', {
+      email,
+      password
+    });
+    console.log(data);
+
+    yield put(actions.signinSuccess(data));
+    yield put(openAlert('Login Sucessfully!', 'success'));
+  } catch (err) {
+    console.error(err);
+    yield put(actions.signinFail(err));
+    yield put(openAlert('Email or Password Incorrect!!', 'error'));
+  }
+}
+
+export function* onSignupAsync({ payload: { name, email, password } }) {
   try {
     const { data } = yield axios.post('/api/v1/auth/register', {
       name,
@@ -16,19 +52,48 @@ export function* registerUserAsync({ payload: { name, email, password } }) {
     });
     console.log(data);
 
-    yield put(actions.userRegisterSucess(data));
+    yield put(actions.signupSuccess(data));
     yield put(openAlert('Registered Sucessfully', 'success'));
   } catch (err) {
     console.error(err);
-    yield put(actions.userRegisterFail(err));
+    yield put(actions.signupFail(err));
     yield put(openAlert('Registration failed !!', 'error'));
   }
 }
 
-export function* watchRegisterUser() {
-  yield takeLatest(actionTypes.USER_REGISTER_START, registerUserAsync);
+export function* signOutAsync() {
+  try {
+    const { data } = yield axios.get('/api/v1/auth/logout');
+    console.log(data);
+
+    yield put(actions.signoutSuccess(data));
+  } catch (err) {
+    console.error(err);
+    yield put(actions.signoutFail(err));
+  }
+}
+
+export function* watchLoadUser() {
+  yield takeLatest(actionTypes.LOAD_USER_START, loadUserAsync);
+}
+
+export function* watchSignin() {
+  yield takeLatest(actionTypes.SIGN_IN_START, onSigninAsync);
+}
+
+export function* watchSignup() {
+  yield takeLatest(actionTypes.SIGN_UP_START, onSignupAsync);
+}
+
+export function* watchSignout() {
+  yield takeLatest(actionTypes.SIGN_OUT_START, signOutAsync);
 }
 
 export function* authSagas() {
-  yield all([call(watchRegisterUser)]);
+  yield all([
+    call(watchSignin),
+    call(watchSignup),
+    call(watchSignout),
+    call(watchLoadUser)
+  ]);
 }
