@@ -13,8 +13,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { setAuthToken } from '../../../utils/setAuthToken';
-
+import { signinStart } from '../../../store/auth/auth.actions';
+import { connect } from 'react-redux';
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function SignUp() {
+function SignIn({ onSignIn }) {
   const classes = useStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -43,11 +43,11 @@ export default function SignUp() {
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
-    console.log(email);
+    setError('');
   };
   const handlePassword = (e) => {
     setPassword(e.target.value);
-    console.log(password);
+    setError('');
   };
   const isValid = () => {
     // email@domain.com
@@ -63,22 +63,24 @@ export default function SignUp() {
     }
     return true;
   };
-  const authenticate = (data) => {
-    console.log('jwt', data.data.token);
-    const jwt = data.data.token;
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('x-auth-token', JSON.stringify(jwt));
-    }
-  };
+  // const authenticate = (data) => {
+  //   console.log('jwt', data.data.token);
+  //   const jwt = data.data.token;
+  //   if (typeof window !== 'undefined') {
+  //     localStorage.setItem('x-auth-token', JSON.stringify(jwt));
+  //   }
+  // };
+
   const clickSubmit = (e) => {
     e.preventDefault();
     if (isValid()) {
-      axios
-        .post('api/v1/signin', {
-          email,
-          password
-        })
-        .then((data) => authenticate(data));
+      // axios
+      //   .post('api/v1/signin', {
+      //     email,
+      //     password
+      //   })
+      //   .then((data) => authenticate(data));
+      onSignIn(email, password);
       setEmail('');
       setPassword('');
     }
@@ -153,3 +155,7 @@ export default function SignUp() {
     </Container>
   );
 }
+const mapDispatchToProps = (dispatch) => ({
+  onSignIn: (email, password) => dispatch(signinStart(email, password))
+});
+export default connect(null, mapDispatchToProps)(SignIn);

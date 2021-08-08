@@ -5,11 +5,11 @@ import * as actionTypes from './auth.types';
 import * as actions from './auth.actions';
 
 import { openAlert } from '../alert/alert.actions';
-
-import setAuthToken from '../../utils/setAuthToken';
+import setAuthToken from 'src/utils/setAuthToken';
 
 export function* loadUserAsync() {
   if (localStorage.token) {
+    console.log(localStorage.token);
     setAuthToken(localStorage.token);
   }
 
@@ -18,11 +18,11 @@ export function* loadUserAsync() {
     console.log(data);
 
     yield put(actions.loadUserSuccess(data));
-    yield put(openAlert('Registered Sucessfully', 'success'));
+    yield put(openAlert('Loaded Sucessfully', 'success'));
   } catch (err) {
     console.error(err);
     yield put(actions.loadUserFail(err));
-    yield put(openAlert('Registration failed !!', 'error'));
+    yield put(openAlert('Load failed !!', 'error'));
   }
 }
 
@@ -39,7 +39,9 @@ export function* onSigninAsync({ payload: { email, password } }) {
   } catch (err) {
     console.error(err);
     yield put(actions.signinFail(err));
-    yield put(openAlert('Email or Password Incorrect!!', 'error'));
+    yield put(
+      openAlert('Invalid Credentials,Email or Password Incorrect!!', 'error')
+    );
   }
 }
 
@@ -72,28 +74,26 @@ export function* signOutAsync() {
     yield put(actions.signoutFail(err));
   }
 }
-
-export function* watchLoadUser() {
-  yield takeLatest(actionTypes.LOAD_USER_START, loadUserAsync);
+export function* watchRegisterUser() {
+  yield takeLatest(actionTypes.SIGN_UP_START, onSignupAsync);
 }
 
 export function* watchSignin() {
   yield takeLatest(actionTypes.SIGN_IN_START, onSigninAsync);
 }
 
-export function* watchSignup() {
-  yield takeLatest(actionTypes.SIGN_UP_START, onSignupAsync);
-}
+// export function* watchSignup() {
+//   yield takeLatest(actionTypes.SIGN_UP_START, onSignupAsync);
+// }
 
 export function* watchSignout() {
   yield takeLatest(actionTypes.SIGN_OUT_START, signOutAsync);
 }
-
+export function* loadUserStart() {
+  yield takeLatest(actionTypes.LOAD_USER_START, loadUserAsync);
+}
 export function* authSagas() {
-  yield all([
-    call(watchSignin),
-    call(watchSignup),
-    call(watchSignout),
-    call(watchLoadUser)
-  ]);
+  yield all([call(watchRegisterUser)]);
+  yield all([call(loadUserStart)]);
+  yield all([call(watchSignin)]);
 }

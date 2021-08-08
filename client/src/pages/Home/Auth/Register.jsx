@@ -14,7 +14,7 @@ import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { userRegister } from '../../../store/auth/auth.actions';
+import { signupStart } from '../../../store/auth/auth.actions';
 import container from '../Home.container';
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -188,7 +188,7 @@ const SignUp = ({ onUserRegister }) => {
 };
 const mapDispatchToProps = (dispatch) => ({
   onUserRegister: (name, email, password) =>
-    dispatch(userRegister(name, email, password))
+    dispatch(signupStart(name, email, password))
 });
 
 export default connect(null, mapDispatchToProps)(SignUp);
