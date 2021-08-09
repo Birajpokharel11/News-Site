@@ -4,5 +4,5 @@ import { authSagas } from './auth/auth.sagas';
 import { newsSagas } from './news/news.sagas';
 
 export default function* rootSaga() {
-  yield all([call(newsSagas), call(authSagas)]);
+  yield all([call(authSagas), call(newsSagas)]);
 }

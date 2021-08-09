@@ -8,6 +8,11 @@ import { openAlert } from '../alert/alert.actions';
 import setAuthToken from 'src/utils/setAuthToken';
 
 export function* loadUserAsync() {
+  if (!localStorage.token) {
+    yield put(actions.loadUserFail('Token not found!!'));
+    return;
+  }
+
   if (localStorage.token) {
     console.log(localStorage.token);
     setAuthToken(localStorage.token);
@@ -52,7 +57,7 @@ export function* onSignupAsync({ payload: { name, email, password } }) {
       email,
       password
     });
-    console.log(data);
+    console.log('onSignupAsync>>>');
 
     yield put(actions.signupSuccess(data));
     yield put(openAlert('Registered Sucessfully', 'success'));
@@ -74,26 +79,26 @@ export function* signOutAsync() {
     yield put(actions.signoutFail(err));
   }
 }
-export function* watchRegisterUser() {
-  yield takeLatest(actionTypes.SIGN_UP_START, onSignupAsync);
-}
 
 export function* watchSignin() {
   yield takeLatest(actionTypes.SIGN_IN_START, onSigninAsync);
 }
 
-// export function* watchSignup() {
-//   yield takeLatest(actionTypes.SIGN_UP_START, onSignupAsync);
-// }
+export function* watchSignup() {
+  yield takeLatest(actionTypes.SIGN_UP_START, onSignupAsync);
+}
 
 export function* watchSignout() {
   yield takeLatest(actionTypes.SIGN_OUT_START, signOutAsync);
 }
-export function* loadUserStart() {
+export function* watchLoadUser() {
   yield takeLatest(actionTypes.LOAD_USER_START, loadUserAsync);
 }
 export function* authSagas() {
-  yield all([call(watchRegisterUser)]);
-  yield all([call(loadUserStart)]);
-  yield all([call(watchSignin)]);
+  yield all([
+    call(watchSignin),
+    call(watchSignup),
+    call(watchSignout),
+    call(watchLoadUser)
+  ]);
 }

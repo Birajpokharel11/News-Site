@@ -14,8 +14,7 @@ import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { signupStart } from '../../../store/auth/auth.actions';
-import container from '../Home.container';
+import { signupStart } from '../../store/auth/auth.actions';
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),

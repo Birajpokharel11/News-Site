@@ -13,7 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { signinStart } from '../../../store/auth/auth.actions';
+import { signinStart } from '../../store/auth/auth.actions';
 import { connect } from 'react-redux';
 const useStyles = makeStyles((theme) => ({
   paper: {
