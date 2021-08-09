@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import axios from 'axios';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { signupStart } from '../../../store/auth/auth.actions';
-import container from '../Home.container';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+
+import { signinStart } from '../../store/auth/auth.actions';
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -36,33 +34,21 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const SignUp = ({ onUserRegister }) => {
+function SignIn({ onSignIn }) {
   const classes = useStyles();
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
 
-  const handleName = (e) => {
-    setName(e.target.value);
-    setError('');
-    console.log(name);
-  };
   const handleEmail = (e) => {
     setEmail(e.target.value);
     setError('');
-    console.log(email);
   };
   const handlePassword = (e) => {
     setPassword(e.target.value);
     setError('');
-    console.log(password);
   };
   const isValid = () => {
-    if (name.length === 0) {
-      setError({ error: 'Name is required' });
-      return false;
-    }
     // email@domain.com
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
       setError({
@@ -71,41 +57,36 @@ const SignUp = ({ onUserRegister }) => {
       return false;
     }
     if (password.length === 0) {
-      setError({ error: 'Password is required with 6 characters' });
+      setError({ error: 'Password is required' });
       return false;
     }
     return true;
   };
-  const clickSubmit = async (e) => {
+  // const authenticate = (data) => {
+  //   console.log('jwt', data.data.token);
+  //   const jwt = data.data.token;
+  //   if (typeof window !== 'undefined') {
+  //     localStorage.setItem('x-auth-token', JSON.stringify(jwt));
+  //   }
+  // };
+
+  const clickSubmit = (e) => {
     e.preventDefault();
     if (isValid()) {
-      onUserRegister(name, email, password);
-
-      // const config = {
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   }
-      // };
-      // const newUser = {
-      //   name,
-      //   email,
-      //   password
-      // };
-      // const body = JSON.stringify(newUser);
-      // const res = await axios.post('/api/v1/signup', body, config);
-      // console.log(res.data);
-      setName('');
+      // axios
+      //   .post('api/v1/signin', {
+      //     email,
+      //     password
+      //   })
+      //   .then((data) => authenticate(data));
+      onSignIn(email, password);
       setEmail('');
       setPassword('');
     }
-
-    // eslint-disable-next-line no-unused-expressions
   };
 
   return (
     <Container component="main" maxWidth="xs">
-      {console.log(error)}
-      <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
@@ -115,21 +96,6 @@ const SignUp = ({ onUserRegister }) => {
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                autoComplete="fname"
-                name="name"
-                variant="outlined"
-                required
-                fullWidth
-                id="Name"
-                label="Name"
-                autoFocus
-                onChange={(e) => handleName(e)}
-                value={name}
-              />
-            </Grid>
-
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -157,12 +123,6 @@ const SignUp = ({ onUserRegister }) => {
                 value={password}
               />
             </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
-            </Grid>
           </Grid>
           <Button
             type="submit"
@@ -172,12 +132,12 @@ const SignUp = ({ onUserRegister }) => {
             onClick={clickSubmit}
             className={classes.submit}
           >
-            Sign Up
+            Login
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link to="/login" variant="body2">
-                Already have an account? Sign in
+              <Link to="/register" variant="body2">
+                Dont heve an account ? plz Register
               </Link>
             </Grid>
           </Grid>
@@ -185,10 +145,8 @@ const SignUp = ({ onUserRegister }) => {
       </div>
     </Container>
   );
-};
+}
 const mapDispatchToProps = (dispatch) => ({
-  onUserRegister: (name, email, password) =>
-    dispatch(signupStart(name, email, password))
+  onSignIn: (email, password) => dispatch(signinStart(email, password))
 });
-
-export default connect(null, mapDispatchToProps)(SignUp);
+export default connect(null, mapDispatchToProps)(SignIn);
