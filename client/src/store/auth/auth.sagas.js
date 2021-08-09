@@ -12,7 +12,6 @@ export function* loadUserAsync() {
     yield put(actions.loadUserFail('Token not found!!'));
     return;
   }
-
   if (localStorage.token) {
     console.log(localStorage.token);
     setAuthToken(localStorage.token);
@@ -51,6 +50,7 @@ export function* onSigninAsync({ payload: { email, password } }) {
 }
 
 export function* onSignupAsync({ payload: { name, email, password } }) {
+  console.log('onSignupAsync>>>');
   try {
     const { data } = yield axios.post('/api/v1/auth/register', {
       name,
@@ -94,6 +94,7 @@ export function* watchSignout() {
 export function* watchLoadUser() {
   yield takeLatest(actionTypes.LOAD_USER_START, loadUserAsync);
 }
+
 export function* authSagas() {
   yield all([
     call(watchSignin),

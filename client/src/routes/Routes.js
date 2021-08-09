@@ -5,7 +5,7 @@ import { RouteWithLayout } from './components';
 import { Minimal as MinimalLayout } from '../layouts';
 
 import { Home as HomePage, NotFound as NotFoundView } from '../pages';
-import { Register, Login } from 'src/pages/Auth';
+import { Register, Login } from '../pages/Auth';
 const Routes = () => {
   return (
     <Switch>
