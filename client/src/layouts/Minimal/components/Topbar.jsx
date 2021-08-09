@@ -13,14 +13,14 @@ const useStyles = makeStyles((theme) => ({
   },
   logo: {
     [theme.breakpoints.down('sm')]: {
-      width: '60%'
+      width: '80%'
     }
   },
   flexGrow: {
     flexGrow: '1'
   },
   auth: {
-    padding: '20px'
+    padding: theme.spacing(1)
   }
 }));
 
