@@ -3,13 +3,13 @@ import { Switch, Redirect } from 'react-router-dom';
 
 import { RouteWithLayout } from './components';
 import { Minimal as MinimalLayout } from '../layouts';
-
+import PrivateRoute from './components/PrivateRoute';
 import { Home as HomePage, NotFound as NotFoundView } from '../pages';
 import { Register, Login } from '../pages/Auth';
 const Routes = () => {
   return (
     <Switch>
-      <RouteWithLayout
+      <PrivateRoute
         component={HomePage}
         exact
         layout={MinimalLayout}
