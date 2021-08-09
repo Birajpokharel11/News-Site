@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Navbar = ({ auth: { isAuthenticated, loading }, signoutStart }) => {
+const Navbar = ({ auth: { isAuthenticated }, signoutStart }) => {
   const classes = useStyles();
   const authLinks = (
     <ul>
@@ -71,9 +71,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, signoutStart }) => {
 
   return (
     <nav className="navbar bg-dark">
-      {loading && (
-        <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
-      )}
+      <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>)
     </nav>
   );
 };

@@ -57,3 +57,18 @@ export const signoutFail = (error) => ({
   type: actionTypes.SIGN_OUT_FAILURE,
   payload: error
 });
+/////
+export const userUpdateStart = (name, email) => ({
+  type: actionTypes.USER_UPDATE_START,
+  payload: { name, email }
+});
+
+export const userUpdateSucess = (response) => ({
+  type: actionTypes.USER_UPDATE_SUCESS,
+  payload: response
+});
+
+export const userUpdateFali = (error) => ({
+  type: actionTypes.USER_UPDATE_FAIL,
+  payload: error
+});

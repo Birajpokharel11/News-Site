@@ -36,6 +36,7 @@ export function* onSigninAsync({ payload: { email, password } }) {
       email,
       password
     });
+    console.log(data.token);
 
     yield put(actions.signinSuccess(data));
     yield put(openAlert('Login Sucessfully!', 'success'));
@@ -67,6 +68,30 @@ export function* onSignupAsync({ payload: { name, email, password } }) {
   }
 }
 
+export function* onUserDetailUpdate({ payload: { name, email } }) {
+  if (!localStorage.token) {
+    yield put(actions.userUpdateStart('Token not found!!'));
+    return;
+  }
+  if (localStorage.token) {
+    console.log(localStorage.token);
+    setAuthToken(localStorage.token);
+  }
+  console.log('update>>>');
+  try {
+    const { data } = yield axios.put('/api/v1/auth/updatedetails', {
+      name,
+      email
+    });
+
+    yield put(actions.userUpdateSucess(data));
+    yield put(openAlert('Updated Sucessfully', 'success'));
+  } catch (err) {
+    console.error(err);
+    yield put(actions.userUpdateFali(err));
+    yield put(openAlert('Update failed !!', 'error'));
+  }
+}
 export function* signOutAsync() {
   try {
     const { data } = yield axios.get('/api/v1/auth/logout');
@@ -95,12 +120,16 @@ export function* watchSignout() {
 export function* watchLoadUser() {
   yield takeLatest(actionTypes.LOAD_USER_START, loadUserAsync);
 }
+export function* watchUpdateUserDetails() {
+  yield takeLatest(actionTypes.USER_UPDATE_START, onUserDetailUpdate);
+}
 
 export function* authSagas() {
   yield all([
     call(watchSignin),
     call(watchSignup),
     call(watchSignout),
-    call(watchLoadUser)
+    call(watchLoadUser),
+    call(watchUpdateUserDetails)
   ]);
 }

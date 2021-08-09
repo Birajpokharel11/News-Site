@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
-import { signupStart } from '../../store/auth/auth.actions';
+import { userUpdateStart } from '../../store/auth/auth.actions';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const EditRegisteredUser = ({ onUserRegister }) => {
+const EditRegisteredUser = ({ auth, EditRegisteredUser }) => {
   const classes = useStyles();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -46,17 +46,14 @@ const EditRegisteredUser = ({ onUserRegister }) => {
     setName(e.target.value);
     setError('');
     console.log(name);
+    console.log(auth.user);
   };
   const handleEmail = (e) => {
     setEmail(e.target.value);
     setError('');
     console.log(email);
   };
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
-    setError('');
-    console.log(password);
-  };
+
   const isValid = () => {
     if (name.length === 0) {
       setError({ error: 'Name is required' });
@@ -78,7 +75,7 @@ const EditRegisteredUser = ({ onUserRegister }) => {
   const clickSubmit = async (e) => {
     e.preventDefault();
     if (isValid()) {
-      onUserRegister(name, email, password);
+      EditRegisteredUser(name, email);
 
       // const config = {
       //   headers: {
@@ -108,7 +105,7 @@ const EditRegisteredUser = ({ onUserRegister }) => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          Edit user details
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
@@ -123,7 +120,7 @@ const EditRegisteredUser = ({ onUserRegister }) => {
                 label="Name"
                 autoFocus
                 onChange={(e) => handleName(e)}
-                value={name}
+                value={auth.user.name}
               />
             </Grid>
 
@@ -137,27 +134,7 @@ const EditRegisteredUser = ({ onUserRegister }) => {
                 name="email"
                 autoComplete="email"
                 onChange={(e) => handleEmail(e)}
-                value={email}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                onChange={(e) => handlePassword(e)}
-                value={password}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
+                value={auth.user.email}
               />
             </Grid>
           </Grid>
@@ -183,9 +160,12 @@ const EditRegisteredUser = ({ onUserRegister }) => {
     </Container>
   );
 };
-const mapDispatchToProps = (dispatch) => ({
-  onUserRegister: (name, email, password) =>
-    dispatch(signupStart(name, email, password))
+const mapStateToProps = (state) => ({
+  auth: state.auth
 });
 
-export default connect(null, mapDispatchToProps)(EditRegisteredUser);
+const mapDispatchToProps = (dispatch) => ({
+  EditRegisteredUser: (name, email) => dispatch(userUpdateStart(name, email))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditRegisteredUser);

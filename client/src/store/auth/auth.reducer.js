@@ -13,6 +13,7 @@ const authReducer = (state = initialState, action) => {
     case actionTypes.SIGN_IN_START:
     case actionTypes.SIGN_UP_START:
     case actionTypes.LOAD_USER_START:
+    case actionTypes.USER_UPDATE_START:
       return {
         ...state,
         loading: true
@@ -28,12 +29,22 @@ const authReducer = (state = initialState, action) => {
 
     case actionTypes.SIGN_IN_SUCCESS:
     case actionTypes.SIGN_UP_SUCCESS:
+      console.log('hereatreducer', payload.data);
       localStorage.setItem('token', payload.token);
       return {
         ...state,
         ...payload,
         isAuthenticated: true,
-        loading: false
+        loading: false,
+        user: payload.data
+      };
+    case actionTypes.USER_UPDATE_SUCESS:
+      return {
+        ...state,
+        ...payload,
+        isAuthenticated: true,
+        loading: false,
+        user: payload.data
       };
 
     case actionTypes.LOAD_USER_FAILURE:

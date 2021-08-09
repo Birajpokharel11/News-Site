@@ -11,10 +11,10 @@ import Routes from './routes';
 import { loadUserStart } from './store/auth/auth.actions';
 
 function App() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(loadUserStart());
-  }, []);
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(loadUserStart());
+  // }, []);
 
   return (
     <ThemeProvider theme={theme}>

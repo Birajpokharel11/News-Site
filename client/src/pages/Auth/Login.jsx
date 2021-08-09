@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -49,6 +49,9 @@ function SignIn({ onSignIn }) {
     setPassword(e.target.value);
     setError('');
   };
+  useEffect(() => {
+    onSignIn(email, password);
+  }, []);
   const isValid = () => {
     // email@domain.com
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
