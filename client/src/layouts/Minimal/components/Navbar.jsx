@@ -38,6 +38,11 @@ const Navbar = ({ auth: { isAuthenticated, loading }, signoutStart }) => {
           <ExitToAppIcon />
         </Link>
       </li>
+      <li>
+        <Link to="/edit_profile" className={classes.linkText}>
+          EditProfile
+        </Link>
+      </li>
     </ul>
   );
 
@@ -66,7 +71,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, signoutStart }) => {
 
   return (
     <nav className="navbar bg-dark">
-      {!loading && (
+      {loading && (
         <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
       )}
     </nav>

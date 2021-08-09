@@ -36,7 +36,6 @@ export function* onSigninAsync({ payload: { email, password } }) {
       email,
       password
     });
-    console.log(data);
 
     yield put(actions.signinSuccess(data));
     yield put(openAlert('Login Sucessfully!', 'success'));

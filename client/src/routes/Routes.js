@@ -5,11 +5,11 @@ import { RouteWithLayout } from './components';
 import { Minimal as MinimalLayout } from '../layouts';
 import PrivateRoute from './components/PrivateRoute';
 import { Home as HomePage, NotFound as NotFoundView } from '../pages';
-import { Register, Login } from '../pages/Auth';
+import { Register, Login, EditRegisteredUser } from '../pages/Auth';
 const Routes = () => {
   return (
     <Switch>
-      <PrivateRoute
+      <RouteWithLayout
         component={HomePage}
         exact
         layout={MinimalLayout}
@@ -33,6 +33,7 @@ const Routes = () => {
         layout={MinimalLayout}
         path="/not-found"
       />
+      <PrivateRoute component={EditRegisteredUser} exact path="/edit_profile" />
       <Redirect to="/not-found" />
     </Switch>
   );
