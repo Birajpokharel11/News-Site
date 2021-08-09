@@ -19,7 +19,7 @@ exports.register = asyncHandler(async (req, res, next) => {
     password
   });
 
-  sendTokenResponse(user, 200, res);
+  sendTokenResponse(user, 200, res, 'register');
 });
 
 // @desc    Login user
@@ -49,7 +49,7 @@ exports.login = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse('Invalid credentials', 401));
   }
 
-  sendTokenResponse(user, 200, res);
+  sendTokenResponse(user, 200, res, 'login');
 });
 
 // @desc    Log user out / clear cookie
@@ -112,7 +112,7 @@ exports.updatePassword = asyncHandler(async (req, res, next) => {
   user.password = req.body.newPassword;
   await user.save();
 
-  sendTokenResponse(user, 200, res);
+  sendTokenResponse(user, 200, res, 'update');
 });
 
 // @desc    Forgot password
@@ -180,11 +180,11 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
   user.resetPasswordExpire = undefined;
   await user.save();
 
-  sendTokenResponse(user, 200, res);
+  sendTokenResponse(user, 200, res, 'reset');
 });
 
 // get token from model, create cookie and sendResponse
-const sendTokenResponse = (user, statusCode, res) => {
+const sendTokenResponse = (user, statusCode, res, type) => {
   // create token
   const token = user.getSignedJwtToken();
 
@@ -202,5 +202,9 @@ const sendTokenResponse = (user, statusCode, res) => {
   res
     .status(statusCode)
     .cookie('token', token, options)
-    .json({ success: true, token });
+    .json({
+      success: true,
+      token,
+      data: type === 'login' ? user : undefined
+    });
 };
