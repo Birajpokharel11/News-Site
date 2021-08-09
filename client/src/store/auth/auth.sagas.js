@@ -74,9 +74,11 @@ export function* signOutAsync() {
     console.log(data);
 
     yield put(actions.signoutSuccess(data));
+    yield put(openAlert('logged out', 'success'));
   } catch (err) {
     console.error(err);
     yield put(actions.signoutFail(err));
+    yield put(openAlert('logged out failed', 'error'));
   }
 }
 

@@ -44,13 +44,13 @@ export const signupFail = (error) => ({
   payload: error
 });
 
-export const signoutStart = (history) => ({
-  type: actionTypes.SIGN_OUT_START,
-  payload: { history }
+export const signoutStart = () => ({
+  type: actionTypes.SIGN_OUT_START
 });
 
-export const signoutSuccess = () => ({
-  type: actionTypes.SIGN_OUT_SUCCESS
+export const signoutSuccess = (response) => ({
+  type: actionTypes.SIGN_OUT_SUCCESS,
+  payload: response
 });
 
 export const signoutFail = (error) => ({

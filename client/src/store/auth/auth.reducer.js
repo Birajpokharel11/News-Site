@@ -40,6 +40,7 @@ const authReducer = (state = initialState, action) => {
     case actionTypes.SIGN_IN_FAILURE:
     case actionTypes.SIGN_UP_FAILURE:
     case actionTypes.SIGN_OUT_SUCCESS:
+      console.log(123);
       localStorage.removeItem('token');
       return {
         ...state,
