@@ -7,7 +7,8 @@ import Logo from '../../../assets/img/logo.svg';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signoutStart } from 'src/store/auth/auth.actions';
-
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import Navbar from './Navbar';
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: '2%',
@@ -37,14 +38,8 @@ const Topbar = ({ Signout }) => {
           </Link>
           <div className={classes.flexGrow} />
         </>
-        <div className={classes.auth}>
-          <Link to="/login">Log in</Link>
-        </div>
-        <div className={classes.auth}>
-          <Link to="/register">Register </Link>
-        </div>
-        <div className={classes.auth} onClick={Signout()}>
-          <Link>logout </Link>
+        <div>
+          <Navbar />
         </div>
       </Toolbar>
     </AppBar>
@@ -55,3 +50,14 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(null, mapDispatchToProps)(Topbar);
+{
+  /* <div className={classes.auth}>
+<Link to="/login">Log in</Link>
+</div>
+<div className={classes.auth}>
+<Link to="/register">Register </Link>
+</div>
+<div className={classes.auth} onClick={Signout()}>
+<Link>logout </Link>
+</div> */
+}
