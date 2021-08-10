@@ -13,7 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { signinStart } from '../../store/auth/auth.actions';
+import { loadUserStart, signinStart } from '../../store/auth/auth.actions';
 import { connect } from 'react-redux';
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -35,7 +35,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function SignIn({ onSignIn }) {
+function SignIn({ onSignIn, userload, auth: { isAuthenticated } }) {
+  console.log(isAuthenticated);
+  useEffect(() => {
+    userload();
+  }, [isAuthenticated]);
   const classes = useStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -49,9 +53,7 @@ function SignIn({ onSignIn }) {
     setPassword(e.target.value);
     setError('');
   };
-  useEffect(() => {
-    onSignIn(email, password);
-  }, []);
+
   const isValid = () => {
     // email@domain.com
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
@@ -158,7 +160,12 @@ function SignIn({ onSignIn }) {
     </Container>
   );
 }
-const mapDispatchToProps = (dispatch) => ({
-  onSignIn: (email, password) => dispatch(signinStart(email, password))
+const mapStateToProps = (state) => ({
+  auth: state.auth
 });
-export default connect(null, mapDispatchToProps)(SignIn);
+
+const mapDispatchToProps = (dispatch) => ({
+  onSignIn: (email, password) => dispatch(signinStart(email, password)),
+  userload: () => dispatch(loadUserStart())
+});
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
