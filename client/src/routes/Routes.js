@@ -6,6 +6,8 @@ import { Minimal as MinimalLayout } from '../layouts';
 import PrivateRoute from './components/PrivateRoute';
 import { Home as HomePage, NotFound as NotFoundView } from '../pages';
 import { Register, Login, EditRegisteredUser } from '../pages/Auth';
+import Dashboard from '../pages/Dashboard/Dashboard';
+
 const Routes = () => {
   return (
     <Switch>
@@ -34,6 +36,8 @@ const Routes = () => {
         path="/not-found"
       />
       <PrivateRoute component={EditRegisteredUser} exact path="/edit_profile" />
+      <PrivateRoute component={Dashboard} exact path="/dashboard" />
+      Dashboard
       <Redirect to="/not-found" />
     </Switch>
   );

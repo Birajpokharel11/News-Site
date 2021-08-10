@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
   linkText: {
     textDecoration: 'none',
-    padding: '1%',
+    padding: '2%',
     color: 'black',
     fontFamily: 'Ubuntu',
     fontStyle: 'normal',
@@ -26,19 +26,19 @@ const useStyles = makeStyles((theme) => ({
 const Navbar = ({ auth: { isAuthenticated }, signoutStart }) => {
   const classes = useStyles();
   const authLinks = (
-    <ul>
+    <ul style={{ display: 'flex' }}>
       <li style={{ display: 'flex' }}>
         <Hidden smDown>
           <Link className={classes.linkText} onClick={signoutStart}>
             Logout
           </Link>
         </Hidden>
-
         <Link className={classes.linkText} onClick={signoutStart}>
           <ExitToAppIcon />
         </Link>
-      </li>
-      <li>
+        <Link to="/dashboard" className={classes.linkText}>
+          Dashboard
+        </Link>
         <Link to="/edit_profile" className={classes.linkText}>
           EditProfile
         </Link>
