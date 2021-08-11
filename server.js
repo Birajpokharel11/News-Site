@@ -1,31 +1,45 @@
 const path = require('path');
 const express = require('express');
+const dotenv = require('dotenv');
+const morgan = require('morgan');
 const colors = require('colors');
+const cookieParser = require('cookie-parser');
+const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
 const xss = require('xss-clean');
 const hpp = require('hpp');
-const morgan = require('morgan');
 const cors = require('cors');
 
 const errorHandler = require('./middleware/error');
 const connectDB = require('./config/db');
+
+// load env vars
+dotenv.config({ path: './config/config.env' });
 
 // connect to database
 connectDB();
 
 // route files
 const news = require('./routes/news');
-const subs = require('./routes/subs');
+const subs = require('./routes/subscribe');
+const auth = require('./routes/auth');
+const users = require('./routes/users');
 
 const app = express();
 
 // body parser
 app.use(express.json());
 
+// cookie parser
+app.use(cookieParser());
+
 // dev logging middleware
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
+
+// sanitize data
+app.use(mongoSanitize());
 
 // set security headers
 app.use(helmet());
@@ -52,6 +66,8 @@ if (process.env.NODE_ENV === 'production') {
 // mount routers
 app.use('/api/v1/news', news);
 app.use('/api/v1/subscribe', subs);
+app.use('/api/v1/auth', auth);
+app.use('/api/v1/users', users);
 
 app.use(errorHandler);
 

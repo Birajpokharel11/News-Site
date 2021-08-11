@@ -9,7 +9,6 @@ import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container';
 import InputBase from '@material-ui/core/InputBase';
 import Button from '@material-ui/core/Button';
-
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100%',

@@ -1,19 +1,29 @@
 const mongoose = require('mongoose');
-const usersubscribe = new mongoose.Schema({
+
+const SubscribeSchema = new mongoose.Schema({
   name: {
     type: String,
     trim: true,
-    required: true
+    required: [true, 'Please add a name']
   },
   email: {
     type: String,
     trim: true,
-    required: true,
-    unique: true
+    required: [true, 'Please add an email'],
+    unique: true,
+    match: [
+      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+      'Please add a valid email'
+    ]
   },
-  created: {
+  enabled: {
+    type: Boolean,
+    default: true
+  },
+  createdAt: {
     type: Date,
     default: Date.now
   }
 });
-module.exports = mongoose.model('Subs', usersubscribe);
+
+module.exports = mongoose.model('Subscribe', SubscribeSchema);

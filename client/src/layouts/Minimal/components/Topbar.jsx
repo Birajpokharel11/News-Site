@@ -4,7 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Logo from '../../../assets/img/logo.svg';
-
+import { Link } from 'react-router-dom';
+import Navbar from './Navbar';
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: '2%',
@@ -12,20 +13,31 @@ const useStyles = makeStyles((theme) => ({
   },
   logo: {
     [theme.breakpoints.down('sm')]: {
-      width: '60%'
+      width: '80%'
     }
+  },
+  flexGrow: {
+    flexGrow: '1'
+  },
+  auth: {
+    padding: theme.spacing(1)
   }
 }));
 
-const Topbar = (props) => {
+const Topbar = ({ Signout }) => {
   const classes = useStyles();
   return (
     <AppBar className={classes.root} position="static" elevation={0}>
       <Toolbar className={classes.toolbar}>
         <>
-          <img className={classes.logo} alt="Logo" src={Logo} />
+          <Link to="/">
+            <img className={classes.logo} alt="Logo" src={Logo} />
+          </Link>
           <div className={classes.flexGrow} />
         </>
+        <div>
+          <Navbar />
+        </div>
       </Toolbar>
     </AppBar>
   );

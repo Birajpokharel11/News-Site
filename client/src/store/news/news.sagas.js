@@ -5,7 +5,7 @@ import * as actionTypes from './news.types';
 import * as actions from './news.actions';
 
 import { openAlert } from '../alert/alert.actions';
-
+import * as auth from '../auth/auth.actions';
 const getNews = (state) => state.news;
 
 export function* fetchNewsAsync({ payload: { country, companies, themes } }) {
@@ -59,7 +59,7 @@ export function* newsSubscribeAsync({ payload: { email, name } }) {
   } catch (err) {
     console.error(err);
     yield put(actions.newsSubscribeFail(err));
-    yield put(openAlert('Successfully Subscribed!!', 'success'));
+    yield put(('Successfully Subscribed!!', 'success'));
   }
 }
 
