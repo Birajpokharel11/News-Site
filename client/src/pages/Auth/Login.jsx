@@ -35,11 +35,16 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function SignIn({ onSignIn, userload, auth: { isAuthenticated } }) {
+function SignIn({
+  onSignIn,
+  userload,
+  auth: { isAuthenticated, loading, user }
+}) {
   console.log(isAuthenticated);
   useEffect(() => {
     userload();
   }, [isAuthenticated]);
+
   const classes = useStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
