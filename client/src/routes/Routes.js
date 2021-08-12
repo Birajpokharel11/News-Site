@@ -12,7 +12,6 @@ import {
   SignUp as SignUpView,
   SignIn as SignInView
 } from '../pages';
-import { Register, Login, EditRegisteredUser } from '../pages/Auth';
 
 const Routes = () => {
   return (
@@ -40,12 +39,6 @@ const Routes = () => {
         exact
         layout={MinimalLayout}
         path="/not-found"
-      />
-      <PrivateRoute
-        component={EditRegisteredUser}
-        exact
-        layout={MainLayout}
-        path="/edit_profile"
       />
       <PrivateRoute
         component={AccountView}
