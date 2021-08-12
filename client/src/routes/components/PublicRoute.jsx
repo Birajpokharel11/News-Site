@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-const PrivateRoute = ({
+const PublicRoute = ({
   layout: Layout,
   component: Component,
   auth: { isAuthenticated, loading },
@@ -13,19 +13,10 @@ const PrivateRoute = ({
     <Route
       {...rest}
       render={(props) => {
-        if (!isAuthenticated && !loading) {
-          // not logged in so redirect to login page with the return url
-          return (
-            <Redirect
-              to={{
-                pathname: '/login',
-                state: { from: props.location }
-              }}
-            />
-          );
+        if (isAuthenticated && !loading) {
+          return <Redirect to={props.location.state.from || '/'} />;
         }
 
-        // authorised so return component
         return (
           <Layout>
             <Component {...props} />
@@ -36,7 +27,7 @@ const PrivateRoute = ({
   );
 };
 
-PrivateRoute.propTypes = {
+PublicRoute.propTypes = {
   component: PropTypes.any.isRequired,
   layout: PropTypes.any.isRequired,
   path: PropTypes.string,
@@ -47,4 +38,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps)(PrivateRoute);
+export default connect(mapStateToProps)(PublicRoute);
