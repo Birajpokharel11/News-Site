@@ -24,7 +24,7 @@ const authReducer = (state = initialState, action) => {
         ...state,
         isAuthenticated: true,
         loading: false,
-        user: payload
+        user: payload.data
       };
 
     case actionTypes.SIGN_IN_SUCCESS:
@@ -33,7 +33,6 @@ const authReducer = (state = initialState, action) => {
       localStorage.setItem('token', payload.token);
       return {
         ...state,
-        ...payload,
         isAuthenticated: true,
         loading: false,
         user: payload.data

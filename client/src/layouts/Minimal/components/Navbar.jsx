@@ -28,6 +28,9 @@ const Navbar = ({ auth: { isAuthenticated }, signoutStart }) => {
   const authLinks = (
     <ul style={{ display: 'flex' }}>
       <li style={{ display: 'flex' }}>
+        <Link to="/account" className={classes.linkText}>
+          Account
+        </Link>
         <Hidden smDown>
           <Link className={classes.linkText} onClick={signoutStart}>
             Logout
@@ -35,12 +38,6 @@ const Navbar = ({ auth: { isAuthenticated }, signoutStart }) => {
         </Hidden>
         <Link className={classes.linkText} onClick={signoutStart}>
           <ExitToAppIcon />
-        </Link>
-        <Link to="/dashboard" className={classes.linkText}>
-          Dashboard
-        </Link>
-        <Link to="/edit_profile" className={classes.linkText}>
-          EditProfile
         </Link>
       </li>
     </ul>
