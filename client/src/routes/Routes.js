@@ -8,7 +8,9 @@ import {
   NotFound as NotFoundView,
   Dashboard as DashboardView,
   Account as AccountView,
-  Settings as SettingsView
+  Settings as SettingsView,
+  SignUp as SignUpView,
+  SignIn as SignInView
 } from '../pages';
 import { Register, Login, EditRegisteredUser } from '../pages/Auth';
 
@@ -22,13 +24,13 @@ const Routes = () => {
         path="/"
       />
       <PublicRoute
-        component={Register}
+        component={SignUpView}
         exact
         layout={MinimalLayout}
         path="/register"
       />
       <PublicRoute
-        component={Login}
+        component={SignInView}
         exact
         layout={MinimalLayout}
         path="/login"
