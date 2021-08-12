@@ -23,10 +23,10 @@ const Account = (props) => {
     <div className={classes.root}>
       <Grid container spacing={4}>
         <Grid item lg={4} md={6} xl={4} xs={12}>
-          <AccountProfile user={user} />
+          {user && <AccountProfile user={user} />}
         </Grid>
         <Grid item lg={8} md={6} xl={8} xs={12}>
-          <AccountDetails user={user} />
+          {user && <AccountDetails user={user} />}
         </Grid>
       </Grid>
     </div>
