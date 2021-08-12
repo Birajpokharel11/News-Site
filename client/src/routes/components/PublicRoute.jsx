@@ -12,14 +12,14 @@ const PublicRoute = ({
   return (
     <Route
       {...rest}
-      render={(matchProps) => {
+      render={(props) => {
         if (isAuthenticated && !loading) {
-          return <Redirect to="/" />;
+          return <Redirect to={props.location.state.from || '/'} />;
         }
 
         return (
           <Layout>
-            <Component {...matchProps} />
+            <Component {...props} />
           </Layout>
         );
       }}

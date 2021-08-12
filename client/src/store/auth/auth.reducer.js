@@ -29,10 +29,10 @@ const authReducer = (state = initialState, action) => {
 
     case actionTypes.SIGN_IN_SUCCESS:
     case actionTypes.SIGN_UP_SUCCESS:
-      console.log('hereatreducer', payload.data);
       localStorage.setItem('token', payload.token);
       return {
         ...state,
+        token: payload.token,
         isAuthenticated: true,
         loading: false,
         user: payload.data
@@ -50,7 +50,6 @@ const authReducer = (state = initialState, action) => {
     case actionTypes.SIGN_IN_FAILURE:
     case actionTypes.SIGN_UP_FAILURE:
     case actionTypes.SIGN_OUT_SUCCESS:
-      console.log(123);
       localStorage.removeItem('token');
       return {
         ...state,
