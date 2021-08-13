@@ -1,12 +1,9 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { signoutStart } from 'src/store/auth/auth.actions';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { Hidden } from '@material-ui/core';
-
 import { makeStyles } from '@material-ui/core/styles';
+import { Hidden } from '@material-ui/core';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const useStyles = makeStyles((theme) => ({
   UI: {
@@ -23,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Navbar = ({ auth: { isAuthenticated }, signoutStart }) => {
+const Navbar = ({ auth: { isAuthenticated }, onSignoutStart }) => {
   const classes = useStyles();
   const authLinks = (
     <ul style={{ display: 'flex' }}>
@@ -32,11 +29,11 @@ const Navbar = ({ auth: { isAuthenticated }, signoutStart }) => {
           Account
         </Link>
         <Hidden smDown>
-          <Link className={classes.linkText} onClick={signoutStart}>
+          <Link className={classes.linkText} onClick={() => onSignoutStart()}>
             Logout
           </Link>
         </Hidden>
-        <Link className={classes.linkText} onClick={signoutStart}>
+        <Link className={classes.linkText} onClick={() => onSignoutStart()}>
           <ExitToAppIcon />
         </Link>
       </li>
@@ -78,8 +75,4 @@ Navbar.propTypes = {
   auth: PropTypes.object.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  auth: state.auth
-});
-
-export default connect(mapStateToProps, { signoutStart })(Navbar);
+export default Navbar;

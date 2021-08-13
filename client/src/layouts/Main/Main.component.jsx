@@ -4,7 +4,9 @@ import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/styles';
 import { useMediaQuery } from '@material-ui/core';
 
-import { Sidebar, Topbar, Footer } from './components';
+import { Sidebar, Topbar } from './components';
+
+import container from './Main.container';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Main = (props) => {
-  const { children } = props;
+  const { children, ...rest } = props;
 
   const classes = useStyles();
   const theme = useTheme();
@@ -50,7 +52,7 @@ const Main = (props) => {
         [classes.shiftContent]: isDesktop
       })}
     >
-      <Topbar onSidebarOpen={handleSidebarOpen} />
+      <Topbar onSidebarOpen={handleSidebarOpen} {...rest} />
       <Sidebar
         onClose={handleSidebarClose}
         open={shouldOpenSidebar}
@@ -65,4 +67,4 @@ Main.propTypes = {
   children: PropTypes.node
 };
 
-export default Main;
+export default container(Main);

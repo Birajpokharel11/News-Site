@@ -23,7 +23,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Topbar = (props) => {
-  const { className, onSidebarOpen, ...rest } = props;
+  const {
+    className,
+    onSidebarOpen,
+    auth: { isAuthenticated },
+    onSignoutStart,
+    ...rest
+  } = props;
 
   const classes = useStyles();
 
@@ -46,7 +52,11 @@ const Topbar = (props) => {
               <NotificationsIcon />
             </Badge>
           </IconButton>
-          <IconButton className={classes.signOutButton} color="inherit">
+          <IconButton
+            className={classes.signOutButton}
+            color="inherit"
+            onClick={onSignoutStart}
+          >
             <InputIcon />
           </IconButton>
         </Hidden>
