@@ -1,5 +1,6 @@
 import { takeLatest, call, put, all, select, delay } from 'redux-saga/effects';
 import axios from 'axios';
+import _ from 'lodash';
 
 import * as actionTypes from './news.types';
 import * as actions from './news.actions';
@@ -31,7 +32,10 @@ export function* fetchNewsAsync({ payload: { country, companies, themes } }) {
 export function* fetchOgTag(item) {
   const newsState = yield select(getNews);
 
-  if (!newsState.news[item.guid.text].media) {
+  if (
+    _.isNil(newsState.news[item.guid.text]) ||
+    !newsState.news[item.guid.text].media
+  ) {
     try {
       const { data } = yield axios.post('/api/v1/news/scrape', {
         url: item.link

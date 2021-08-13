@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 const PublicRoute = ({
   layout: Layout,
@@ -14,7 +15,13 @@ const PublicRoute = ({
       {...rest}
       render={(props) => {
         if (isAuthenticated && !loading) {
-          return <Redirect to={props.location.state.from || '/'} />;
+          return (
+            <Redirect
+              to={
+                !_.isNil(props.location.state) ? props.location.state.from : '/'
+              }
+            />
+          );
         }
 
         return (

@@ -6,6 +6,8 @@ import CustomAlert from '../../components/CustomAlert';
 
 import { Topbar, Footer } from './components';
 
+import container from './Minimal.container';
+
 const useStyles = makeStyles(() => ({
   root: {
     height: '100%'
@@ -17,13 +19,13 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Minimal = (props) => {
-  const { children } = props;
+  const { children, ...rest } = props;
 
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <Topbar />
+      <Topbar {...rest} />
       <main className={classes.content}>{children}</main>
       <Footer />
       <CustomAlert />
@@ -36,4 +38,4 @@ Minimal.propTypes = {
   className: PropTypes.string
 };
 
-export default Minimal;
+export default container(Minimal);

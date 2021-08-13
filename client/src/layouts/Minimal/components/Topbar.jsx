@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Topbar = ({ Signout }) => {
+const Topbar = (props) => {
   const classes = useStyles();
   return (
     <AppBar className={classes.root} position="static" elevation={0}>
@@ -36,7 +36,7 @@ const Topbar = ({ Signout }) => {
           <div className={classes.flexGrow} />
         </>
         <div>
-          <Navbar />
+          <Navbar {...props} />
         </div>
       </Toolbar>
     </AppBar>
